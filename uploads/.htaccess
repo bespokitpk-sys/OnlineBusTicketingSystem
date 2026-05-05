@@ -1,0 +1,3 @@
+# Prevent script execution in uploads directory
+php_flag engine off
+AddType application/octet-stream .php .php3 .php4 .php5 .phtml .pl .py .jsp .asp .sh .cgi
