@@ -1,12 +1,23 @@
-# This directory is NOT the web root.
-# On cPanel, point your domain/subdomain document root to the "public/" folder.
-# Direct web access to this directory should be denied by the server configuration.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
 
-# Deny all direct web access as a safety net
-<IfModule mod_authz_core.c>
-    Require all denied
+    # Serve real files/directories directly (favicon.ico, robots.txt, etc.)
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Forward everything else through public/index.php
+    RewriteRule ^(.*)$ public/$1 [L,QSA]
 </IfModule>
-<IfModule !mod_authz_core.c>
-    Order deny,allow
-    Deny from all
-</IfModule>
+
+# Protect sensitive files from direct download
+<FilesMatch "\.(sql|log|env|md|txt|gitignore)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>

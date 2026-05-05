@@ -9,9 +9,15 @@ require_once APP_ROOT . '/config/db.php';
 require_once APP_ROOT . '/app/core/Auth.php';
 
 // ── Resolve URI ──────────────────────────────────────────────────────────────
-$uri  = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$base = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/');
-if ($base && strpos($uri, $base) === 0) {
+// Use REQUEST_URI (the real URL the browser sent) — not SCRIPT_NAME,
+// which may contain /public when accessed via root .htaccess forward.
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+// Strip any sub-folder prefix (e.g. /BusTicketingSystem on local dev).
+// We compute base from SCRIPT_NAME but strip the /public segment.
+$scriptName = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '/index.php');
+$base       = rtrim(dirname(preg_replace('#/public/index\.php$#i', '/index.php', $scriptName)), '/');
+if ($base && $base !== '/' && strpos($uri, $base) === 0) {
     $uri = substr($uri, strlen($base));
 }
 $uri    = '/' . trim($uri, '/');

@@ -9,11 +9,14 @@ if (!defined('APP_ROOT')) {
     define('APP_ROOT', realpath(__DIR__ . '/..'));
 }
 
-// BASE_URL: auto-detected so it works on local Laragon and cPanel alike.
+// BASE_URL: works for cPanel root-redirect (onlinebus.betabox.cx/) and local dev.
 if (!defined('BASE_URL')) {
     $protocol  = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
     $host      = $_SERVER['HTTP_HOST'] ?? 'localhost';
-    $scriptDir = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '/index.php')), '/');
+    // SCRIPT_NAME may include /public when root .htaccess forwards to public/ — strip it.
+    $scriptName = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '/index.php');
+    $scriptDir  = rtrim(dirname($scriptName), '/');
+    $scriptDir  = preg_replace('#/public$#i', '', $scriptDir);
     define('BASE_URL', $protocol . $host . ($scriptDir === '' ? '/' : $scriptDir . '/'));
 }
 
