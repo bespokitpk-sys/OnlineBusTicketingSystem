@@ -157,10 +157,10 @@ $tickets = Ticket::findByUser($user['id']);
 <nav>
     <h2><span style="font-size: 2.5rem; display: inline-block;">🚌</span> Book Smarter, Travel Better</h2>
     <div>
-        <a href="<?php echo BASE_URL; ?>passenger/dashboard.php">Dashboard</a>
-        <a href="<?php echo BASE_URL; ?>public/search.php">Search</a>
-        <a href="<?php echo BASE_URL; ?>index.php">Home</a>
-        <a href="<?php echo BASE_URL; ?>auth/logout.php">Logout</a>
+        <a href="<?php echo BASE_URL; ?>passenger/dashboard">Dashboard</a>
+        <a href="<?php echo BASE_URL; ?>search">Search</a>
+        <a href="<?php echo BASE_URL; ?>">Home</a>
+        <a href="<?php echo BASE_URL; ?>logout">Logout</a>
     </div>
 </nav>
 <section class="page-banner">
@@ -170,7 +170,7 @@ $tickets = Ticket::findByUser($user['id']);
     </div>
 </section>
 <div class="results">
-    <a href="<?php echo BASE_URL; ?>passenger/dashboard.php" class="back-button">← Back to Dashboard</a>
+    <a href="<?php echo BASE_URL; ?>passenger/dashboard" class="back-button">← Back to Dashboard</a>
     <h2>My Tickets</h2>
     <?php if ($tickets && $tickets->num_rows > 0): ?>
         <?php while ($ticket = $tickets->fetch_assoc()): ?>

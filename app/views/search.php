@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <title>Search Buses - Book smarter, travel better</title>
     <?php 
-    require_once __DIR__ . '/../config/db.php';
-    require_once __DIR__ . '/../includes/auth.php';
+    require_once APP_ROOT . '/config/db.php';
+    require_once APP_ROOT . '/app/core/Auth.php';
     
     // Get all upcoming schedules
     $schedules_query = "SELECT schedules.*, buses.bus_name, buses.total_seats 
@@ -188,22 +188,22 @@
 <nav>
     <h2><span style="font-size: 2.5rem; display: inline-block;">🚌</span> Book Smarter, Travel Better</h2>
     <div>
-        <a href="<?php echo BASE_URL; ?>index.php">Home</a>
-        <a href="<?php echo BASE_URL; ?>public/passenger_login.php">Passenger Login</a>
-        <a href="<?php echo BASE_URL; ?>public/passenger_register.php">Register</a>
+        <a href="<?php echo BASE_URL; ?>">Home</a>
+        <a href="<?php echo BASE_URL; ?>login">Login</a>
+        <a href="<?php echo BASE_URL; ?>register">Register</a>
     </div>
 </nav>
 <section class="page-banner">
     <div class="page-banner-content">
         <h2>Find Your Next Bus Trip</h2>
         <p>Search destinations, compare schedules, and confirm your reservation with our official bus ticketing system.</p>
-        <a href="<?php echo BASE_URL; ?>public/passenger_login.php" class="btn">Passenger Login</a>
+        <a href="<?php echo BASE_URL; ?>login" class="btn">Login to Book</a>
     </div>
 </section>
 <div class="search-box">
-    <a href="<?php echo BASE_URL; ?>index.php" class="back-button">← Back to Home</a>
+    <a href="<?php echo BASE_URL; ?>" class="back-button">← Back to Home</a>
     <h2>Find Your Bus</h2>
-    <form action="results.php" method="GET">
+    <form action="<?php echo BASE_URL; ?>results" method="GET">
         <input type="text" name="source" placeholder="From" list="city-list" required>
         <input type="text" name="destination" placeholder="To" list="city-list" required>
         <input type="date" name="date" required>
@@ -237,9 +237,9 @@
                     <p><strong>💺 Seats:</strong> <?php echo intval($schedule['total_seats']); ?></p>
                     
                     <?php if ($userIsPassenger): ?>
-                        <a href="<?php echo BASE_URL; ?>passenger/book_ticket.php?schedule_id=<?php echo intval($schedule['id']); ?>" class="btn">Book Now</a>
+                        <a href="<?php echo BASE_URL; ?>passenger/book-ticket?schedule_id=<?php echo intval($schedule['id']); ?>" class="btn">Book Now</a>
                     <?php else: ?>
-                        <a href="<?php echo BASE_URL; ?>public/passenger_login.php" class="btn">Login to Book</a>
+                        <a href="<?php echo BASE_URL; ?>login" class="btn">Login to Book</a>
                     <?php endif; ?>
                 </div>
             <?php endwhile; ?>

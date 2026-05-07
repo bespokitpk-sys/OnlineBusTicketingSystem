@@ -14,7 +14,7 @@ $message = '';
 $messageType = '';
 
 if (empty($action) || $schedule_id == 0) {
-    header('Location: dashboard.php?error=invalid_request');
+    header('Location: ' . BASE_URL . 'operator/dashboard?error=invalid_request');
     exit;
 }
 
@@ -59,11 +59,15 @@ switch ($action) {
 }
 
 // Redirect back with message
-$redirect = "dashboard.php?";
-if ($messageType === 'success') {
-    $redirect .= "success=" . urlencode($message);
+if ($schedule_id > 0) {
+    $redirect = BASE_URL . 'operator/boarding?schedule_id=' . $schedule_id . '&';
 } else {
-    $redirect .= "error=" . urlencode($message);
+    $redirect = BASE_URL . 'operator/dashboard?';
+}
+if ($messageType === 'success') {
+    $redirect .= 'success=' . urlencode($message);
+} else {
+    $redirect .= 'error=' . urlencode($message);
 }
 
 header('Location: ' . $redirect);

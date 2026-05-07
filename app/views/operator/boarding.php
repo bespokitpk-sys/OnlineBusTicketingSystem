@@ -1366,7 +1366,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     function approvePayment(ticketId) {
         if (!confirm('Did you receive payment from this passenger? Approve payment?')) return;
         
-        fetch('boarding.php', {
+        fetch('<?php echo BASE_URL; ?>operator/boarding', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: 'action=approve_payment&ticket_id=' + ticketId
@@ -1391,7 +1391,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     function boardPassenger(ticketId) {
         if (!confirm('Board this passenger?')) return;
         
-        fetch('boarding.php', {
+        fetch('<?php echo BASE_URL; ?>operator/boarding', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: 'action=board_passenger&ticket_id=' + ticketId

@@ -258,17 +258,17 @@ $result = $conn->query($sql);
     </style>
 </head>
 <body>
-<script src="../assets/js/script.js"></script>
+<script src="<?php echo BASE_URL; ?>assets/js/script.js"></script>
 <nav>
     <h2><span style="font-size: 2.5rem; display: inline-block;">🚌</span> Book Smarter, Travel Better</h2>
     <div>
-        <a href="<?php echo BASE_URL; ?>index.php">Home</a>
-        <a href="search.php">Modify Search</a>
-        <a href="<?php echo BASE_URL; ?>public/passenger_login.php">Login</a>
+        <a href="<?php echo BASE_URL; ?>">Home</a>
+        <a href="<?php echo BASE_URL; ?>search">Modify Search</a>
+        <a href="<?php echo BASE_URL; ?>login">Login</a>
     </div>
 </nav>
 <div class="results">
-    <a href="search.php" class="back-button">← Back to Search</a>
+    <a href="<?php echo BASE_URL; ?>search" class="back-button">← Back to Search</a>
     <h2>Available Buses</h2>
     <?php if ($result && $result->num_rows > 0): ?>
         <?php while ($row = $result->fetch_assoc()): ?>
@@ -290,9 +290,9 @@ $result = $conn->query($sql);
                     </div>
                 </div>
                 <?php if ($userIsPassenger): ?>
-                    <a class="btn" href="<?php echo BASE_URL; ?>passenger/book_ticket.php?schedule_id=<?php echo intval($row['id']); ?>">Book Now</a>
+                    <a class="btn" href="<?php echo BASE_URL; ?>passenger/book-ticket?schedule_id=<?php echo intval($row['id']); ?>">Book Now</a>
                 <?php else: ?>
-                    <a class="btn" href="<?php echo BASE_URL; ?>public/passenger_login.php">Login to Book</a>
+                    <a class="btn" href="<?php echo BASE_URL; ?>login">Login to Book</a>
                 <?php endif; ?>
             </div>
         <?php endwhile; ?>

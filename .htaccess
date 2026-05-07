@@ -4,13 +4,14 @@ Options -MultiViews +FollowSymLinks
     RewriteEngine On
     RewriteBase /
 
-    # Serve real files directly (assets, favicon.ico, robots.txt, etc.)
+    # Serve real static files directly (e.g. files already in project root)
     RewriteCond %{REQUEST_FILENAME} -f
     RewriteRule ^ - [L]
 
+    # Map /assets/* requests to public/assets/* (assets live inside public/)
+    RewriteRule ^assets/(.*)$ public/assets/$1 [L]
+
     # Route everything else through the front controller
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.*)$ public/index.php [QSA,L]
 </IfModule>
 

@@ -27,7 +27,6 @@ unset($_SESSION['error']);
         <a href="<?php echo BASE_URL; ?>register">Register</a>
     </div>
 </nav>
-</nav>
 
 <section class="page-banner">
     <div class="page-banner-content">

@@ -311,7 +311,7 @@ $result = $conn->query("SELECT schedules.*, buses.bus_name FROM schedules JOIN b
                         </div>
                     </div>
                     <div class="schedule-footer">
-                        <a href="dashboard.php#schedule-<?php echo $schedule['id']; ?>" class="btn-view">View Details</a>
+                        <a href="<?php echo BASE_URL; ?>operator/dashboard#schedule-<?php echo $schedule['id']; ?>" class="btn-view">View Details</a>
                     </div>
                 </div>
             <?php endwhile; ?>

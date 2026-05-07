@@ -92,10 +92,10 @@ if ($schedule_id > 0) {
 <nav>
     <h2><span style="font-size: 2.5rem; display: inline-block;">🚌</span> Book Smarter, Travel Better</h2>
     <div>
-        <a href="<?php echo BASE_URL; ?>passenger/dashboard.php">Dashboard</a>
-        <a href="<?php echo BASE_URL; ?>passenger/my_ticket.php">My Tickets</a>
-        <a href="<?php echo BASE_URL; ?>index.php">Home</a>
-        <a href="<?php echo BASE_URL; ?>auth/logout.php">Logout</a>
+        <a href="<?php echo BASE_URL; ?>passenger/dashboard">Dashboard</a>
+        <a href="<?php echo BASE_URL; ?>passenger/my-tickets">My Tickets</a>
+        <a href="<?php echo BASE_URL; ?>">Home</a>
+        <a href="<?php echo BASE_URL; ?>logout">Logout</a>
     </div>
 </nav>
 <section class="page-banner">
@@ -105,19 +105,19 @@ if ($schedule_id > 0) {
     </div>
 </section>
 <div class="form-container">
-    <a href="<?php echo BASE_URL; ?>public/search.php" class="back-button">← Back to Search</a>
+    <a href="<?php echo BASE_URL; ?>search" class="back-button">← Back to Search</a>
     <h2>Book Ticket</h2>
     <?php if ($schedule): ?>
         <p><strong>Bus:</strong> <?php echo htmlspecialchars($schedule['bus_name']); ?></p>
         <p><strong>Route:</strong> <?php echo htmlspecialchars($schedule['source']); ?> → <?php echo htmlspecialchars($schedule['destination']); ?></p>
         <p><strong>Departure:</strong> <?php echo date('Y-m-d H:i', strtotime($schedule['departure_time'])); ?></p>
-        <form method="POST" action="<?php echo BASE_URL; ?>public/booking_handler.php">
+        <form method="POST" action="<?php echo BASE_URL; ?>booking">
             <input type="hidden" name="schedule_id" value="<?php echo intval($schedule_id); ?>">
             <input type="number" name="seats" placeholder="Number of seats" min="1" max="<?php echo intval($schedule['total_seats']); ?>" required>
             <button type="submit">Confirm Booking</button>
         </form>
     <?php else: ?>
-        <p>No schedule selected. Go back to <a href="<?php echo BASE_URL; ?>public/search.php">search</a> and choose a bus.</p>
+        <p>No schedule selected. Go back to <a href="<?php echo BASE_URL; ?>search">search</a> and choose a bus.</p>
     <?php endif; ?>
 </div>
 </body>

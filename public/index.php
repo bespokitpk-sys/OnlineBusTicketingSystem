@@ -25,6 +25,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 function view(string $path): void {
+    global $conn; // expose DB connection to all included views
     $full = APP_ROOT . '/app/views/' . $path;
     if (file_exists($full)) {
         require $full;

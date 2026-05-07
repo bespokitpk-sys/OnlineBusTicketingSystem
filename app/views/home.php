@@ -596,10 +596,10 @@ if (($user['role'] ?? '') === 'admin') {
             <a href="#why-choose-us">Why Choose Us</a>
             <a href="#about-us">About Us</a>
             <a href="#need-help">Need Help</a>
-            <a href="<?php echo BASE_URL; ?>public/search.php">Search</a>
+            <a href="<?php echo BASE_URL; ?>search">Search</a>
             <?php if ($loggedIn): ?>
                 <a href="<?php echo BASE_URL . htmlspecialchars($dashboardPath); ?>">Dashboard</a>
-                <a href="<?php echo BASE_URL; ?>auth/logout.php">Logout</a>
+                <a href="<?php echo BASE_URL; ?>logout">Logout</a>
             <?php else: ?>
                 <a href="<?php echo BASE_URL; ?>login">Sign In</a>
                 <a href="<?php echo BASE_URL; ?>register">Sign Up</a>
@@ -614,7 +614,7 @@ if (($user['role'] ?? '') === 'admin') {
                 <h1>Book bus tickets online with a cleaner and more reliable travel experience.</h1>
                 <p>Search routes, reserve your seats, manage bookings, and keep your trip details organized in one place. The home page now follows the same visual theme used across the rest of the project, with a clearer layout and more professional presentation.</p>
                 <div class="hero-actions">
-                    <a class="btn-primary-solid" href="<?php echo BASE_URL; ?>public/search.php">Search Available Routes</a>
+                    <a class="btn-primary-solid" href="<?php echo BASE_URL; ?>search">Search Available Routes</a>
                     <?php if ($loggedIn): ?>
                         <a class="btn-secondary" href="<?php echo BASE_URL . htmlspecialchars($dashboardPath); ?>">Open Dashboard</a>
                     <?php else: ?>

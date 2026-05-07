@@ -1272,7 +1272,7 @@ $samplePassenger = [
                 </div>
                 <div class="scan-studio-actions">
                     <button type="button" class="studio-btn" id="loadSampleBtn">Show Sample Passenger</button>
-                    <a href="boarding.php?schedule_id=<?php echo $defaultScheduleId; ?>" class="studio-link">Open Dedicated Boarding Page</a>
+                    <a href="<?php echo BASE_URL; ?>operator/boarding?schedule_id=<?php echo $defaultScheduleId; ?>" class="studio-link">Open Dedicated Boarding Page</a>
                 </div>
             </div>
 
@@ -1390,8 +1390,8 @@ $samplePassenger = [
 
                         <!-- QUICK ACTIONS -->
                         <div class="quick-actions">
-                            <a href="boarding.php?schedule_id=<?php echo $schedule['id']; ?>" class="quick-btn primary">Open Boarding and Payments</a>
-                            <a href="manage_schedules.php?id=<?php echo $schedule['id']; ?>" class="quick-btn">View Schedule Details</a>
+                            <a href="<?php echo BASE_URL; ?>operator/boarding?schedule_id=<?php echo $schedule['id']; ?>" class="quick-btn primary">Open Boarding and Payments</a>
+                            <a href="<?php echo BASE_URL; ?>operator/schedules?id=<?php echo $schedule['id']; ?>" class="quick-btn">View Schedule Details</a>
                         </div>
 
                         <div class="section">
@@ -1416,7 +1416,7 @@ $samplePassenger = [
                                                 <td><?php echo intval($payment['seats']); ?> Seat(s)</td>
                                                 <td><?php echo date('M d, H:i', strtotime($payment['created_at'])); ?></td>
                                                 <td>
-                                                    <form method="POST" action="process_trip.php" style="display: inline;">
+                                                    <form method="POST" action="<?php echo BASE_URL; ?>operator/process-trip" style="display: inline;">
                                                         <input type="hidden" name="action" value="approve_payment">
                                                         <input type="hidden" name="ticket_id" value="<?php echo $payment['id']; ?>">
                                                         <input type="hidden" name="schedule_id" value="<?php echo $schedule['id']; ?>">
@@ -1464,7 +1464,7 @@ $samplePassenger = [
                                                 </td>
                                                 <td><?php echo intval($passenger['seats']); ?> Seat(s)</td>
                                                 <td>
-                                                    <form method="POST" action="process_trip.php" style="display: inline;">
+                                                    <form method="POST" action="<?php echo BASE_URL; ?>operator/process-trip" style="display: inline;">
                                                         <input type="hidden" name="action" value="board_passenger">
                                                         <input type="hidden" name="ticket_id" value="<?php echo $passenger['id']; ?>">
                                                         <input type="hidden" name="schedule_id" value="<?php echo $schedule['id']; ?>">

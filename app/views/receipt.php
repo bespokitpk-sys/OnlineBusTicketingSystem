@@ -427,9 +427,9 @@ $qr_url = "https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=" . url
 <nav>
     <h2><span style="font-size: 2.5rem; display: inline-block;">🚌</span> Book Smarter, Travel Better</h2>
     <div>
-        <a href="<?php echo BASE_URL; ?>index.php">Home</a>
-        <a href="search.php">Search</a>
-        <a href="<?php echo BASE_URL; ?>public/passenger_login.php">Login</a>
+        <a href="<?php echo BASE_URL; ?>">Home</a>
+        <a href="<?php echo BASE_URL; ?>search">Search</a>
+        <a href="<?php echo BASE_URL; ?>login">Login</a>
     </div>
 </nav>
 <div class="receipt-container">
@@ -456,13 +456,13 @@ $qr_url = "https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=" . url
     
     <!-- Action Buttons -->
     <div class="receipt-actions">
-        <a href="download_ticket.php?ticket_id=<?php echo $ticket['id']; ?>&format=pdf" class="pdf">
+        <a href="<?php echo BASE_URL; ?>download-ticket?ticket_id=<?php echo $ticket['id']; ?>&format=pdf" class="pdf">
             📥 Download PDF
         </a>
-        <a href="download_ticket.php?ticket_id=<?php echo $ticket['id']; ?>&format=print" class="print">
+        <a href="<?php echo BASE_URL; ?>download-ticket?ticket_id=<?php echo $ticket['id']; ?>&format=print" class="print">
             🖨️ Print Ticket
         </a>
-        <a href="<?php echo BASE_URL; ?>passenger/my_ticket.php" class="back">
+        <a href="<?php echo BASE_URL; ?>passenger/my-tickets" class="back">
             ← Back to My Tickets
         </a>
     </div>

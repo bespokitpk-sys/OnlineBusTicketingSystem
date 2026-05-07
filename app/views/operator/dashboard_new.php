@@ -601,7 +601,7 @@ $schedules = OperatorController::getMySchedules($operator['id']);
                                     <td><?php echo $ticket['seats']; ?></td>
                                     <td><?php echo date('M j, g:i A', strtotime($ticket['created_at'])); ?></td>
                                     <td>
-                                        <form method="POST" action="process_trip.php" style="display: inline;">
+                                        <form method="POST" action="<?php echo BASE_URL; ?>operator/process-trip" style="display: inline;">
                                             <input type="hidden" name="action" value="approve_payment">
                                             <input type="hidden" name="ticket_id" value="<?php echo $ticket['id']; ?>">
                                             <input type="hidden" name="schedule_id" value="<?php echo $scheduleId; ?>">
@@ -637,7 +637,7 @@ $schedules = OperatorController::getMySchedules($operator['id']);
                                     <td><?php echo htmlspecialchars($ticket['email']); ?></td>
                                     <td><?php echo $ticket['seats']; ?></td>
                                     <td>
-                                        <form method="POST" action="process_trip.php" style="display: inline;">
+                                        <form method="POST" action="<?php echo BASE_URL; ?>operator/process-trip" style="display: inline;">
                                             <input type="hidden" name="action" value="board_passenger">
                                             <input type="hidden" name="ticket_id" value="<?php echo $ticket['id']; ?>">
                                             <input type="hidden" name="schedule_id" value="<?php echo $scheduleId; ?>">
@@ -762,7 +762,7 @@ $schedules = OperatorController::getMySchedules($operator['id']);
         }
 
         function fetchTicketDetails(ticketId) {
-            fetch(`get_passenger_details.php?ticket_id=${ticketId}`)
+            fetch(`<?php echo BASE_URL; ?>operator/get-passenger?ticket_id=${ticketId}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
@@ -814,7 +814,7 @@ $schedules = OperatorController::getMySchedules($operator['id']);
                     </div>
                 </div>
                 ${ticket.status === 'approved' ? `
-                    <form method="POST" action="process_trip.php">
+                    <form method="POST" action="<?php echo BASE_URL; ?>operator/process-trip">
                         <input type="hidden" name="action" value="board_passenger">
                         <input type="hidden" name="ticket_id" value="${ticket.id}">
                         <input type="hidden" name="schedule_id" value="${ticket.schedule_id}">

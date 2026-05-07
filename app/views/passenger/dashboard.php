@@ -145,24 +145,24 @@ $user = currentUser();
 <nav>
     <h2><span style="font-size: 2.5rem; display: inline-block;">🚌</span> Book Smarter, Travel Better</h2>
     <div>
-        <a href="<?php echo BASE_URL; ?>index.php">Home</a>
-        <a href="<?php echo BASE_URL; ?>public/search.php">Search</a>
-        <a href="<?php echo BASE_URL; ?>passenger/my_ticket.php">My Tickets</a>
-        <a href="<?php echo BASE_URL; ?>auth/logout.php">Logout</a>
+        <a href="<?php echo BASE_URL; ?>">Home</a>
+        <a href="<?php echo BASE_URL; ?>search">Search</a>
+        <a href="<?php echo BASE_URL; ?>passenger/my-tickets">My Tickets</a>
+        <a href="<?php echo BASE_URL; ?>logout">Logout</a>
     </div>
 </nav>
 <section class="page-banner">
     <div class="page-banner-content">
         <h2>Passenger Dashboard</h2>
         <p>Manage your bus bookings with confidence. Official ticket receipts and operator-approved payments are handled in one place.</p>
-        <a href="<?php echo BASE_URL; ?>public/search.php" class="btn">Book a Bus</a>
+        <a href="<?php echo BASE_URL; ?>search" class="btn">Book a Bus</a>
     </div>
 </section>
 <div class="dashboard">
     <h2>Welcome, <?php echo htmlspecialchars($user['name']); ?></h2>
     <p>Use this dashboard to search buses, book tickets, and view your booking history.</p>
-    <a href="<?php echo BASE_URL; ?>public/search.php" class="btn">Search Buses</a>
-    <a href="<?php echo BASE_URL; ?>passenger/my_ticket.php" class="btn">My Tickets</a>
+    <a href="<?php echo BASE_URL; ?>search" class="btn">Search Buses</a>
+    <a href="<?php echo BASE_URL; ?>passenger/my-tickets" class="btn">My Tickets</a>
 </div>
 </body>
 </html>
