@@ -25,11 +25,13 @@ if (($user['role'] ?? '') === 'admin') {
         :root {
             --blue:    #1a56db;
             --blue-dk: #1344b8;
+            --blue-lt: #eff6ff;
             --text:    #111827;
             --muted:   #6b7280;
             --border:  #e5e7eb;
-            --bg:      #f9fafb;
+            --bg:      #f8faff;
             --white:   #ffffff;
+            --shadow:  0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(26,86,219,.06);
         }
 
         body {
@@ -110,9 +112,37 @@ if (($user['role'] ?? '') === 'admin') {
         .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
         /* ── Hero ──────────────────────────────────────────── */
+        .hero-wrapper {
+            background: linear-gradient(160deg, #eef4ff 0%, #f8faff 55%, #f0f7ff 100%);
+            border-bottom: 1px solid #dde8fb;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle decorative circle blobs */
+        .hero-wrapper::before,
+        .hero-wrapper::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero-wrapper::before {
+            width: 520px; height: 520px;
+            background: radial-gradient(circle, rgba(26,86,219,.07) 0%, transparent 70%);
+            top: -140px; right: -100px;
+        }
+        .hero-wrapper::after {
+            width: 340px; height: 340px;
+            background: radial-gradient(circle, rgba(99,179,237,.09) 0%, transparent 70%);
+            bottom: -80px; left: -60px;
+        }
+
         .hero {
-            padding: 80px 0 72px;
+            padding: 88px 0 80px;
             text-align: center;
+            position: relative;
+            z-index: 1;
         }
 
         .hero-badge {
@@ -157,31 +187,40 @@ if (($user['role'] ?? '') === 'admin') {
         }
 
         /* ── Stats bar ─────────────────────────────────────── */
-        .stats-bar {
+        .stats-wrapper {
             background: var(--white);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 28px 32px;
+            border-bottom: 1px solid var(--border);
+            padding: 0;
+        }
+
+        .stats-bar {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
-            margin-bottom: 72px;
             text-align: center;
         }
 
+        .stat-item {
+            padding: 28px 20px;
+            border-right: 1px solid var(--border);
+        }
+        .stat-item:last-child { border-right: none; }
+
         .stat-item strong {
             display: block;
-            font-size: 1.9rem;
+            font-size: 2rem;
             font-weight: 800;
-            color: var(--text);
+            color: var(--blue);
             letter-spacing: -0.5px;
         }
 
         .stat-item span {
-            font-size: 0.85rem;
+            font-size: 0.83rem;
             color: var(--muted);
             margin-top: 4px;
             display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            font-weight: 500;
         }
 
         /* ── Section headings ──────────────────────────────── */
@@ -221,26 +260,41 @@ if (($user['role'] ?? '') === 'admin') {
         .step-card {
             background: var(--white);
             border: 1px solid var(--border);
+            border-top: 3px solid var(--blue);
             border-radius: 12px;
             padding: 28px;
+            box-shadow: var(--shadow);
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        .step-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 28px rgba(26,86,219,.12);
         }
 
         .step-num {
             width: 40px; height: 40px;
-            background: var(--blue);
-            color: #fff;
+            background: var(--blue-lt);
+            color: var(--blue);
             border-radius: 10px;
             display: grid;
             place-items: center;
-            font-weight: 700;
+            font-weight: 800;
             font-size: 0.9rem;
             margin-bottom: 18px;
+            border: 1.5px solid #bfdbfe;
         }
 
         .step-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
         .step-card p  { color: var(--muted); font-size: 0.92rem; }
 
         /* ── Features ──────────────────────────────────────── */
+        .features-section {
+            background: linear-gradient(180deg, var(--white) 0%, #f0f7ff 100%);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
         .features-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -255,16 +309,24 @@ if (($user['role'] ?? '') === 'admin') {
             display: flex;
             gap: 20px;
             align-items: flex-start;
+            box-shadow: var(--shadow);
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(26,86,219,.1);
         }
 
         .feature-icon {
             flex-shrink: 0;
-            width: 44px; height: 44px;
-            background: #eff6ff;
-            border-radius: 10px;
+            width: 48px; height: 48px;
+            background: var(--blue-lt);
+            border: 1.5px solid #bfdbfe;
+            border-radius: 12px;
             display: grid;
             place-items: center;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
         }
 
         .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
@@ -272,12 +334,23 @@ if (($user['role'] ?? '') === 'admin') {
 
         /* ── CTA banner ────────────────────────────────────── */
         .cta-banner {
-            background: var(--blue);
+            background: linear-gradient(135deg, #1a56db 0%, #2563eb 50%, #3b82f6 100%);
             border-radius: 16px;
-            padding: 52px 40px;
+            padding: 56px 40px;
             text-align: center;
             color: #fff;
             margin-bottom: 72px;
+            box-shadow: 0 12px 40px rgba(26,86,219,.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
         }
 
         .cta-banner h2 {
@@ -300,8 +373,8 @@ if (($user['role'] ?? '') === 'admin') {
 
         /* ── Footer ────────────────────────────────────────── */
         .footer {
-            background: var(--white);
-            border-top: 1px solid var(--border);
+            background: #f1f5fd;
+            border-top: 1px solid #d8e4f8;
             padding: 44px 0 28px;
         }
 
@@ -372,7 +445,7 @@ if (($user['role'] ?? '') === 'admin') {
             .navbar { padding: 0 16px; }
             .container { padding: 0 16px; }
             .hero { padding: 52px 0 44px; }
-            .stats-bar { grid-template-columns: 1fr 1fr; padding: 20px; }
+            .stats-bar { grid-template-columns: 1fr 1fr; }
             .cta-banner { padding: 40px 24px; }
             .footer-grid { grid-template-columns: 1fr; }
             .section { padding: 48px 0; }
@@ -406,41 +479,35 @@ if (($user['role'] ?? '') === 'admin') {
 </nav>
 
 <!-- ── Hero ───────────────────────────────────────────────── -->
-<div class="container">
-    <section class="hero">
-        <div class="hero-badge">🇵🇰 Pakistan's Online Bus Ticketing</div>
-        <h1>Book bus tickets from anywhere, <span>anytime</span></h1>
-        <p>Search available routes, reserve your seat, and get your ticket instantly — all without visiting the bus stand.</p>
-        <div class="hero-cta">
-            <a class="btn btn-primary btn-lg" href="<?php echo BASE_URL; ?>search">Search Routes</a>
-            <?php if ($loggedIn): ?>
-                <a class="btn btn-ghost btn-lg" href="<?php echo BASE_URL . htmlspecialchars($dashboardPath); ?>">My Dashboard</a>
-            <?php else: ?>
-                <a class="btn btn-ghost btn-lg" href="<?php echo BASE_URL; ?>register">Create Free Account</a>
-            <?php endif; ?>
-        </div>
-    </section>
-
-    <!-- Stats bar -->
-    <div class="stats-bar">
-        <div class="stat-item">
-            <strong>50+</strong>
-            <span>Routes Available</span>
-        </div>
-        <div class="stat-item">
-            <strong>20+</strong>
-            <span>Cities Covered</span>
-        </div>
-        <div class="stat-item">
-            <strong>500+</strong>
-            <span>Tickets Booked</span>
-        </div>
-        <div class="stat-item">
-            <strong>24/7</strong>
-            <span>Online Booking</span>
-        </div>
+<div class="hero-wrapper">
+    <div class="container">
+        <section class="hero">
+            <div class="hero-badge">🇵🇰 Pakistan's Online Bus Ticketing</div>
+            <h1>Book bus tickets from anywhere, <span>anytime</span></h1>
+            <p>Search available routes, reserve your seat, and get your ticket instantly — all without visiting the bus stand.</p>
+            <div class="hero-cta">
+                <a class="btn btn-primary btn-lg" href="<?php echo BASE_URL; ?>search">Search Routes</a>
+                <?php if ($loggedIn): ?>
+                    <a class="btn btn-ghost btn-lg" href="<?php echo BASE_URL . htmlspecialchars($dashboardPath); ?>">My Dashboard</a>
+                <?php else: ?>
+                    <a class="btn btn-ghost btn-lg" href="<?php echo BASE_URL; ?>register">Create Free Account</a>
+                <?php endif; ?>
+            </div>
+        </section>
     </div>
 </div>
+
+<!-- Stats bar -->
+<div class="stats-wrapper">
+    <div class="container" style="padding:0;">
+        <div class="stats-bar">
+            <div class="stat-item"><strong>50+</strong><span>Routes Available</span></div>
+            <div class="stat-item"><strong>20+</strong><span>Cities Covered</span></div>
+            <div class="stat-item"><strong>500+</strong><span>Tickets Booked</span></div>
+            <div class="stat-item"><strong>24/7</strong><span>Online Booking</span></div>
+        </div>
+    </div>
+
 
 <hr class="divider">
 
@@ -476,8 +543,9 @@ if (($user['role'] ?? '') === 'admin') {
 <hr class="divider">
 
 <!-- ── Features ───────────────────────────────────────────── -->
-<div class="container">
-    <section id="features" class="section">
+<div class="features-section">
+    <div class="container">
+        <section id="features" class="section">
         <div class="section-head">
             <p class="section-label">Why Choose Us</p>
             <h2 class="section-title">Everything you need for your journey</h2>
@@ -515,6 +583,7 @@ if (($user['role'] ?? '') === 'admin') {
             </div>
         </div>
     </section>
+    </div>
 </div>
 
 <!-- ── CTA Banner ─────────────────────────────────────────── -->
