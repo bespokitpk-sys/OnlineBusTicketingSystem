@@ -1,5 +1,5 @@
 ﻿<?php
-require_once __DIR__ . '/../config/db.php';
+require_once APP_ROOT . '/config/db.php';
 
 // Get ticket ID and verification code from URL
 $ticket_id = intval($_GET['ticket_id'] ?? 0);

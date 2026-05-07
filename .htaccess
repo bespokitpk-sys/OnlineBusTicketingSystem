@@ -2,13 +2,12 @@
     RewriteEngine On
     RewriteBase /
 
-    # Serve real files/directories directly (favicon.ico, robots.txt, etc.)
-    RewriteCond %{REQUEST_FILENAME} -f [OR]
-    RewriteCond %{REQUEST_FILENAME} -d
+    # Serve real files directly (assets, favicon.ico, robots.txt, etc.)
+    RewriteCond %{REQUEST_FILENAME} -f
     RewriteRule ^ - [L]
 
-    # Forward everything else through public/index.php
-    RewriteRule ^(.*)$ public/$1 [L,QSA]
+    # Route everything else (including directories) through the front controller
+    RewriteRule ^(.*)$ public/index.php [QSA,L]
 </IfModule>
 
 # Protect sensitive files from direct download

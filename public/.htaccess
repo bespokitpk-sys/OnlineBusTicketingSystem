@@ -8,7 +8,7 @@
     RewriteRule ^ - [L]
 
     # Route everything else through the front controller
-    RewriteRule ^ /public/index.php [QSA,L]
+    RewriteRule ^ index.php [QSA,L]
 </IfModule>
 
 # Deny access to sensitive file types

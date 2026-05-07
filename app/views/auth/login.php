@@ -115,8 +115,7 @@ unset($_SESSION['error'], $_SESSION['success']);
         </div>
     <?php endif; ?>
 
-    <form action="<?php echo BASE_URL; ?>public/auth_router.php" method="POST">
-        <input type="hidden" name="action" value="login">
+    <form action="<?php echo BASE_URL; ?>login" method="POST">
         <div class="form-group">
             <label for="email">Email Address *</label>
             <input 
@@ -153,7 +152,7 @@ unset($_SESSION['error'], $_SESSION['success']);
 
     <p class="small-text">
         Don't have an account? <a href="<?php echo BASE_URL; ?>register">Create one here</a><br>
-        <a href="auth_router.php?action=forgotPassword">Forgot your password?</a>
+        <a href="<?php echo BASE_URL; ?>forgot-password">Forgot your password?</a>
     </p>
 </div>
 

@@ -53,8 +53,7 @@ unset($_SESSION['error'], $_SESSION['success']);
         </div>
     <?php endif; ?>
 
-    <form action="<?php echo BASE_URL; ?>public/auth_router.php" method="POST">
-        <input type="hidden" name="action" value="verifyOTP">
+    <form action="<?php echo BASE_URL; ?>verify-otp" method="POST">
         <div class="form-group">
             <label for="otp">Verification Code *</label>
             <input 
@@ -71,7 +70,7 @@ unset($_SESSION['error'], $_SESSION['success']);
     </form>
 
     <p class="small-text">
-        Didn't receive the code? <a href="auth_router.php?action=resendOTP">Resend OTP</a><br>
+        Didn't receive the code? <a href="<?php echo BASE_URL; ?>resend-otp">Resend OTP</a><br>
         <a href="<?php echo BASE_URL; ?>register">Back to Register</a>
     </p>
 </div>

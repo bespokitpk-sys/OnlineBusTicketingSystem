@@ -115,7 +115,7 @@ unset($_SESSION['error'], $_SESSION['success']);
         </div>
     <?php endif; ?>
 
-    <form action="<?php echo BASE_URL; ?>public/auth_router.php" method="POST">
+    <form action="<?php echo BASE_URL; ?>forgot-password" method="POST">
         <input type="hidden" name="action" value="forgotPassword">
         <div class="form-group">
             <label for="email">Email Address *</label>

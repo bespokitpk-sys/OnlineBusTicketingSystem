@@ -2,6 +2,9 @@
 require_once APP_ROOT . '/config/db.php';
 require_once APP_ROOT . '/app/models/User.php';
 
+// Set to false to disable CAPTCHA during testing; true in production
+define('CAPTCHA_ENABLED', false);
+
 class AuthController {
     public static function register() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -19,7 +22,6 @@ class AuthController {
         $captcha = $_POST['g-recaptcha-response'] ?? '';
 
         // Validate CAPTCHA (optional for testing - set CAPTCHA_ENABLED to false in production)
-        define('CAPTCHA_ENABLED', false); // Set to false to disable CAPTCHA during testing
         
         if (CAPTCHA_ENABLED) {
             if (empty($captcha)) {
@@ -305,7 +307,7 @@ class AuthController {
 
         if (!$userId) {
             $_SESSION['error'] = 'Session expired. Please register again.';
-            header('Location: ../public/auth_router.php?action=register');
+            header('Location: ' . BASE_URL . 'register');
             exit;
         }
 
@@ -328,7 +330,7 @@ class AuthController {
     }
 
     private static function sendResetEmail($email, $token) {
-        $resetLink = 'http://' . $_SERVER['HTTP_HOST'] . '/BusTicketingSystem/public/auth_router.php?action=resetPassword&token=' . $token;
+        $resetLink = BASE_URL . 'reset-password?token=' . $token;
         $subject = 'Password Reset for Bus Ticketing System';
         $message = "Click here to reset your password: $resetLink";
         mail($email, $subject, $message);

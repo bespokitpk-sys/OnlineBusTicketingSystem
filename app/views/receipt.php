@@ -1,13 +1,13 @@
 ﻿<?php
-require_once __DIR__ . '/../config/db.php';
-require_once __DIR__ . '/../includes/auth.php';
-require_once __DIR__ . '/../models/Ticket.php';
+require_once APP_ROOT . '/config/db.php';
+require_once APP_ROOT . '/app/core/Auth.php';
+require_once APP_ROOT . '/app/models/Ticket.php';
 
 requireRole('passenger');
 $ticket_id = intval($_GET['ticket_id'] ?? 0);
 $ticket = Ticket::findById($ticket_id);
 if (!$ticket || $ticket['user_id'] !== $_SESSION['user_id']) {
-    header('Location: ' . BASE_URL . 'public/search.php');
+    header('Location: ' . BASE_URL . 'search');
     exit;
 }
 $ticket_code = 'TICKET-' . $ticket['id'];

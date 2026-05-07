@@ -2,7 +2,7 @@
 require_once APP_ROOT . '/config/db.php';
 $token = $_GET['token'] ?? '';
 if (empty($token)) {
-    header('Location: ../public/auth_router.php?action=login');
+    header('Location: ' . BASE_URL . 'login');
     exit;
 }
 
@@ -46,8 +46,7 @@ unset($_SESSION['error']);
         </div>
     <?php endif; ?>
 
-    <form action="<?php echo BASE_URL; ?>public/auth_router.php" method="POST">
-        <input type="hidden" name="action" value="resetPassword">
+    <form action="<?php echo BASE_URL; ?>reset-password" method="POST">
         <input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
         <div class="form-group">
             <label for="password">New Password *</label>

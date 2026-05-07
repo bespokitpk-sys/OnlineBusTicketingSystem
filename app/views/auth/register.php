@@ -40,8 +40,7 @@ unset($_SESSION['error']);
         </div>
     <?php endif; ?>
 
-    <form action="<?php echo BASE_URL; ?>public/auth_router.php" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="action" value="register">
+    <form action="<?php echo BASE_URL; ?>register" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label for="name">Full Name *</label>
             <input 

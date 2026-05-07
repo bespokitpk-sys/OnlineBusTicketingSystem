@@ -601,8 +601,8 @@ if (($user['role'] ?? '') === 'admin') {
                 <a href="<?php echo BASE_URL . htmlspecialchars($dashboardPath); ?>">Dashboard</a>
                 <a href="<?php echo BASE_URL; ?>auth/logout.php">Logout</a>
             <?php else: ?>
-                <a href="<?php echo BASE_URL; ?>public/auth_router.php?action=login">Sign In</a>
-                <a href="<?php echo BASE_URL; ?>public/auth_router.php?action=register">Sign Up</a>
+                <a href="<?php echo BASE_URL; ?>login">Sign In</a>
+                <a href="<?php echo BASE_URL; ?>register">Sign Up</a>
             <?php endif; ?>
         </div>
     </nav>
@@ -618,7 +618,7 @@ if (($user['role'] ?? '') === 'admin') {
                     <?php if ($loggedIn): ?>
                         <a class="btn-secondary" href="<?php echo BASE_URL . htmlspecialchars($dashboardPath); ?>">Open Dashboard</a>
                     <?php else: ?>
-                        <a class="btn-secondary" href="<?php echo BASE_URL; ?>public/auth_router.php?action=register">Create Your Account</a>
+                        <a class="btn-secondary" href="<?php echo BASE_URL; ?>register">Create Your Account</a>
                     <?php endif; ?>
                 </div>
                 <div class="hero-highlights">
@@ -766,8 +766,8 @@ if (($user['role'] ?? '') === 'admin') {
                     </div>
                 </div>
                 <div class="support-actions">
-                    <a class="btn-primary-solid" href="<?php echo BASE_URL; ?>public/auth_router.php?action=login">Sign In</a>
-                    <a class="btn-secondary" href="<?php echo BASE_URL; ?>public/auth_router.php?action=forgotPassword">Need Help</a>
+                    <a class="btn-primary-solid" href="<?php echo BASE_URL; ?>login">Sign In</a>
+                    <a class="btn-secondary" href="<?php echo BASE_URL; ?>forgot-password">Need Help</a>
                 </div>
             </aside>
         </div>
@@ -803,9 +803,9 @@ if (($user['role'] ?? '') === 'admin') {
 
             <div class="footer-column">
                 <strong>Need Help</strong>
-                <a href="<?php echo BASE_URL; ?>public/auth_router.php?action=login">Sign in support</a>
-                <a href="<?php echo BASE_URL; ?>public/auth_router.php?action=register">Create passenger account</a>
-                <a href="<?php echo BASE_URL; ?>public/auth_router.php?action=forgotPassword">Reset password</a>
+                <a href="<?php echo BASE_URL; ?>login">Sign in support</a>
+                <a href="<?php echo BASE_URL; ?>register">Create passenger account</a>
+                <a href="<?php echo BASE_URL; ?>forgot-password">Reset password</a>
             </div>
         </div>
 
