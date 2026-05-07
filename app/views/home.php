@@ -16,7 +16,7 @@ if (($user['role'] ?? '') === 'admin') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SafarBook — Online Bus Ticketing</title>
+    <title>Book Smarter, Travel Better</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -60,7 +60,7 @@ if (($user['role'] ?? '') === 'admin') {
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 1.15rem;
+            font-size: 1rem;
             font-weight: 800;
             color: var(--blue);
             text-decoration: none;
@@ -384,7 +384,7 @@ if (($user['role'] ?? '') === 'admin') {
 <!-- ── Navbar ─────────────────────────────────────────────── -->
 <nav class="navbar">
     <a class="navbar-brand" href="<?php echo BASE_URL; ?>">
-        <span class="bus-icon">🚌</span> SafarBook
+        <span class="bus-icon">🚌</span> Book Smarter, Travel Better
     </a>
 
     <div class="navbar-links">
@@ -479,7 +479,7 @@ if (($user['role'] ?? '') === 'admin') {
 <div class="container">
     <section id="features" class="section">
         <div class="section-head">
-            <p class="section-label">Why SafarBook</p>
+            <p class="section-label">Why Choose Us</p>
             <h2 class="section-title">Everything you need for your journey</h2>
             <p class="section-desc">Built for everyday travellers in Pakistan — fast, simple, and reliable.</p>
         </div>
@@ -539,7 +539,7 @@ if (($user['role'] ?? '') === 'admin') {
     <div class="container">
         <div class="footer-grid">
             <div class="footer-brand">
-                <div class="footer-brand-name"><span>🚌</span> SafarBook</div>
+                <div class="footer-brand-name"><span>🚌</span> Book Smarter, Travel Better</div>
                 <p>Online bus ticketing for Pakistan. Search routes, book seats, and travel without the queue.</p>
             </div>
 
@@ -559,14 +559,14 @@ if (($user['role'] ?? '') === 'admin') {
 
             <div class="footer-col">
                 <strong>Contact Us</strong>
-                <p>📧 support@safarbook.pk</p>
+                <p>📧 support@busticketing.pk</p>
                 <p>📞 +92 300 0000000</p>
                 <p>🕘 Mon–Sat, 9 AM – 8 PM</p>
             </div>
         </div>
 
         <div class="footer-bottom">
-            <span>© <?php echo date('Y'); ?> SafarBook. All rights reserved.</span>
+            <span>© <?php echo date('Y'); ?> Bus Ticketing System. All rights reserved.</span>
             <span>Made for Pakistani travellers 🇵🇰</span>
         </div>
     </div>
