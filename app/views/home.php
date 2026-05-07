@@ -1,7 +1,7 @@
 ﻿<?php
 require_once APP_ROOT . '/app/core/Auth.php';
 
-$user = currentUser();
+$user    = currentUser();
 $loggedIn = isLoggedIn();
 $dashboardPath = 'passenger/dashboard';
 
@@ -16,804 +16,562 @@ if (($user['role'] ?? '') === 'admin') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Smarter, Travel Better</title>
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/style.css">
+    <title>SafarBook — Online Bus Ticketing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            background: #f5f7fa;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
-            color: #1f2937;
+        :root {
+            --blue:    #1a56db;
+            --blue-dk: #1344b8;
+            --text:    #111827;
+            --muted:   #6b7280;
+            --border:  #e5e7eb;
+            --bg:      #f9fafb;
+            --white:   #ffffff;
         }
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: linear-gradient(90deg, #e8f4f8 0%, #d4e9f7 100%);
-            color: #0f1c33;
-            padding: 20px 40px;
-            box-shadow: 0 8px 24px rgba(15, 28, 51, 0.12);
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* ── Navbar ────────────────────────────────────────── */
+        .navbar {
             position: sticky;
             top: 0;
             z-index: 100;
-            flex-wrap: nowrap;
-            gap: 10px;
-            min-height: 70px;
-        }
-
-        nav h2 {
-            font-size: 1.6rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            padding: 0 32px;
+            height: 64px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            white-space: nowrap;
-            margin: 0;
-            flex-shrink: 0;
+            justify-content: space-between;
+            gap: 16px;
         }
 
-        nav div {
+        .navbar-brand {
             display: flex;
-            gap: 10px;
             align-items: center;
-            justify-content: flex-end;
-            flex-wrap: nowrap;
-        }
-
-        nav a {
-            color: #0f1c33;
+            gap: 8px;
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--blue);
             text-decoration: none;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            font-size: 0.85rem;
-            padding: 10px 16px;
-            border-radius: 6px;
-            background: rgba(0, 114, 255, 0.1);
-            border: 1px solid rgba(0, 114, 255, 0.4);
+            white-space: nowrap;
+        }
+
+        .navbar-brand .bus-icon { font-size: 1.4rem; }
+
+        .navbar-links {
             display: flex;
             align-items: center;
-            justify-content: center;
-            min-width: auto;
-            height: 38px;
-            white-space: nowrap;
-            line-height: 1;
-            box-sizing: border-box;
-            cursor: pointer;
+            gap: 4px;
         }
 
-        nav a:hover {
-            color: #ffffff;
-            background: #0072ff;
-            border-color: #0072ff;
-            box-shadow: 0 4px 12px rgba(0, 114, 255, 0.5);
-            transform: translateY(-2px);
-        }
-
-        .page-shell {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 30px 20px 40px;
-        }
-
-        .hero {
-            background: white;
-            color: #0f1c33;
-            padding: 36px;
-            border-radius: 14px;
-            margin-bottom: 24px;
-            box-shadow: 0 2px 10px rgba(15, 28, 51, 0.08);
-            border: 1px solid #e7edf5;
-        }
-
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 28px;
-            align-items: stretch;
-        }
-
-        .eyebrow {
-            display: inline-block;
-            margin-bottom: 12px;
+        .navbar-links a {
             padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--muted);
+            text-decoration: none;
+            transition: background .15s, color .15s;
+        }
+
+        .navbar-links a:hover { background: var(--bg); color: var(--text); }
+
+        .navbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn { display: inline-flex; align-items: center; justify-content: center;
+               padding: 9px 18px; border-radius: 7px; font-size: 0.88rem;
+               font-weight: 600; text-decoration: none; transition: all .2s; cursor: pointer;
+               border: none; white-space: nowrap; }
+
+        .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+        .btn-ghost:hover { background: var(--bg); }
+
+        .btn-primary { background: var(--blue); color: #fff; }
+        .btn-primary:hover { background: var(--blue-dk); }
+
+        .btn-lg { padding: 13px 28px; font-size: 0.97rem; border-radius: 8px; }
+
+        /* ── Layout ────────────────────────────────────────── */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        /* ── Hero ──────────────────────────────────────────── */
+        .hero {
+            padding: 80px 0 72px;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: #eff6ff;
+            color: var(--blue);
             border-radius: 999px;
-            background: linear-gradient(90deg, #e8f4f8 0%, #d4e9f7 100%);
-            color: #0f1c33;
-            font-size: 0.82rem;
-            font-weight: 700;
-            letter-spacing: 0.4px;
-            text-transform: uppercase;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            margin-bottom: 22px;
+            border: 1px solid #bfdbfe;
         }
 
         .hero h1 {
-            font-size: 2.9rem;
-            line-height: 1.1;
-            margin-bottom: 14px;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+            color: var(--text);
+            max-width: 640px;
+            margin: 0 auto 18px;
+        }
+
+        .hero h1 span { color: var(--blue); }
+
+        .hero p {
+            font-size: 1.05rem;
+            color: var(--muted);
+            max-width: 520px;
+            margin: 0 auto 36px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ── Stats bar ─────────────────────────────────────── */
+        .stats-bar {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px 32px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 72px;
+            text-align: center;
+        }
+
+        .stat-item strong {
+            display: block;
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: var(--text);
             letter-spacing: -0.5px;
         }
 
-        .hero p {
-            font-size: 1rem;
-            line-height: 1.75;
-            color: #5f6b7a;
-            max-width: 700px;
+        .stat-item span {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-top: 4px;
+            display: block;
         }
 
-        .hero-actions {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-            margin-top: 26px;
-        }
+        /* ── Section headings ──────────────────────────────── */
+        .section { padding: 64px 0; }
 
-        .hero-actions a,
-        .support-actions a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 14px 22px;
-            border-radius: 8px;
-            text-decoration: none;
+        .section-label {
+            font-size: 0.78rem;
             font-weight: 700;
-            transition: all 0.3s ease;
-            min-height: 48px;
-        }
-
-        .btn-primary-solid {
-            background: #0072ff;
-            color: white;
-            box-shadow: 0 8px 24px rgba(0, 114, 255, 0.25);
-        }
-
-        .btn-primary-solid:hover {
-            background: #005fd6;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: #f8fbff;
-            color: #0f1c33;
-            border: 1px solid #d8e3ef;
-        }
-
-        .btn-secondary:hover {
-            background: #eef5ff;
-            transform: translateY(-1px);
-        }
-
-        .hero-highlights {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 14px;
-            margin-top: 26px;
-        }
-
-        .highlight-card {
-            background: #fbfcfe;
-            padding: 18px;
-            border-radius: 12px;
-            border: 1px solid #e5edf5;
-        }
-
-        .highlight-card strong {
-            display: block;
-            font-size: 1.2rem;
-            color: #0f1c33;
-            margin-bottom: 6px;
-        }
-
-        .highlight-card span {
-            display: block;
-            font-size: 0.92rem;
-            color: #5f6b7a;
-            line-height: 1.55;
-        }
-
-        .hero-side {
-            background: linear-gradient(180deg, #f8fbff 0%, #eef5ff 100%);
-            border: 1px solid #dbe7f4;
-            border-radius: 14px;
-            padding: 28px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .hero-side h3 {
-            font-size: 1.6rem;
-            margin-bottom: 12px;
-            color: #0f1c33;
-        }
-
-        .hero-side p {
-            color: #5f6b7a;
-            line-height: 1.75;
-            margin-bottom: 18px;
-        }
-
-        .feature-list {
-            display: grid;
-            gap: 12px;
-        }
-
-        .feature-item {
-            background: white;
-            border: 1px solid #e5edf5;
-            border-radius: 10px;
-            padding: 14px 16px;
-        }
-
-        .feature-item label {
-            display: block;
-            font-size: 0.76rem;
-            color: #7a8696;
+            letter-spacing: 0.8px;
             text-transform: uppercase;
-            letter-spacing: 0.35px;
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-
-        .feature-item span {
-            display: block;
-            color: #0f1c33;
-            font-weight: 600;
-            line-height: 1.55;
-        }
-
-        .content-section {
-            padding-top: 8px;
-            margin-bottom: 24px;
-        }
-
-        .section-panel {
-            background: white;
-            border: 1px solid #e7edf5;
-            border-radius: 14px;
-            padding: 30px;
-            box-shadow: 0 2px 10px rgba(15, 28, 51, 0.08);
-        }
-
-        .section-head {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 24px;
-            margin-bottom: 24px;
-        }
-
-        .section-head h2 {
-            font-size: 2rem;
-            color: #0f1c33;
+            color: var(--blue);
             margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-size: clamp(1.5rem, 3vw, 2.1rem);
+            font-weight: 800;
             letter-spacing: -0.3px;
+            margin-bottom: 14px;
         }
 
-        .section-head p {
-            color: #5f6b7a;
-            max-width: 700px;
-            line-height: 1.7;
+        .section-desc {
+            color: var(--muted);
+            max-width: 560px;
+            font-size: 0.97rem;
         }
 
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 18px;
-        }
+        .section-head { margin-bottom: 40px; }
 
-        .info-card {
-            background: #fbfcfe;
-            padding: 24px;
-            border-radius: 12px;
-            border: 1px solid #e5edf5;
-            transition: all 0.3s ease;
-        }
-
-        .info-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(15, 28, 51, 0.08);
-        }
-
-        .mini-tag {
-            display: inline-block;
-            padding: 7px 12px;
-            border-radius: 999px;
-            background: linear-gradient(90deg, #e8f4f8 0%, #d4e9f7 100%);
-            color: #0f1c33;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.35px;
-            margin-bottom: 16px;
-        }
-
-        .info-card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 12px;
-            color: #0f1c33;
-        }
-
-        .info-card p {
-            color: #5f6b7a;
-            line-height: 1.7;
-            font-size: 0.94rem;
-        }
-
+        /* ── Steps ─────────────────────────────────────────── */
         .steps-grid {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 18px;
-        }
-
-        .step-card {
-            padding: 28px;
-            border-radius: 12px;
-            background: #fbfcfe;
-            border: 1px solid #e5edf5;
-        }
-
-        .step-number {
-            width: 52px;
-            height: 52px;
-            border-radius: 12px;
-            display: grid;
-            place-items: center;
-            margin-bottom: 18px;
-            background: #0072ff;
-            color: #fff;
-            font-size: 1rem;
-            font-weight: 700;
-        }
-
-        .step-card h3 {
-            font-size: 1.18rem;
-            margin-bottom: 10px;
-            color: #0f1c33;
-        }
-
-        .step-card p {
-            color: #5f6b7a;
-            line-height: 1.7;
-        }
-
-        .split-panel {
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
         }
 
-        .quote-card,
-        .support-card {
-            padding: 30px;
-            border-radius: 14px;
-            box-shadow: 0 2px 10px rgba(15, 28, 51, 0.08);
-        }
-
-        .quote-card {
-            background: white;
-            border: 1px solid #e7edf5;
-        }
-
-        .quote-card h3,
-        .support-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 14px;
-            color: #0f1c33;
-        }
-
-        .quote-card p,
-        .support-card p {
-            color: #5f6b7a;
-            line-height: 1.7;
-        }
-
-        .quote-metrics {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 14px;
-            margin-top: 24px;
-        }
-
-        .quote-metrics div {
-            padding: 16px 18px;
+        .step-card {
+            background: var(--white);
+            border: 1px solid var(--border);
             border-radius: 12px;
-            background: #fbfcfe;
-            border: 1px solid #e5edf5;
+            padding: 28px;
         }
 
-        .quote-metrics strong {
-            display: block;
-            font-size: 1.35rem;
-            margin-bottom: 6px;
-            color: #0f1c33;
-        }
-
-        .quote-metrics span {
-            display: block;
-            color: #5f6b7a;
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        .support-card {
-            background: linear-gradient(180deg, #f8fbff 0%, #eef5ff 100%);
-            border: 1px solid #dbe7f4;
-        }
-
-        .support-list {
-            display: grid;
-            gap: 12px;
-            margin-top: 22px;
-        }
-
-        .support-item {
-            padding: 16px 18px;
+        .step-num {
+            width: 40px; height: 40px;
+            background: var(--blue);
+            color: #fff;
             border-radius: 10px;
-            background: white;
-            border: 1px solid #e5edf5;
+            display: grid;
+            place-items: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 18px;
         }
 
-        .support-item strong {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 1rem;
-            color: #0f1c33;
+        .step-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+        .step-card p  { color: var(--muted); font-size: 0.92rem; }
+
+        /* ── Features ──────────────────────────────────────── */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
         }
 
-        .support-item span {
-            display: block;
-            color: #5f6b7a;
-            font-size: 0.92rem;
-            line-height: 1.6;
-        }
-
-        .support-actions {
+        .feature-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px 30px;
             display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-top: 22px;
+            gap: 20px;
+            align-items: flex-start;
         }
 
+        .feature-icon {
+            flex-shrink: 0;
+            width: 44px; height: 44px;
+            background: #eff6ff;
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            font-size: 1.3rem;
+        }
+
+        .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+        .feature-card p  { color: var(--muted); font-size: 0.9rem; line-height: 1.65; }
+
+        /* ── CTA banner ────────────────────────────────────── */
+        .cta-banner {
+            background: var(--blue);
+            border-radius: 16px;
+            padding: 52px 40px;
+            text-align: center;
+            color: #fff;
+            margin-bottom: 72px;
+        }
+
+        .cta-banner h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .cta-banner p { opacity: .85; margin-bottom: 28px; font-size: 1rem; }
+
+        .btn-white { background: #fff; color: var(--blue); }
+        .btn-white:hover { background: #f0f7ff; }
+
+        .btn-outline-white {
+            background: transparent;
+            color: #fff;
+            border: 1.5px solid rgba(255,255,255,.5);
+        }
+        .btn-outline-white:hover { background: rgba(255,255,255,.1); }
+
+        /* ── Footer ────────────────────────────────────────── */
         .footer {
-            background: white;
-            border: 1px solid #e7edf5;
-            border-radius: 14px;
-            box-shadow: 0 2px 10px rgba(15, 28, 51, 0.08);
-            padding: 32px 30px 24px;
+            background: var(--white);
+            border-top: 1px solid var(--border);
+            padding: 44px 0 28px;
         }
 
         .footer-grid {
             display: grid;
-            grid-template-columns: 1.2fr repeat(4, minmax(0, 1fr));
-            gap: 18px;
+            grid-template-columns: 1.6fr 1fr 1fr 1fr;
+            gap: 32px;
+            margin-bottom: 36px;
         }
 
-        .footer-brand {
-            padding-right: 26px;
-        }
-
-        .footer-brand p,
-        .footer-column a,
-        .footer-column p {
-            color: #5f6b7a;
-            font-size: 0.94rem;
-            line-height: 1.7;
-        }
-
-        .footer-column strong {
-            display: block;
-            margin-bottom: 14px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: #0f1c33;
-        }
-
-        .footer-column {
+        .footer-brand-name {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--blue);
             display: flex;
-            flex-direction: column;
+            align-items: center;
             gap: 8px;
+            margin-bottom: 10px;
         }
+
+        .footer-brand p { color: var(--muted); font-size: 0.88rem; line-height: 1.65; }
+
+        .footer-col strong {
+            display: block;
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text);
+            margin-bottom: 14px;
+        }
+
+        .footer-col a, .footer-col p {
+            display: block;
+            color: var(--muted);
+            font-size: 0.88rem;
+            text-decoration: none;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        .footer-col a:hover { color: var(--blue); }
 
         .footer-bottom {
-            margin-top: 28px;
-            padding-top: 22px;
-            border-top: 1px solid #e7edf5;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.83rem;
             display: flex;
             justify-content: space-between;
-            gap: 16px;
+            gap: 12px;
             flex-wrap: wrap;
-            color: #5f6b7a;
-            font-size: 0.9rem;
         }
 
-        @media (max-width: 1120px) {
-            .hero-grid,
-            .split-panel,
-            .footer-grid,
-            .glass-grid,
-            .steps-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
+        /* ── Divider ───────────────────────────────────────── */
+        .divider { border: none; border-top: 1px solid var(--border); }
 
-            .section-head,
-            nav {
-                align-items: flex-start;
-                flex-direction: column;
-            }
-
-            .footer-brand {
-                padding-right: 0;
-            }
+        /* ── Responsive ────────────────────────────────────── */
+        @media (max-width: 900px) {
+            .navbar-links { display: none; }
+            .stats-bar { grid-template-columns: repeat(2, 1fr); }
+            .steps-grid { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
         }
 
-        @media (max-width: 820px) {
-            .page-shell {
-                padding: 24px 16px 30px;
-            }
-
-            .hero-grid,
-            .cards-grid,
-            .steps-grid,
-            .split-panel,
-            .footer-grid,
-            .hero-highlights,
-            .quote-metrics {
-                grid-template-columns: 1fr;
-            }
-
-            nav {
-                padding: 16px 20px;
-            }
-
-            nav h2 {
-                font-size: 1.2rem;
-            }
-
-            nav div {
-                flex-wrap: wrap;
-                justify-content: flex-start;
-            }
-
-            .hero,
-            .section-panel,
-            .footer,
-            .hero-side,
-            .quote-card,
-            .support-card {
-                padding: 24px 20px;
-            }
+        @media (max-width: 560px) {
+            .navbar { padding: 0 16px; }
+            .container { padding: 0 16px; }
+            .hero { padding: 52px 0 44px; }
+            .stats-bar { grid-template-columns: 1fr 1fr; padding: 20px; }
+            .cta-banner { padding: 40px 24px; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .section { padding: 48px 0; }
         }
     </style>
 </head>
 <body>
-<div class="page-shell">
-    <nav>
-        <h2><span style="font-size: 2.5rem; display: inline-block;">🚌</span> Book Smarter, Travel Better</h2>
-        <div>
-            <a href="#why-choose-us">Why Choose Us</a>
-            <a href="#about-us">About Us</a>
-            <a href="#need-help">Need Help</a>
-            <a href="<?php echo BASE_URL; ?>search">Search</a>
+
+<!-- ── Navbar ─────────────────────────────────────────────── -->
+<nav class="navbar">
+    <a class="navbar-brand" href="<?php echo BASE_URL; ?>">
+        <span class="bus-icon">🚌</span> SafarBook
+    </a>
+
+    <div class="navbar-links">
+        <a href="#how-it-works">How It Works</a>
+        <a href="#features">Features</a>
+        <a href="#contact">Contact</a>
+        <a href="<?php echo BASE_URL; ?>search">Search Routes</a>
+    </div>
+
+    <div class="navbar-actions">
+        <?php if ($loggedIn): ?>
+            <a class="btn btn-ghost" href="<?php echo BASE_URL . htmlspecialchars($dashboardPath); ?>">Dashboard</a>
+            <a class="btn btn-primary" href="<?php echo BASE_URL; ?>logout">Logout</a>
+        <?php else: ?>
+            <a class="btn btn-ghost" href="<?php echo BASE_URL; ?>login">Sign In</a>
+            <a class="btn btn-primary" href="<?php echo BASE_URL; ?>register">Sign Up</a>
+        <?php endif; ?>
+    </div>
+</nav>
+
+<!-- ── Hero ───────────────────────────────────────────────── -->
+<div class="container">
+    <section class="hero">
+        <div class="hero-badge">🇵🇰 Pakistan's Online Bus Ticketing</div>
+        <h1>Book bus tickets from anywhere, <span>anytime</span></h1>
+        <p>Search available routes, reserve your seat, and get your ticket instantly — all without visiting the bus stand.</p>
+        <div class="hero-cta">
+            <a class="btn btn-primary btn-lg" href="<?php echo BASE_URL; ?>search">Search Routes</a>
             <?php if ($loggedIn): ?>
-                <a href="<?php echo BASE_URL . htmlspecialchars($dashboardPath); ?>">Dashboard</a>
-                <a href="<?php echo BASE_URL; ?>logout">Logout</a>
+                <a class="btn btn-ghost btn-lg" href="<?php echo BASE_URL . htmlspecialchars($dashboardPath); ?>">My Dashboard</a>
             <?php else: ?>
-                <a href="<?php echo BASE_URL; ?>login">Sign In</a>
-                <a href="<?php echo BASE_URL; ?>register">Sign Up</a>
+                <a class="btn btn-ghost btn-lg" href="<?php echo BASE_URL; ?>register">Create Free Account</a>
             <?php endif; ?>
         </div>
-    </nav>
+    </section>
 
-    <section class="hero">
-        <div class="hero-grid">
-            <div>
-                <span class="eyebrow">Modern Bus Booking Experience</span>
-                <h1>Book bus tickets online with a cleaner and more reliable travel experience.</h1>
-                <p>Search routes, reserve your seats, manage bookings, and keep your trip details organized in one place. The home page now follows the same visual theme used across the rest of the project, with a clearer layout and more professional presentation.</p>
-                <div class="hero-actions">
-                    <a class="btn-primary-solid" href="<?php echo BASE_URL; ?>search">Search Available Routes</a>
-                    <?php if ($loggedIn): ?>
-                        <a class="btn-secondary" href="<?php echo BASE_URL . htmlspecialchars($dashboardPath); ?>">Open Dashboard</a>
-                    <?php else: ?>
-                        <a class="btn-secondary" href="<?php echo BASE_URL; ?>register">Create Your Account</a>
-                    <?php endif; ?>
-                </div>
-                <div class="hero-highlights">
-                    <div class="highlight-card">
-                        <strong>Fast Search</strong>
-                        <span>Check available routes quickly and move straight into booking.</span>
-                    </div>
-                    <div class="highlight-card">
-                        <strong>Secure Booking</strong>
-                        <span>Reserve seats with a clear process and professional ticket handling.</span>
-                    </div>
-                    <div class="highlight-card">
-                        <strong>Easy Access</strong>
-                        <span>Sign in, manage your account, and keep your trip details available anytime.</span>
-                    </div>
-                </div>
+    <!-- Stats bar -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <strong>50+</strong>
+            <span>Routes Available</span>
+        </div>
+        <div class="stat-item">
+            <strong>20+</strong>
+            <span>Cities Covered</span>
+        </div>
+        <div class="stat-item">
+            <strong>500+</strong>
+            <span>Tickets Booked</span>
+        </div>
+        <div class="stat-item">
+            <strong>24/7</strong>
+            <span>Online Booking</span>
+        </div>
+    </div>
+</div>
+
+<hr class="divider">
+
+<!-- ── How It Works ───────────────────────────────────────── -->
+<div class="container">
+    <section id="how-it-works" class="section">
+        <div class="section-head">
+            <p class="section-label">Simple Process</p>
+            <h2 class="section-title">Book your seat in 3 steps</h2>
+            <p class="section-desc">No phone calls, no queues. Just search, book, and travel.</p>
+        </div>
+
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-num">01</div>
+                <h3>Search your route</h3>
+                <p>Enter your departure and destination city. Browse all available schedules with timings and fares.</p>
             </div>
+            <div class="step-card">
+                <div class="step-num">02</div>
+                <h3>Reserve your seat</h3>
+                <p>Choose the number of seats you need and complete your booking with your account. It takes under a minute.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">03</div>
+                <h3>Get your ticket</h3>
+                <p>Download or print your ticket with a unique QR code. Show it at boarding — no paper needed.</p>
+            </div>
+        </div>
+    </section>
+</div>
 
-            <aside class="hero-side">
+<hr class="divider">
+
+<!-- ── Features ───────────────────────────────────────────── -->
+<div class="container">
+    <section id="features" class="section">
+        <div class="section-head">
+            <p class="section-label">Why SafarBook</p>
+            <h2 class="section-title">Everything you need for your journey</h2>
+            <p class="section-desc">Built for everyday travellers in Pakistan — fast, simple, and reliable.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
                 <div>
-                    <h3>Travel with clarity from booking to departure</h3>
-                    <p>Passengers can explore routes, book with confidence, and view trip details in a consistent interface that matches the rest of the system.</p>
-                    <div class="feature-list">
-                        <div class="feature-item">
-                            <label>Booking Flow</label>
-                            <span>Simple route search, seat selection, and ticket generation.</span>
-                        </div>
-                        <div class="feature-item">
-                            <label>Trip Details</label>
-                            <span>Keep departure, route, and receipt information easy to review.</span>
-                        </div>
-                        <div class="feature-item">
-                            <label>Professional UI</label>
-                            <span>Cleaner sections, clearer actions, and the same theme used across the project.</span>
-                        </div>
-                    </div>
+                    <h3>Real-time availability</h3>
+                    <p>See which buses have seats available right now. Schedules are updated by operators in real time.</p>
                 </div>
-            </aside>
-        </div>
-    </section>
-
-    <section id="why-choose-us" class="content-section">
-        <div class="section-panel">
-            <div class="section-head">
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎫</div>
                 <div>
-                    <h2>Why Choose Us</h2>
-                    <p>Our platform is designed to make bus booking feel simple, professional, and dependable for everyday travelers.</p>
+                    <h3>Digital tickets with QR codes</h3>
+                    <p>Your ticket is stored in your account. Download it or show directly from your phone at the bus stand.</p>
                 </div>
             </div>
-
-            <div class="cards-grid">
-            <article class="info-card">
-                <span class="mini-tag">Simple access</span>
-                <h3>Cleaner navigation</h3>
-                <p>The home page keeps the same navbar style used in the project, with clear actions and a less cluttered first impression.</p>
-            </article>
-            <article class="info-card">
-                <span class="mini-tag">Reliable search</span>
-                <h3>Find routes faster</h3>
-                <p>Passengers can move from the landing page to route search quickly without unnecessary steps.</p>
-            </article>
-            <article class="info-card">
-                <span class="mini-tag">Clear booking</span>
-                <h3>Professional ticket flow</h3>
-                <p>From booking to ticket view, the experience stays readable, structured, and easy to follow.</p>
-            </article>
-            <article class="info-card">
-                <span class="mini-tag">Consistent theme</span>
-                <h3>Matches the full project</h3>
-                <p>The homepage now follows the same light-blue, white-card design language already used in the dashboards and receipts.</p>
-            </article>
-            </div>
-        </div>
-    </section>
-
-    <section id="about-us" class="content-section">
-        <div class="section-panel">
-            <div class="section-head">
+            <div class="feature-card">
+                <div class="feature-icon">📋</div>
                 <div>
-                    <h2>About Us</h2>
-                    <p>This bus ticketing platform is built to give travelers a straightforward way to search routes, reserve seats, and keep track of their journeys with less friction.</p>
+                    <h3>Manage all your bookings</h3>
+                    <p>View past and upcoming trips from your passenger dashboard. Everything in one place.</p>
                 </div>
             </div>
-
-            <div class="steps-grid">
-                <article class="step-card">
-                    <div class="step-number">01</div>
-                    <h3>Search routes</h3>
-                    <p>Explore available schedules, compare departures, and move into booking with a simple flow.</p>
-                </article>
-                <article class="step-card">
-                    <div class="step-number">02</div>
-                    <h3>Reserve your seats</h3>
-                    <p>Choose the number of seats you need and complete your booking with a clean, guided process.</p>
-                </article>
-                <article class="step-card">
-                    <div class="step-number">03</div>
-                    <h3>Manage your trip</h3>
-                    <p>Keep your ticket, trip details, and account actions organized after sign in.</p>
-                </article>
+            <div class="feature-card">
+                <div class="feature-icon">🔐</div>
+                <div>
+                    <h3>Secure account with OTP</h3>
+                    <p>Your account is protected with OTP email verification. Password reset is quick if you ever get locked out.</p>
+                </div>
             </div>
         </div>
     </section>
+</div>
 
-    <section class="content-section">
-        <div class="split-panel">
-            <article class="quote-card">
-                <h3>Built to feel more complete and trustworthy</h3>
-                <p>The homepage now uses clearer sections, stronger content hierarchy, and a layout that feels closer to a real booking product while still matching the rest of the system.</p>
-                <div class="quote-metrics">
-                    <div>
-                        <strong>About Us</strong>
-                        <span>Explain what the platform offers and what travelers can expect.</span>
-                    </div>
-                    <div>
-                        <strong>Contact Us</strong>
-                        <span>Guide users toward support and communication channels.</span>
-                    </div>
-                    <div>
-                        <strong>Why Choose Us</strong>
-                        <span>Highlight reliability, better design, and a smoother booking flow.</span>
-                    </div>
-                    <div>
-                        <strong>Need Help</strong>
-                        <span>Point travelers toward sign-in, account, and booking support.</span>
-                    </div>
-                </div>
-            </article>
-
-            <aside id="need-help" class="support-card">
-                <h3>Need help?</h3>
-                <p>If you need help creating an account, signing in, searching routes, or recovering your password, the key actions are kept easy to find from the public area.</p>
-                <div class="support-list">
-                    <div class="support-item">
-                        <strong>Create an account</strong>
-                        <span>Register quickly, verify your details, and start booking with confidence.</span>
-                    </div>
-                    <div class="support-item">
-                        <strong>Sign in support</strong>
-                        <span>Return to your account to review bookings, tickets, and travel details.</span>
-                    </div>
-                    <div class="support-item">
-                        <strong>Password recovery</strong>
-                        <span>Reset your password if you cannot access your account.</span>
-                    </div>
-                </div>
-                <div class="support-actions">
-                    <a class="btn-primary-solid" href="<?php echo BASE_URL; ?>login">Sign In</a>
-                    <a class="btn-secondary" href="<?php echo BASE_URL; ?>forgot-password">Need Help</a>
-                </div>
-            </aside>
+<!-- ── CTA Banner ─────────────────────────────────────────── -->
+<div class="container">
+    <div class="cta-banner">
+        <h2>Ready to travel smarter?</h2>
+        <p>Create a free account and book your first ticket in minutes.</p>
+        <div class="hero-cta">
+            <?php if ($loggedIn): ?>
+                <a class="btn btn-white btn-lg" href="<?php echo BASE_URL; ?>search">Search Routes</a>
+                <a class="btn btn-outline-white btn-lg" href="<?php echo BASE_URL . htmlspecialchars($dashboardPath); ?>">My Dashboard</a>
+            <?php else: ?>
+                <a class="btn btn-white btn-lg" href="<?php echo BASE_URL; ?>register">Create Free Account</a>
+                <a class="btn btn-outline-white btn-lg" href="<?php echo BASE_URL; ?>login">Sign In</a>
+            <?php endif; ?>
         </div>
-    </section>
+    </div>
+</div>
 
-    <footer class="footer">
+<!-- ── Footer ─────────────────────────────────────────────── -->
+<footer id="contact" class="footer">
+    <div class="container">
         <div class="footer-grid">
             <div class="footer-brand">
-                <h2 style="font-size: 1.5rem; color: #0f1c33; margin-bottom: 12px;"><span style="font-size: 2rem;">🚌</span> Book Smarter, Travel Better</h2>
-                <p>A cleaner public website for route search, booking, account access, and travel support with the same theme used across the rest of the project.</p>
+                <div class="footer-brand-name"><span>🚌</span> SafarBook</div>
+                <p>Online bus ticketing for Pakistan. Search routes, book seats, and travel without the queue.</p>
             </div>
 
-            <div class="footer-column">
-                <strong>About Us</strong>
-                <a href="#about-us">Platform overview</a>
-                <a href="#why-choose-us">Why choose us</a>
-                <p>Built to make online bus booking simpler and more professional.</p>
+            <div class="footer-col">
+                <strong>Quick Links</strong>
+                <a href="<?php echo BASE_URL; ?>search">Search Routes</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#features">Features</a>
             </div>
 
-            <div class="footer-column">
+            <div class="footer-col">
+                <strong>Account</strong>
+                <a href="<?php echo BASE_URL; ?>login">Sign In</a>
+                <a href="<?php echo BASE_URL; ?>register">Create Account</a>
+                <a href="<?php echo BASE_URL; ?>forgot-password">Forgot Password</a>
+            </div>
+
+            <div class="footer-col">
                 <strong>Contact Us</strong>
-                <p>Email: support@busticketing.local</p>
-                <p>Phone: +92 300 0000000</p>
-                <p>Hours: Mon-Sat, 9:00 AM to 8:00 PM</p>
-            </div>
-
-            <div class="footer-column">
-                <strong>Why Choose Us</strong>
-                <p>Clean interface</p>
-                <p>Quick route search</p>
-                <p>Reliable booking flow</p>
-            </div>
-
-            <div class="footer-column">
-                <strong>Need Help</strong>
-                <a href="<?php echo BASE_URL; ?>login">Sign in support</a>
-                <a href="<?php echo BASE_URL; ?>register">Create passenger account</a>
-                <a href="<?php echo BASE_URL; ?>forgot-password">Reset password</a>
+                <p>📧 support@safarbook.pk</p>
+                <p>📞 +92 300 0000000</p>
+                <p>🕘 Mon–Sat, 9 AM – 8 PM</p>
             </div>
         </div>
 
         <div class="footer-bottom">
-            <span>© <?php echo date('Y'); ?> Bus Ticketing System. All rights reserved.</span>
-            <span>Designed with the same navbar style and visual theme used throughout the project.</span>
+            <span>© <?php echo date('Y'); ?> SafarBook. All rights reserved.</span>
+            <span>Made for Pakistani travellers 🇵🇰</span>
         </div>
-    </footer>
-</div>
+    </div>
+</footer>
+
 </body>
+
 </html>
