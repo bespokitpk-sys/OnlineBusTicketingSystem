@@ -1,3 +1,5 @@
+Options -MultiViews +FollowSymLinks
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
@@ -6,7 +8,9 @@
     RewriteCond %{REQUEST_FILENAME} -f
     RewriteRule ^ - [L]
 
-    # Route everything else (including directories) through the front controller
+    # Route everything else through the front controller
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.*)$ public/index.php [QSA,L]
 </IfModule>
 
