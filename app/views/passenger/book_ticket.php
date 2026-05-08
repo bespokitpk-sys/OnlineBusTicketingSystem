@@ -6,8 +6,12 @@ requireRole('passenger');
 $schedule_id = intval($_GET['schedule_id'] ?? 0);
 $schedule = null;
 if ($schedule_id > 0) {
-    $result = $conn->query("SELECT schedules.*, buses.bus_name, buses.total_seats FROM schedules JOIN buses ON schedules.bus_id = buses.id WHERE schedules.id = $schedule_id");
+    $stmt = $conn->prepare("SELECT schedules.*, buses.bus_name, buses.total_seats FROM schedules JOIN buses ON schedules.bus_id = buses.id WHERE schedules.id = ?");
+    $stmt->bind_param("i", $schedule_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
     $schedule = $result ? $result->fetch_assoc() : null;
+    $stmt->close();
 }
 ?>
 <!DOCTYPE html>

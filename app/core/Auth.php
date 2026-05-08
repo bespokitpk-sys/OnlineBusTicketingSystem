@@ -1,7 +1,18 @@
 ﻿<?php
 require_once APP_ROOT . '/config/db.php';
 
-if (session_status() !== PHP_SESSION_ACTIVE) {
+// Start session if not already started
+if (session_status() === PHP_SESSION_NONE) {
+    // Set secure session parameters
+    ini_set('session.cookie_httponly', 1);
+    ini_set('session.use_only_cookies', 1);
+    ini_set('session.cookie_samesite', 'Lax');
+    
+    // Use secure cookies if on HTTPS
+    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
+        ini_set('session.cookie_secure', 1);
+    }
+    
     session_start();
 }
 

@@ -29,7 +29,11 @@ $dbName = 'bus_db';    // cPanel: your_cpanel_username_bus_db
 
 $conn = new mysqli($dbHost, $dbUser, $dbPass, $dbName);
 if ($conn->connect_error) {
-    die('Database connection failed: ' . $conn->connect_error);
+    // Log error for debugging (in production, log to file instead)
+    error_log('Database connection failed: ' . $conn->connect_error);
+    
+    // Show generic error to user
+    die('Database connection failed. Please try again later or contact support.');
 }
 $conn->set_charset('utf8mb4');
 ?>

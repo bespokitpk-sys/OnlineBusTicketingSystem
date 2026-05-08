@@ -4,39 +4,48 @@ require_once APP_ROOT . '/config/db.php';
 class User {
     public static function findByEmail(string $email) {
         global $conn;
-        $email = $conn->real_escape_string($email);
-        $result = $conn->query("SELECT * FROM users WHERE email = '$email' LIMIT 1");
-        return $result ? $result->fetch_assoc() : null;
+        $stmt = $conn->prepare("SELECT * FROM users WHERE email = ? LIMIT 1");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result ? $result->fetch_assoc() : null;
+        $stmt->close();
+        return $user;
     }
 
     public static function findById(int $id) {
         global $conn;
-        $result = $conn->query("SELECT * FROM users WHERE id = $id LIMIT 1");
-        return $result ? $result->fetch_assoc() : null;
+        $stmt = $conn->prepare("SELECT * FROM users WHERE id = ? LIMIT 1");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result ? $result->fetch_assoc() : null;
+        $stmt->close();
+        return $user;
     }
 
     public static function findByResetToken(string $token) {
         global $conn;
-        $token = $conn->real_escape_string($token);
-        $result = $conn->query("SELECT * FROM users WHERE reset_token = '$token' AND reset_expiry > NOW() LIMIT 1");
-        return $result ? $result->fetch_assoc() : null;
+        $stmt = $conn->prepare("SELECT * FROM users WHERE reset_token = ? AND reset_expiry > NOW() LIMIT 1");
+        $stmt->bind_param("s", $token);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result ? $result->fetch_assoc() : null;
+        $stmt->close();
+        return $user;
     }
 
     public static function create(string $name, string $email, string $phone, string $password, string $role = 'passenger', bool $verified = false, string $cnic = null, string $profilePicture = null) {
         global $conn;
-        $name = $conn->real_escape_string($name);
-        $email = $conn->real_escape_string($email);
-        $phone = $conn->real_escape_string($phone);
         $hash = password_hash($password, PASSWORD_DEFAULT);
-        $role = $conn->real_escape_string($role);
         $isVerified = $verified ? 1 : 0;
         
-        // Handle optional CNIC and profile picture
-        $cnicValue = $cnic ? "'" . $conn->real_escape_string($cnic) . "'" : 'NULL';
-        $profilePicValue = $profilePicture ? "'" . $conn->real_escape_string($profilePicture) . "'" : 'NULL';
-        
-        $conn->query("INSERT INTO users (name, email, phone, cnic, profile_picture, password_hash, role, is_verified) VALUES ('$name', '$email', '$phone', $cnicValue, $profilePicValue, '$hash', '$role', $isVerified)");
-        return $conn->insert_id;
+        $stmt = $conn->prepare("INSERT INTO users (name, email, phone, cnic, profile_picture, password_hash, role, is_verified) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssssssi", $name, $email, $phone, $cnic, $profilePicture, $hash, $role, $isVerified);
+        $stmt->execute();
+        $insertId = $conn->insert_id;
+        $stmt->close();
+        return $insertId;
     }
 
     public static function authenticate(string $email, string $password) {
@@ -51,22 +60,30 @@ class User {
         global $conn;
         $otp = rand(100000, 999999);
         $expiry = date('Y-m-d H:i:s', strtotime('+30 minutes'));
-        $conn->query("UPDATE users SET otp_code = '$otp', otp_expiry = '$expiry' WHERE id = $userId");
+        
+        $stmt = $conn->prepare("UPDATE users SET otp_code = ?, otp_expiry = ? WHERE id = ?");
+        $stmt->bind_param("ssi", $otp, $expiry, $userId);
+        $stmt->execute();
+        $stmt->close();
         return $otp;
     }
 
     public static function verifyOTP(int $userId, string $otp) {
         global $conn;
-        $otp = $conn->real_escape_string($otp);
         
         // First, check if OTP exists and matches
-        $result = $conn->query("SELECT otp_code, otp_expiry FROM users WHERE id = $userId LIMIT 1");
+        $stmt = $conn->prepare("SELECT otp_code, otp_expiry FROM users WHERE id = ? LIMIT 1");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
         
         if (!$result) {
+            $stmt->close();
             return false;
         }
         
         $user = $result->fetch_assoc();
+        $stmt->close();
         
         if (!$user || !$user['otp_code']) {
             return false;
@@ -83,7 +100,10 @@ class User {
         }
         
         // OTP is valid - mark user as verified
-        $conn->query("UPDATE users SET is_verified = 1, otp_code = NULL, otp_expiry = NULL WHERE id = $userId");
+        $stmt = $conn->prepare("UPDATE users SET is_verified = 1, otp_code = NULL, otp_expiry = NULL WHERE id = ?");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $stmt->close();
         return true;
     }
 
@@ -91,9 +111,14 @@ class User {
         global $conn;
         $user = self::findByEmail($email);
         if (!$user) return false;
+        
         $token = bin2hex(random_bytes(32));
         $expiry = date('Y-m-d H:i:s', strtotime('+1 hour'));
-        $conn->query("UPDATE users SET reset_token = '$token', reset_expiry = '$expiry' WHERE id = {$user['id']}");
+        
+        $stmt = $conn->prepare("UPDATE users SET reset_token = ?, reset_expiry = ? WHERE id = ?");
+        $stmt->bind_param("ssi", $token, $expiry, $user['id']);
+        $stmt->execute();
+        $stmt->close();
         return $token;
     }
 
@@ -101,8 +126,13 @@ class User {
         global $conn;
         $user = self::findByResetToken($token);
         if (!$user) return false;
+        
         $hash = password_hash($newPassword, PASSWORD_DEFAULT);
-        $conn->query("UPDATE users SET password_hash = '$hash', reset_token = NULL, reset_expiry = NULL WHERE id = {$user['id']}");
+        
+        $stmt = $conn->prepare("UPDATE users SET password_hash = ?, reset_token = NULL, reset_expiry = NULL WHERE id = ?");
+        $stmt->bind_param("si", $hash, $user['id']);
+        $stmt->execute();
+        $stmt->close();
         return true;
     }
 }

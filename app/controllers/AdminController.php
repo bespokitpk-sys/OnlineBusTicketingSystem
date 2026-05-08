@@ -71,15 +71,16 @@ class AdminController {
             return ['success' => false, 'message' => 'Invalid input data.'];
         }
         
-        $name = $conn->real_escape_string($name);
+        $stmt = $conn->prepare("INSERT INTO buses (bus_name, total_seats, created_at) VALUES (?, ?, NOW())");
+        $stmt->bind_param("si", $name, $seats);
         
-        $query = "INSERT INTO buses (bus_name, total_seats, created_at) 
-                  VALUES ('$name', $seats, NOW())";
-        
-        if ($conn->query($query)) {
-            return ['success' => true, 'message' => 'Bus added successfully!', 'bus_id' => $conn->insert_id];
+        if ($stmt->execute()) {
+            $busId = $conn->insert_id;
+            $stmt->close();
+            return ['success' => true, 'message' => 'Bus added successfully!', 'bus_id' => $busId];
         } else {
-            return ['success' => false, 'message' => 'Error adding bus: ' . $conn->error];
+            $stmt->close();
+            return ['success' => false, 'message' => 'Error adding bus.'];
         }
     }
     
@@ -93,8 +94,13 @@ class AdminController {
     
     public static function getBusById(int $id) {
         global $conn;
-        $result = $conn->query("SELECT * FROM buses WHERE id = $id LIMIT 1");
-        return $result ? $result->fetch_assoc() : null;
+        $stmt = $conn->prepare("SELECT * FROM buses WHERE id = ? LIMIT 1");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $bus = $result ? $result->fetch_assoc() : null;
+        $stmt->close();
+        return $bus;
     }
     
     public static function updateBus(int $id, string $name, int $seats) {
@@ -104,21 +110,25 @@ class AdminController {
             return ['success' => false, 'message' => 'Invalid input data.'];
         }
         
-        $name = $conn->real_escape_string($name);
+        $stmt = $conn->prepare("UPDATE buses SET bus_name = ?, total_seats = ? WHERE id = ?");
+        $stmt->bind_param("sii", $name, $seats, $id);
         
-        $query = "UPDATE buses SET bus_name = '$name', total_seats = $seats WHERE id = $id";
-        
-        if ($conn->query($query)) {
+        if ($stmt->execute()) {
+            $stmt->close();
             return ['success' => true, 'message' => 'Bus updated successfully!'];
         } else {
+            $stmt->close();
             return ['success' => false, 'message' => 'Error updating bus.'];
         }
     }
     
     public static function deleteBus(int $id) {
         global $conn;
-        $result = $conn->query("DELETE FROM buses WHERE id = $id");
-        return $result ? ['success' => true, 'message' => 'Bus deleted successfully!'] : ['success' => false, 'message' => 'Error deleting bus.'];
+        $stmt = $conn->prepare("DELETE FROM buses WHERE id = ?");
+        $stmt->bind_param("i", $id);
+        $success = $stmt->execute();
+        $stmt->close();
+        return $success ? ['success' => true, 'message' => 'Bus deleted successfully!'] : ['success' => false, 'message' => 'Error deleting bus.'];
     }
     
     // ==================== SCHEDULE MANAGEMENT ====================
@@ -137,19 +147,27 @@ class AdminController {
     
     public static function getScheduleById(int $id) {
         global $conn;
-        $result = $conn->query("
+        $stmt = $conn->prepare("
             SELECT s.*, b.bus_name, b.total_seats
             FROM schedules s
             LEFT JOIN buses b ON s.bus_id = b.id
-            WHERE s.id = $id LIMIT 1
+            WHERE s.id = ? LIMIT 1
         ");
-        return $result ? $result->fetch_assoc() : null;
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $schedule = $result ? $result->fetch_assoc() : null;
+        $stmt->close();
+        return $schedule;
     }
     
     public static function deleteSchedule(int $id) {
         global $conn;
-        $result = $conn->query("DELETE FROM schedules WHERE id = $id");
-        return $result ? ['success' => true, 'message' => 'Schedule deleted successfully!'] : ['success' => false, 'message' => 'Error deleting schedule.'];
+        $stmt = $conn->prepare("DELETE FROM schedules WHERE id = ?");
+        $stmt->bind_param("i", $id);
+        $success = $stmt->execute();
+        $stmt->close();
+        return $success ? ['success' => true, 'message' => 'Schedule deleted successfully!'] : ['success' => false, 'message' => 'Error deleting schedule.'];
     }
     
     // ==================== TICKET MANAGEMENT ====================
@@ -176,7 +194,7 @@ class AdminController {
     
     public static function getTicketById(int $id) {
         global $conn;
-        $result = $conn->query("
+        $stmt = $conn->prepare("
             SELECT 
                 t.*, 
                 u.name as passenger_name,
@@ -188,9 +206,14 @@ class AdminController {
             LEFT JOIN users u ON t.user_id = u.id
             LEFT JOIN schedules s ON t.schedule_id = s.id
             LEFT JOIN buses b ON s.bus_id = b.id
-            WHERE t.id = $id LIMIT 1
+            WHERE t.id = ? LIMIT 1
         ");
-        return $result ? $result->fetch_assoc() : null;
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $ticket = $result ? $result->fetch_assoc() : null;
+        $stmt->close();
+        return $ticket;
     }
     
     public static function updateTicketStatus(int $id, string $status) {
@@ -201,23 +224,28 @@ class AdminController {
             return ['success' => false, 'message' => 'Invalid status.'];
         }
         
-        $status = $conn->real_escape_string($status);
-        $query = "UPDATE tickets SET status = '$status' WHERE id = $id";
+        $stmt = $conn->prepare("UPDATE tickets SET status = ? WHERE id = ?");
+        $stmt->bind_param("si", $status, $id);
         
-        if ($conn->query($query)) {
+        if ($stmt->execute()) {
+            $stmt->close();
             return ['success' => true, 'message' => 'Ticket status updated successfully!'];
         } else {
+            $stmt->close();
             return ['success' => false, 'message' => 'Error updating ticket.'];
         }
     }
     
     public static function cancelTicket(int $id) {
         global $conn;
-        $query = "UPDATE tickets SET status = 'cancelled' WHERE id = $id";
+        $stmt = $conn->prepare("UPDATE tickets SET status = 'cancelled' WHERE id = ?");
+        $stmt->bind_param("i", $id);
         
-        if ($conn->query($query)) {
+        if ($stmt->execute()) {
+            $stmt->close();
             return ['success' => true, 'message' => 'Ticket cancelled successfully!'];
         } else {
+            $stmt->close();
             return ['success' => false, 'message' => 'Error cancelling ticket.'];
         }
     }
@@ -266,8 +294,13 @@ class AdminController {
 
     public static function getOperatorById(int $id) {
         global $conn;
-        $result = $conn->query("SELECT * FROM users WHERE id = $id AND role = 'operator' LIMIT 1");
-        return $result ? $result->fetch_assoc() : null;
+        $stmt = $conn->prepare("SELECT * FROM users WHERE id = ? AND role = 'operator' LIMIT 1");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $operator = $result ? $result->fetch_assoc() : null;
+        $stmt->close();
+        return $operator;
     }
 
     public static function updateOperator(int $id, string $name, string $phone) {
@@ -277,22 +310,25 @@ class AdminController {
             return ['success' => false, 'message' => 'Name and phone are required.'];
         }
         
-        $name = $conn->real_escape_string($name);
-        $phone = $conn->real_escape_string($phone);
+        $stmt = $conn->prepare("UPDATE users SET name = ?, phone = ? WHERE id = ? AND role = 'operator'");
+        $stmt->bind_param("ssi", $name, $phone, $id);
         
-        $query = "UPDATE users SET name = '$name', phone = '$phone' WHERE id = $id AND role = 'operator'";
-        
-        if ($conn->query($query)) {
+        if ($stmt->execute()) {
+            $stmt->close();
             return ['success' => true, 'message' => 'Operator updated successfully!'];
         } else {
+            $stmt->close();
             return ['success' => false, 'message' => 'Error updating operator.'];
         }
     }
 
     public static function deleteOperator(int $id) {
         global $conn;
-        $result = $conn->query("DELETE FROM users WHERE id = $id AND role = 'operator'");
-        return $result ? ['success' => true, 'message' => 'Operator deleted successfully!'] : ['success' => false, 'message' => 'Error deleting operator.'];
+        $stmt = $conn->prepare("DELETE FROM users WHERE id = ? AND role = 'operator'");
+        $stmt->bind_param("i", $id);
+        $success = $stmt->execute();
+        $stmt->close();
+        return $success ? ['success' => true, 'message' => 'Operator deleted successfully!'] : ['success' => false, 'message' => 'Error deleting operator.'];
     }
     
     // ==================== USER MANAGEMENT ====================
@@ -309,20 +345,27 @@ class AdminController {
     
     public static function getUsersByRole(string $role) {
         global $conn;
-        $role = $conn->real_escape_string($role);
-        $result = $conn->query("
+        $stmt = $conn->prepare("
             SELECT id, name, email, phone, role, is_verified, created_at 
             FROM users 
-            WHERE role = '$role' 
+            WHERE role = ? 
             ORDER BY created_at DESC
         ");
-        return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
+        $stmt->bind_param("s", $role);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $users = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
+        $stmt->close();
+        return $users;
     }
     
     public static function verifyUser(int $id) {
         global $conn;
-        $query = "UPDATE users SET is_verified = 1 WHERE id = $id";
-        return $conn->query($query) ? ['success' => true, 'message' => 'User verified!'] : ['success' => false, 'message' => 'Error verifying user.'];
+        $stmt = $conn->prepare("UPDATE users SET is_verified = 1 WHERE id = ?");
+        $stmt->bind_param("i", $id);
+        $success = $stmt->execute();
+        $stmt->close();
+        return $success ? ['success' => true, 'message' => 'User verified!'] : ['success' => false, 'message' => 'Error verifying user.'];
     }
     
     public static function deleteUser(int $id) {
@@ -333,8 +376,11 @@ class AdminController {
             return ['success' => false, 'message' => 'Cannot delete admin accounts.'];
         }
         
-        $result = $conn->query("DELETE FROM users WHERE id = $id");
-        return $result ? ['success' => true, 'message' => 'User deleted successfully!'] : ['success' => false, 'message' => 'Error deleting user.'];
+        $stmt = $conn->prepare("DELETE FROM users WHERE id = ?");
+        $stmt->bind_param("i", $id);
+        $success = $stmt->execute();
+        $stmt->close();
+        return $success ? ['success' => true, 'message' => 'User deleted successfully!'] : ['success' => false, 'message' => 'Error deleting user.'];
     }
     
     // ==================== REPORTS ====================

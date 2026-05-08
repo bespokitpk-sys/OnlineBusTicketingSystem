@@ -15,9 +15,12 @@ class OperatorController {
             return self::$ticketColumnCache[$columnName];
         }
 
-        $safeColumnName = $conn->real_escape_string($columnName);
-        $result = $conn->query("SHOW COLUMNS FROM tickets LIKE '$safeColumnName'");
+        $stmt = $conn->prepare("SHOW COLUMNS FROM tickets LIKE ?");
+        $stmt->bind_param("s", $columnName);
+        $stmt->execute();
+        $result = $stmt->get_result();
         self::$ticketColumnCache[$columnName] = $result && $result->num_rows > 0;
+        $stmt->close();
 
         return self::$ticketColumnCache[$columnName];
     }
@@ -25,7 +28,7 @@ class OperatorController {
     // Get all schedules assigned to operator
     public static function getMySchedules(int $operatorId) {
         global $conn;
-        $result = $conn->query("
+        $stmt = $conn->prepare("
             SELECT 
                 s.id, s.bus_id, s.source, s.destination, s.departure_time, s.created_at, s.operator_id,
                 b.bus_name, b.total_seats,
@@ -36,49 +39,57 @@ class OperatorController {
             FROM schedules s
             LEFT JOIN buses b ON s.bus_id = b.id
             LEFT JOIN tickets t ON s.id = t.schedule_id
-            WHERE s.operator_id = $operatorId
+            WHERE s.operator_id = ?
             GROUP BY s.id
             ORDER BY s.departure_time DESC
         ");
-        return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
+        $stmt->bind_param("i", $operatorId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $schedules = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
+        $stmt->close();
+        return $schedules;
     }
     
     // Add new schedule
     public static function addSchedule(int $operatorId, int $busId, string $source, string $destination, string $departureTime) {
         global $conn;
-        $operatorId = intval($operatorId);
-        $busId = intval($busId);
-        $source = $conn->real_escape_string($source);
-        $destination = $conn->real_escape_string($destination);
-        $departureTime = $conn->real_escape_string($departureTime);
         
         if ($busId <= 0 || empty($source) || empty($destination) || empty($departureTime)) {
             return ['success' => false, 'message' => 'Please complete all schedule fields.'];
         }
         
-        $result = $conn->query("
+        $stmt = $conn->prepare("
             INSERT INTO schedules (bus_id, operator_id, source, destination, departure_time) 
-            VALUES ($busId, $operatorId, '$source', '$destination', '$departureTime')
+            VALUES (?, ?, ?, ?, ?)
         ");
+        $stmt->bind_param("iisss", $busId, $operatorId, $source, $destination, $departureTime);
+        $success = $stmt->execute();
+        $stmt->close();
         
-        return $result ? ['success' => true, 'message' => 'Schedule added successfully!'] : ['success' => false, 'message' => 'Error adding schedule: ' . $conn->error];
+        return $success ? ['success' => true, 'message' => 'Schedule added successfully!'] : ['success' => false, 'message' => 'Error adding schedule.'];
     }
 
     // Get schedule details by ID
     public static function getScheduleById(int $scheduleId) {
         global $conn;
-        $result = $conn->query("
+        $stmt = $conn->prepare("
             SELECT 
                 s.*, b.bus_name, b.total_seats,
                 COUNT(t.id) as total_bookings
             FROM schedules s
             LEFT JOIN buses b ON s.bus_id = b.id
             LEFT JOIN tickets t ON s.id = t.schedule_id
-            WHERE s.id = $scheduleId
+            WHERE s.id = ?
             GROUP BY s.id
             LIMIT 1
         ");
-        return $result ? $result->fetch_assoc() : null;
+        $stmt->bind_param("i", $scheduleId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $schedule = $result ? $result->fetch_assoc() : null;
+        $stmt->close();
+        return $schedule;
     }
 
     // Start trip (scheduled -> ongoing)
@@ -100,95 +111,117 @@ class OperatorController {
     // Get pending payments for a trip
     public static function getPendingPayments(int $scheduleId) {
         global $conn;
-        $scheduleId = intval($scheduleId);
-        $result = $conn->query("
+        $stmt = $conn->prepare("
             SELECT 
                 t.id, t.user_id, t.seats, t.status, t.created_at,
                 u.name, u.email, u.phone
             FROM tickets t
             LEFT JOIN users u ON t.user_id = u.id
-            WHERE t.schedule_id = $scheduleId AND t.status = 'pending'
+            WHERE t.schedule_id = ? AND t.status = 'pending'
             ORDER BY t.created_at ASC
         ");
-        return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
+        $stmt->bind_param("i", $scheduleId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $payments = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
+        $stmt->close();
+        return $payments;
     }
 
     // Approve payment (pending -> approved)
     public static function approvePayment(int $ticketId) {
         global $conn;
-        $ticketId = intval($ticketId);
-        $result = $conn->query("UPDATE tickets SET status = 'approved' WHERE id = $ticketId AND status = 'pending'");
+        $stmt = $conn->prepare("UPDATE tickets SET status = 'approved' WHERE id = ? AND status = 'pending'");
+        $stmt->bind_param("i", $ticketId);
+        $result = $stmt->execute();
 
         if (!$result) {
+            $stmt->close();
             return ['success' => false, 'message' => 'Failed to approve payment.'];
         }
 
         if ($conn->affected_rows === 0) {
+            $stmt->close();
             return ['success' => false, 'message' => 'This passenger is no longer waiting for payment approval.'];
         }
 
+        $stmt->close();
         return ['success' => true, 'message' => 'Payment approved!'];
     }
 
     // Board passenger (approved -> boarded)
     public static function boardPassenger(int $ticketId) {
         global $conn;
-        $ticketId = intval($ticketId);
-        $setClause = "status = 'boarded'";
+        
         if (self::ticketColumnExists('boarded_at')) {
-            $setClause .= ", boarded_at = NOW()";
+            $stmt = $conn->prepare("UPDATE tickets SET status = 'boarded', boarded_at = NOW() WHERE id = ? AND status = 'approved'");
+        } else {
+            $stmt = $conn->prepare("UPDATE tickets SET status = 'boarded' WHERE id = ? AND status = 'approved'");
         }
-
-        $result = $conn->query("UPDATE tickets SET $setClause WHERE id = $ticketId AND status = 'approved'");
+        
+        $stmt->bind_param("i", $ticketId);
+        $result = $stmt->execute();
 
         if (!$result) {
+            $stmt->close();
             return ['success' => false, 'message' => 'Failed to board passenger. Ensure the tickets table supports the boarded status.'];
         }
 
         if ($conn->affected_rows === 0) {
+            $stmt->close();
             return ['success' => false, 'message' => 'Only approved passengers can be marked as boarded.'];
         }
 
+        $stmt->close();
         return ['success' => true, 'message' => 'Passenger boarded successfully!'];
     }
 
     // Get all boarded passengers for a trip
     public static function getBoardedPassengers(int $scheduleId) {
         global $conn;
-        $scheduleId = intval($scheduleId);
         $boardedAtSelect = self::ticketColumnExists('boarded_at') ? 't.boarded_at' : 'NULL AS boarded_at';
 
-        $result = $conn->query("
+        $stmt = $conn->prepare("
             SELECT 
                 t.id, t.user_id, t.seats, t.created_at, $boardedAtSelect,
                 u.name, u.phone
             FROM tickets t
             LEFT JOIN users u ON t.user_id = u.id
-            WHERE t.schedule_id = $scheduleId AND t.status = 'boarded'
+            WHERE t.schedule_id = ? AND t.status = 'boarded'
             ORDER BY t.created_at ASC
         ");
-        return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
+        $stmt->bind_param("i", $scheduleId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $passengers = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
+        $stmt->close();
+        return $passengers;
     }
 
     // On-spot booking (add passenger during trip)
     public static function onSpotBooking(int $scheduleId, int $userId, int $seats) {
         global $conn;
-        $scheduleId = intval($scheduleId);
-        $userId = intval($userId);
-        $seats = intval($seats);
 
         // Check if user already has a ticket for this schedule
-        $existing = $conn->query("SELECT id FROM tickets WHERE schedule_id = $scheduleId AND user_id = $userId LIMIT 1");
+        $stmt = $conn->prepare("SELECT id FROM tickets WHERE schedule_id = ? AND user_id = ? LIMIT 1");
+        $stmt->bind_param("ii", $scheduleId, $userId);
+        $stmt->execute();
+        $existing = $stmt->get_result();
         if ($existing && $existing->num_rows > 0) {
+            $stmt->close();
             return ['success' => false, 'message' => 'Passenger already has a booking for this trip.'];
         }
+        $stmt->close();
 
         // Create ticket with 'boarded' status (auto-approved for on-spot booking)
-        $result = $conn->query("
+        $stmt = $conn->prepare("
             INSERT INTO tickets (user_id, schedule_id, seats, status, created_at)
-            VALUES ($userId, $scheduleId, $seats, 'boarded', NOW())
+            VALUES (?, ?, ?, 'boarded', NOW())
         ");
-        return $result ? ['success' => true, 'message' => 'On-spot booking created!'] : ['success' => false, 'message' => 'Error creating booking.'];
+        $stmt->bind_param("iii", $userId, $scheduleId, $seats);
+        $success = $stmt->execute();
+        $stmt->close();
+        return $success ? ['success' => true, 'message' => 'On-spot booking created!'] : ['success' => false, 'message' => 'Error creating booking.'];
     }
 
     // Get available passengers (not yet booked)

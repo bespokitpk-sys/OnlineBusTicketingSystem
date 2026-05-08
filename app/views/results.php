@@ -32,24 +32,36 @@ $source = trim($_GET['source'] ?? '');
 $destination = trim($_GET['destination'] ?? '');
 $date = trim($_GET['date'] ?? '');
 
-$where = [];
+$sql = "SELECT schedules.*, buses.bus_name, buses.total_seats FROM schedules JOIN buses ON schedules.bus_id = buses.id WHERE 1=1";
+$types = "";
+$params = [];
+
 if ($source !== '') {
     $sourceNormalized = normalizeCity($source);
-    $where[] = "LOWER(schedules.source) = '" . $conn->real_escape_string(strtolower($sourceNormalized)) . "'";
+    $sql .= " AND LOWER(schedules.source) = ?";
+    $types .= "s";
+    $params[] = strtolower($sourceNormalized);
 }
 if ($destination !== '') {
     $destinationNormalized = normalizeCity($destination);
-    $where[] = "LOWER(schedules.destination) = '" . $conn->real_escape_string(strtolower($destinationNormalized)) . "'";
+    $sql .= " AND LOWER(schedules.destination) = ?";
+    $types .= "s";
+    $params[] = strtolower($destinationNormalized);
 }
 if ($date !== '') {
-    $where[] = "DATE(schedules.departure_time) = '" . $conn->real_escape_string($date) . "'";
+    $sql .= " AND DATE(schedules.departure_time) = ?";
+    $types .= "s";
+    $params[] = $date;
 }
 
-$sql = "SELECT schedules.*, buses.bus_name, buses.total_seats FROM schedules JOIN buses ON schedules.bus_id = buses.id";
-if (!empty($where)) {
-    $sql .= ' WHERE ' . implode(' AND ', $where);
+if (empty($params)) {
+    $result = $conn->query($sql);
+} else {
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param($types, ...$params);
+    $stmt->execute();
+    $result = $stmt->get_result();
 }
-$result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
 <html>

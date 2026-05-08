@@ -9,7 +9,12 @@ class Bus {
 
     public static function findById(int $id) {
         global $conn;
-        $result = $conn->query("SELECT * FROM buses WHERE id = $id LIMIT 1");
-        return $result ? $result->fetch_assoc() : null;
+        $stmt = $conn->prepare("SELECT * FROM buses WHERE id = ? LIMIT 1");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $bus = $result ? $result->fetch_assoc() : null;
+        $stmt->close();
+        return $bus;
     }
 }

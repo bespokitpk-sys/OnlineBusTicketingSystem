@@ -537,7 +537,14 @@ $schedules = OperatorController::getMySchedules($operator['id']);
                     $scheduleId = $schedule['id'];
                     $summary = OperatorController::getTripSummary($scheduleId);
                     $pendingPayments = OperatorController::getPendingPayments($scheduleId);
-                    $readyToBoard = $conn->query("SELECT t.*, u.name, u.phone, u.email FROM tickets t LEFT JOIN users u ON t.user_id = u.id WHERE t.schedule_id = $scheduleId AND t.status = 'approved' ORDER BY t.created_at")->fetch_all(MYSQLI_ASSOC);
+                    
+                    // Get ready to board passengers using prepared statement
+                    $stmt = $conn->prepare("SELECT t.*, u.name, u.phone, u.email FROM tickets t LEFT JOIN users u ON t.user_id = u.id WHERE t.schedule_id = ? AND t.status = 'approved' ORDER BY t.created_at");
+                    $stmt->bind_param("i", $scheduleId);
+                    $stmt->execute();
+                    $readyToBoard = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+                    $stmt->close();
+                    
                     $boardedPassengers = OperatorController::getBoardedPassengers($scheduleId);
                 ?>
                 <div class="schedule-card">

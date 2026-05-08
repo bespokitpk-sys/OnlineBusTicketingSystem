@@ -5,15 +5,17 @@ require_once APP_ROOT . '/config/db.php';
 $ticket_id = intval($_GET['ticket_id'] ?? 0);
 $code = $_GET['code'] ?? '';
 
-// Verify the ticket exists and code matches
-$ticket_query = "SELECT t.*, u.name as passenger_name, u.email as passenger_email, u.phone as passenger_phone, 
+// Verify the ticket exists and code matches using prepared statement
+$stmt = $conn->prepare("SELECT t.*, u.name as passenger_name, u.email as passenger_email, u.phone as passenger_phone, 
                         b.bus_name, s.source, s.destination, s.departure_time 
                 FROM tickets t 
                 LEFT JOIN users u ON t.user_id = u.id
                 LEFT JOIN schedules s ON t.schedule_id = s.id
                 LEFT JOIN buses b ON s.bus_id = b.id
-                WHERE t.id = $ticket_id";
-$result = $conn->query($ticket_query);
+                WHERE t.id = ?");
+$stmt->bind_param("i", $ticket_id);
+$stmt->execute();
+$result = $stmt->get_result();
 
 if (!$result || $result->num_rows === 0) {
     $ticket = null;
@@ -23,6 +25,7 @@ if (!$result || $result->num_rows === 0) {
     $expected_code = 'TICKET-' . $ticket['id'];
     $valid = ($code === $expected_code);
 }
+$stmt->close();
 ?>
 <!DOCTYPE html>
 <html>
