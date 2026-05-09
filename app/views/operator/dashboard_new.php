@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once APP_ROOT . '/config/db.php';
 require_once APP_ROOT . '/app/core/Auth.php';
 require_once APP_ROOT . '/app/controllers/OperatorController.php';
@@ -515,9 +515,9 @@ $schedules = OperatorController::getMySchedules($operator['id']);
         <!-- QR Scanner Section -->
         <div class="qr-section">
             <div class="qr-header">
-                <h2 class="qr-title">?? QR Code Scanner</h2>
+                <h2 class="qr-title">&#128247; QR Code Scanner</h2>
                 <button id="startScanBtn" class="scan-btn">
-                    <span>??</span> Start Scanning
+                    <span>&#128247;</span> Start Scanning
                 </button>
             </div>
             <div id="qr-reader"></div>
@@ -528,7 +528,7 @@ $schedules = OperatorController::getMySchedules($operator['id']);
         <div class="schedules-grid">
             <?php if (empty($schedules)): ?>
                 <div class="empty-state">
-                    <div class="empty-icon">??</div>
+                    <div class="empty-icon">&#128197;</div>
                     <h3>No Schedules Assigned</h3>
                     <p>You don't have any trips assigned yet. Contact admin to assign trips.</p>
                 </div>
@@ -551,14 +551,14 @@ $schedules = OperatorController::getMySchedules($operator['id']);
                     <!-- Schedule Header -->
                     <div class="schedule-header-new">
                         <div class="schedule-route-new">
-                            <span><?php echo htmlspecialchars($schedule['source']); ?></span>
-                            <span class="route-arrow">?</span>
-                            <span><?php echo htmlspecialchars($schedule['destination']); ?></span>
+                            <span><?php echo htmlspecialchars($schedule['source']); ?>&#8594;<\/span>
+                            <span class="route-arrow">&#8594;</span>
+                            <span><?php echo htmlspecialchars($schedule['destination']); ?>&#8594;<\/span>
                         </div>
                         <div class="schedule-meta">
-                            <span>?? <?php echo htmlspecialchars($schedule['bus_name']); ?></span>
-                            <span>?? <?php echo date('M j, Y', strtotime($schedule['departure_time'])); ?></span>
-                            <span>?? <?php echo date('g:i A', strtotime($schedule['departure_time'])); ?></span>
+                            <span>&#128652; <?php echo htmlspecialchars($schedule['bus_name']); ?>&#8594;<\/span>
+                            <span>&#128197; <?php echo date('M j, Y', strtotime($schedule['departure_time'])); ?>&#8594;<\/span>
+                            <span>&#128336; <?php echo date('g:i A', strtotime($schedule['departure_time'])); ?>&#8594;<\/span>
                             <span>?? <?php echo $schedule['total_seats']; ?> Seats</span>
                         </div>
                     </div>
@@ -588,7 +588,7 @@ $schedules = OperatorController::getMySchedules($operator['id']);
                         <!-- Pending Payments -->
                         <?php if (!empty($pendingPayments)): ?>
                         <h3 class="section-title">
-                            ? Pending Payments <span class="badge badge-pending"><?php echo count($pendingPayments); ?></span>
+                            ? Pending Payments <span class="badge badge-pending"><?php echo count($pendingPayments); ?>&#8594;<\/span>
                         </h3>
                         <table>
                             <thead>
@@ -624,7 +624,7 @@ $schedules = OperatorController::getMySchedules($operator['id']);
                         <!-- Ready to Board -->
                         <?php if (!empty($readyToBoard)): ?>
                         <h3 class="section-title" style="margin-top: 24px;">
-                            ? Ready to Board <span class="badge badge-approved"><?php echo count($readyToBoard); ?></span>
+                            ? Ready to Board <span class="badge badge-approved"><?php echo count($readyToBoard); ?>&#8594;<\/span>
                         </h3>
                         <table>
                             <thead>
@@ -660,7 +660,7 @@ $schedules = OperatorController::getMySchedules($operator['id']);
                         <!-- Boarded Passengers -->
                         <?php if (!empty($boardedPassengers)): ?>
                         <h3 class="section-title" style="margin-top: 24px;">
-                            ?? Boarded Passengers <span class="badge badge-boarded"><?php echo count($boardedPassengers); ?></span>
+                            ?? Boarded Passengers <span class="badge badge-boarded"><?php echo count($boardedPassengers); ?>&#8594;<\/span>
                         </h3>
                         <table>
                             <thead>
@@ -686,7 +686,7 @@ $schedules = OperatorController::getMySchedules($operator['id']);
 
                         <?php if (empty($pendingPayments) && empty($readyToBoard) && empty($boardedPassengers)): ?>
                         <div class="empty-state">
-                            <div class="empty-icon">??</div>
+                            <div class="empty-icon">&#128197;</div>
                             <p>No passengers yet for this trip</p>
                         </div>
                         <?php endif; ?>
@@ -761,7 +761,7 @@ $schedules = OperatorController::getMySchedules($operator['id']);
             if (html5QrCode) {
                 html5QrCode.stop().then(() => {
                     document.getElementById('qr-reader').classList.remove('active');
-                    document.getElementById('startScanBtn').innerHTML = '<span>??</span> Start Scanning';
+                    document.getElementById('startScanBtn').innerHTML = '<span>&#128247;</span> Start Scanning';
                     document.getElementById('startScanBtn').style.background = '#10b981';
                     isScanning = false;
                 });

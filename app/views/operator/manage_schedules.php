@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once APP_ROOT . '/config/db.php';
 require_once APP_ROOT . '/app/core/Auth.php';
 require_once APP_ROOT . '/app/controllers/OperatorController.php';
@@ -258,7 +258,7 @@ $result = $conn->query("SELECT schedules.*, buses.bus_name FROM schedules JOIN b
 </head>
 <body>
 <nav>
-    <h2><span style="font-size: 2.5rem; display: inline-block;">??</span> Book Smarter, Travel Better</h2>
+    <h2><span style="font-size: 2.5rem; display: inline-block;">&#128652;</span> Book Smarter, Travel Better</h2>
     <div>
         <a href="<?php echo BASE_URL; ?>operator/dashboard">Dashboard</a>
         <a href="<?php echo BASE_URL; ?>operator/add-schedule">Add Schedule</a>
@@ -270,7 +270,7 @@ $result = $conn->query("SELECT schedules.*, buses.bus_name FROM schedules JOIN b
 <div class="dashboard">
     <div class="page-header">
         <a href="javascript:history.back()" class="back-btn">? Back</a>
-        <h2>?? Manage Schedules</h2>
+        <h2>&#128197; Manage Schedules</h2>
         <p>View and manage all your scheduled trips.</p>
     </div>
 
@@ -295,19 +295,19 @@ $result = $conn->query("SELECT schedules.*, buses.bus_name FROM schedules JOIN b
                     <div class="schedule-body">
                         <div class="detail-row">
                             <span class="detail-label">Departure</span>
-                            <span class="detail-value"><?php echo date('M d, H:i', strtotime($schedule['departure_time'])); ?></span>
+                            <span class="detail-value"><?php echo date('M d, H:i', strtotime($schedule['departure_time'])); ?>&#8594;<\/span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Bookings</span>
-                            <span class="detail-value"><?php echo $summary['total_tickets'] ?? 0; ?> / <?php echo $summary['total_seats'] ?? 0; ?></span>
+                            <span class="detail-value"><?php echo $summary['total_tickets'] ?? 0; ?> / <?php echo $summary['total_seats'] ?? 0; ?>&#8594;<\/span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Pending</span>
-                            <span class="detail-value" style="color: #ffc107;"><?php echo $summary['pending_count'] ?? 0; ?></span>
+                            <span class="detail-value" style="color: #ffc107;"><?php echo $summary['pending_count'] ?? 0; ?>&#8594;<\/span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Boarded</span>
-                            <span class="detail-value" style="color: #28a745;"><?php echo $summary['boarded_count'] ?? 0; ?></span>
+                            <span class="detail-value" style="color: #28a745;"><?php echo $summary['boarded_count'] ?? 0; ?>&#8594;<\/span>
                         </div>
                     </div>
                     <div class="schedule-footer">

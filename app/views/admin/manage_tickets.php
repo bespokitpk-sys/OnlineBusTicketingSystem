@@ -1,4 +1,4 @@
-<?php
+ï»¿<?php
 require_once APP_ROOT . '/config/db.php';
 require_once APP_ROOT . '/app/core/Auth.php';
 require_once APP_ROOT . '/app/controllers/AdminController.php';
@@ -313,7 +313,7 @@ if ($filter) {
 <div id="toastContainer" class="toast-container"></div>
 
 <nav>
-    <h2><span style="font-size: 2rem; margin-right: 10px;">??</span>Book Smarter, Travel Better</h2>
+    <h2><span style="font-size: 2rem; margin-right: 10px;">&#128652;</span>Book Smarter, Travel Better</h2>
     <div>
         <a href="<?php echo BASE_URL; ?>admin/dashboard">Dashboard</a>
         <a href="<?php echo BASE_URL; ?>admin/buses">Buses</a>
@@ -327,7 +327,7 @@ if ($filter) {
         <a href="javascript:history.back()" style="display: inline-block; padding: 10px 20px; background: #0072ff; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.background='#0056cc'" onmouseout="this.style.background='#0072ff'">? Back</a>
     </div>
     <div class="header">
-        <h1>?? Manage Tickets</h1>
+        <h1>&#127915; Manage Tickets</h1>
         <p>View and manage all ticket bookings in the system</p>
     </div>
     
@@ -390,7 +390,7 @@ if ($filter) {
             </table>
         <?php else: ?>
             <div class="no-data">
-                <p>?? No tickets found</p>
+                <p>&#127915; No tickets found</p>
             </div>
         <?php endif; ?>
     </div>
@@ -410,7 +410,7 @@ if ($filter) {
         toast.innerHTML = `
             <div class="toast-icon">${icon}</div>
             <div class="toast-message">${message}</div>
-            <button class="toast-close" onclick="this.parentElement.classList.add('hide'); setTimeout(() => this.parentElement.remove(), 300);">×</button>
+            <button class="toast-close" onclick="this.parentElement.classList.add('hide'); setTimeout(() => this.parentElement.remove(), 300);">ï¿½</button>
         `;
         
         toastContainer.appendChild(toast);

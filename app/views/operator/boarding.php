@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once APP_ROOT . '/config/db.php';
 require_once APP_ROOT . '/app/core/Auth.php';
 require_once APP_ROOT . '/app/controllers/OperatorController.php';
@@ -778,7 +778,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 <body>
 
 <nav>
-    <h2><span style="font-size: 2rem; margin-right: 10px;">??</span>Book Smarter, Travel Better</h2>
+    <h2><span style="font-size: 2rem; margin-right: 10px;">&#128652;</span>Book Smarter, Travel Better</h2>
     <div>
         <a href="<?php echo BASE_URL; ?>operator/dashboard">Dashboard</a>
         <a href="<?php echo BASE_URL; ?>operator/schedules">Schedules</a>
@@ -885,11 +885,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                             <div class="passenger-grid">
                                 <div class="passenger-info">
                                     <label>Name</label>
-                                    <span><?php echo htmlspecialchars($payment['name']); ?></span>
+                                    <span><?php echo htmlspecialchars($payment['name']); ?>&#8594;<\/span>
                                 </div>
                                 <div class="passenger-info">
                                     <label>Phone</label>
-                                    <span><?php echo htmlspecialchars($payment['phone']); ?></span>
+                                    <span><?php echo htmlspecialchars($payment['phone']); ?>&#8594;<\/span>
                                 </div>
                                 <div class="passenger-info">
                                     <label>Seats</label>
@@ -918,11 +918,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                             <div class="passenger-grid">
                                 <div class="passenger-info">
                                     <label>Name</label>
-                                    <span><?php echo htmlspecialchars($passenger['name']); ?></span>
+                                    <span><?php echo htmlspecialchars($passenger['name']); ?>&#8594;<\/span>
                                 </div>
                                 <div class="passenger-info">
                                     <label>Phone</label>
-                                    <span><?php echo htmlspecialchars($passenger['phone']); ?></span>
+                                    <span><?php echo htmlspecialchars($passenger['phone']); ?>&#8594;<\/span>
                                 </div>
                                 <div class="passenger-info">
                                     <label>Seats</label>
@@ -1316,7 +1316,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                     <div class="detail-list">
                         <div class="detail-row">
                             <label>Status</label>
-                            <span><span class="status-badge ${statusMeta.className}">${statusMeta.label}</span></span>
+                            <span><span class="status-badge ${statusMeta.className}">${statusMeta.label}</span>&#8594;<\/span>
                         </div>
                         <div class="detail-row">
                             <label>Seat Count</label>

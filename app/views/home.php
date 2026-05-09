@@ -457,7 +457,7 @@ if (($user['role'] ?? '') === 'admin') {
 <!-- -- Navbar ----------------------------------------------- -->
 <nav class="navbar">
     <a class="navbar-brand" href="<?php echo BASE_URL; ?>">
-        <span class="bus-icon">??</span> Book Smarter, Travel Better
+        <span class="bus-icon">&#128652;</span> Book Smarter, Travel Better
     </a>
 
     <div class="navbar-links">
@@ -482,9 +482,9 @@ if (($user['role'] ?? '') === 'admin') {
 <div class="hero-wrapper">
     <div class="container">
         <section class="hero">
-            <div class="hero-badge">???? Pakistan's Online Bus Ticketing</div>
+            <div class="hero-badge">&#127981; Pakistan's Online Bus Ticketing</div>
             <h1>Book bus tickets from anywhere, <span>anytime</span></h1>
-            <p>Search available routes, reserve your seat, and get your ticket instantly — all without visiting the bus stand.</p>
+            <p>Search available routes, reserve your seat, and get your ticket instantly &#10004; all without visiting the bus stand.</p>
             <div class="hero-cta">
                 <a class="btn btn-primary btn-lg" href="<?php echo BASE_URL; ?>search">Search Routes</a>
                 <?php if ($loggedIn): ?>
@@ -534,7 +534,7 @@ if (($user['role'] ?? '') === 'admin') {
             <div class="step-card">
                 <div class="step-num">03</div>
                 <h3>Get your ticket</h3>
-                <p>Download or print your ticket with a unique QR code. Show it at boarding — no paper needed.</p>
+                <p>Download or print your ticket with a unique QR code. Show it at boarding ï¿½ no paper needed.</p>
             </div>
         </div>
     </section>
@@ -549,33 +549,33 @@ if (($user['role'] ?? '') === 'admin') {
         <div class="section-head">
             <p class="section-label">Why Choose Us</p>
             <h2 class="section-title">Everything you need for your journey</h2>
-            <p class="section-desc">Built for everyday travellers in Pakistan — fast, simple, and reliable.</p>
+            <p class="section-desc">Built for everyday travellers in Pakistan &mdash; fast, simple, and reliable.</p>
         </div>
 
         <div class="features-grid">
             <div class="feature-card">
-                <div class="feature-icon">??</div>
+                <div class="feature-icon">&#128197;</div>
                 <div>
                     <h3>Real-time availability</h3>
                     <p>See which buses have seats available right now. Schedules are updated by operators in real time.</p>
                 </div>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">??</div>
+                <div class="feature-icon">&#127915;</div>
                 <div>
                     <h3>Digital tickets with QR codes</h3>
                     <p>Your ticket is stored in your account. Download it or show directly from your phone at the bus stand.</p>
                 </div>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">??</div>
+                <div class="feature-icon">&#128203;</div>
                 <div>
                     <h3>Manage all your bookings</h3>
                     <p>View past and upcoming trips from your passenger dashboard. Everything in one place.</p>
                 </div>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">??</div>
+                <div class="feature-icon">&#128274;</div>
                 <div>
                     <h3>Secure account with OTP</h3>
                     <p>Your account is protected with OTP email verification. Password reset is quick if you ever get locked out.</p>
@@ -630,12 +630,12 @@ if (($user['role'] ?? '') === 'admin') {
                 <strong>Contact Us</strong>
                 <p>?? support@busticketing.pk</p>
                 <p>?? +92 300 0000000</p>
-                <p>?? Mon–Sat, 9 AM – 8 PM</p>
+                <p>?? Monï¿½Sat, 9 AM ï¿½ 8 PM</p>
             </div>
         </div>
 
         <div class="footer-bottom">
-            <span>© <?php echo date('Y'); ?> Bus Ticketing System. All rights reserved.</span>
+            <span>ï¿½ <?php echo date('Y'); ?> Bus Ticketing System. All rights reserved.</span>
             <span>Made for Pakistani travellers ????</span>
         </div>
     </div>

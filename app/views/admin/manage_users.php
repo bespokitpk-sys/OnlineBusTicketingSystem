@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once APP_ROOT . '/config/db.php';
 require_once APP_ROOT . '/app/core/Auth.php';
 require_once APP_ROOT . '/app/controllers/AdminController.php';
@@ -224,7 +224,7 @@ $passengers = $conn->query("SELECT id, name, email, phone, created_at FROM users
 </head>
 <body>
 <nav>
-    <h2><span style="font-size: 2.5rem; display: inline-block;">??</span> Book Smarter, Travel Better</h2>
+    <h2><span style="font-size: 2.5rem; display: inline-block;">&#128652;</span> Book Smarter, Travel Better</h2>
     <div>
         <a href="<?php echo BASE_URL; ?>admin/dashboard">Dashboard</a>
         <a href="<?php echo BASE_URL; ?>admin/add-bus">Add Bus</a>
@@ -239,7 +239,7 @@ $passengers = $conn->query("SELECT id, name, email, phone, created_at FROM users
         <div style="margin-bottom: 15px;">
             <a href="javascript:history.back()" style="display: inline-block; padding: 10px 20px; background: rgba(255, 255, 255, 0.25); color: white; border-radius: 6px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; border: 2px solid rgba(255, 255, 255, 0.5);" onmouseover="this.style.background='rgba(255, 255, 255, 0.35)'" onmouseout="this.style.background='rgba(255, 255, 255, 0.25)'">? Back</a>
         </div>
-        <h2>?? Manage Users</h2>
+        <h2>&#128100; Manage Users</h2>
         <p>View and manage all operators and passengers in the system.</p>
     </div>
 
@@ -247,7 +247,7 @@ $passengers = $conn->query("SELECT id, name, email, phone, created_at FROM users
         <!-- OPERATORS SECTION -->
         <div class="user-section">
             <div class="user-section-header">
-                <h3>????? Bus Operators</h3>
+                <h3>&#128119; Bus Operators</h3>
                 <span class="badge"><?php echo count($operators); ?> Operator(s)</span>
             </div>
             <?php if (count($operators) > 0): ?>
@@ -289,7 +289,7 @@ $passengers = $conn->query("SELECT id, name, email, phone, created_at FROM users
         <!-- PASSENGERS SECTION -->
         <div class="user-section">
             <div class="user-section-header">
-                <h3>?? Passengers</h3>
+                <h3>&#128100; Passengers</h3>
                 <span class="badge"><?php echo $passengers->num_rows; ?> Passenger(s)</span>
             </div>
             <?php if ($passengers->num_rows > 0): ?>

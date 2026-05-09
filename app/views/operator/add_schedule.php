@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once APP_ROOT . '/config/db.php';
 require_once APP_ROOT . '/app/core/Auth.php';
 require_once APP_ROOT . '/app/controllers/OperatorController.php';
@@ -210,7 +210,7 @@ if (isset($_POST['add'])) {
 </head>
 <body>
 <nav>
-    <h2><span style="font-size: 2.5rem; display: inline-block;">??</span> Book Smarter, Travel Better</h2>
+    <h2><span style="font-size: 2.5rem; display: inline-block;">&#128652;</span> Book Smarter, Travel Better</h2>
     <div>
         <a href="<?php echo BASE_URL; ?>operator/dashboard">Dashboard</a>
         <a href="<?php echo BASE_URL; ?>operator/schedules">My Schedules</a>
@@ -222,7 +222,7 @@ if (isset($_POST['add'])) {
 <div class="container">
     <div class="page-header">
         <a href="javascript:history.back()" class="back-btn">? Back</a>
-        <h2>?? Add Schedule</h2>
+        <h2>&#128197; Add Schedule</h2>
         <p>Create a new trip schedule for your bus</p>
     </div>
     

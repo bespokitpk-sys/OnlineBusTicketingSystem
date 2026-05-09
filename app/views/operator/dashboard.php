@@ -1,4 +1,4 @@
-<?php
+ï»¿<?php
 require_once APP_ROOT . '/config/db.php';
 require_once APP_ROOT . '/app/core/Auth.php';
 require_once APP_ROOT . '/app/controllers/OperatorController.php';
@@ -1216,7 +1216,7 @@ $samplePassenger = [
 </head>
 <body>
 <nav>
-    <h2><span style="font-size: 2.5rem; display: inline-block;">??</span> Book Smarter, Travel Better</h2>
+    <h2><span style="font-size: 2.5rem; display: inline-block;">&#128652;</span> Book Smarter, Travel Better</h2>
     <div>
         <a href="<?php echo BASE_URL; ?>operator/dashboard">Dashboard</a>
         <a href="<?php echo BASE_URL; ?>operator/add-schedule">Add Schedule</a>
@@ -1284,7 +1284,7 @@ $samplePassenger = [
                             <select id="scanScheduleId" class="schedule-select">
                                 <?php foreach ($schedules as $schedule): ?>
                                     <option value="<?php echo (int) $schedule['id']; ?>" <?php echo (int) $schedule['id'] === $defaultScheduleId ? 'selected' : ''; ?>>
-                                        <?php echo htmlspecialchars($schedule['source'] . ' ? ' . $schedule['destination'] . ' • ' . date('M d, H:i', strtotime($schedule['departure_time']))); ?>
+                                        <?php echo htmlspecialchars($schedule['source'] . ' ? ' . $schedule['destination'] . ' ï¿½ ' . date('M d, H:i', strtotime($schedule['departure_time']))); ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
@@ -1335,18 +1335,18 @@ $samplePassenger = [
                 <div class="schedule-card">
                     <div class="schedule-header">
                         <div class="schedule-route">
-                            <span><?php echo htmlspecialchars($schedule['source']); ?></span>
+                            <span><?php echo htmlspecialchars($schedule['source']); ?>&#8594;<\/span>
                             <span class="route-separator">?</span>
-                            <span><?php echo htmlspecialchars($schedule['destination']); ?></span>
+                            <span><?php echo htmlspecialchars($schedule['destination']); ?>&#8594;<\/span>
                         </div>
                         <div class="schedule-info">
                             <div class="info-item">
                                 <span class="info-label">Bus</span>
-                                <span class="info-value"><?php echo htmlspecialchars($schedule['bus_name']); ?></span>
+                                <span class="info-value"><?php echo htmlspecialchars($schedule['bus_name']); ?>&#8594;<\/span>
                             </div>
                             <div class="info-item">
                                 <span class="info-label">Departure</span>
-                                <span class="info-value"><?php echo date('M d, H:i', strtotime($schedule['departure_time'])); ?></span>
+                                <span class="info-value"><?php echo date('M d, H:i', strtotime($schedule['departure_time'])); ?>&#8594;<\/span>
                             </div>
                         </div>
                         <span class="status-badge status-<?php echo $tripStatus; ?>">
@@ -1429,7 +1429,7 @@ $samplePassenger = [
                                 </table>
                             <?php else: ?>
                                 <div class="empty-state">
-                                    <div class="empty-state-icon">•</div>
+                                    <div class="empty-state-icon">ï¿½</div>
                                     <h3>No Pending Payments</h3>
                                     <p>All current passengers are cleared, or new arrivals have not been scanned yet.</p>
                                 </div>
@@ -1477,7 +1477,7 @@ $samplePassenger = [
                                 </table>
                             <?php else: ?>
                                 <div class="empty-state">
-                                    <div class="empty-state-icon">•</div>
+                                    <div class="empty-state-icon">ï¿½</div>
                                     <h3>No Passengers Ready</h3>
                                     <p>Approve payments first to move passengers into the boarding queue.</p>
                                 </div>
@@ -1510,7 +1510,7 @@ $samplePassenger = [
                                 </table>
                             <?php else: ?>
                                 <div class="empty-state">
-                                    <div class="empty-state-icon">•</div>
+                                    <div class="empty-state-icon">ï¿½</div>
                                     <h3>No Boarded Passengers Yet</h3>
                                     <p>Passengers marked as boarded will appear here once processing begins.</p>
                                 </div>
@@ -1671,7 +1671,7 @@ $samplePassenger = [
                 <div class="detail-table-grid">
                     <div class="detail-table-row">
                         <label>Status</label>
-                        <span><span class="status-inline ${statusMeta.className}">${statusMeta.label}</span></span>
+                        <span><span class="status-inline ${statusMeta.className}">${statusMeta.label}</span>&#8594;<\/span>
                     </div>
                     <div class="detail-table-row">
                         <label>Seat Count</label>
