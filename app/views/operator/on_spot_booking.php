@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once APP_ROOT . '/config/db.php';
 require_once APP_ROOT . '/app/core/Auth.php';
 require_once APP_ROOT . '/app/controllers/OperatorController.php';
@@ -202,7 +202,7 @@ $availablePassengers = OperatorController::getAvailablePassengers();
 </head>
 <body>
 <nav>
-    <h2><span style="font-size: 2.5rem; display: inline-block;">🚌</span> Book Smarter, Travel Better</h2>
+    <h2><span style="font-size: 2.5rem; display: inline-block;">??</span> Book Smarter, Travel Better</h2>
     <div>
         <a href="<?php echo BASE_URL; ?>operator/dashboard">Dashboard</a>
         <a href="<?php echo BASE_URL; ?>operator/add-schedule">Add Schedule</a>
@@ -214,15 +214,15 @@ $availablePassengers = OperatorController::getAvailablePassengers();
 
 <div class="dashboard">
     <div class="page-header">
-        <a href="javascript:history.back()" class="back-btn">← Back</a>
-        <h2>🎫 On-Spot Booking</h2>
+        <a href="javascript:history.back()" class="back-btn">? Back</a>
+        <h2>?? On-Spot Booking</h2>
         <p>Add passengers to this trip during the journey.</p>
     </div>
 
     <div class="booking-container">
         <div class="booking-info">
             <div class="booking-route">
-                <?php echo htmlspecialchars($schedule['source']); ?> → <?php echo htmlspecialchars($schedule['destination']); ?>
+                <?php echo htmlspecialchars($schedule['source']); ?> ? <?php echo htmlspecialchars($schedule['destination']); ?>
             </div>
             <div class="booking-details">
                 <div class="booking-detail">
@@ -274,7 +274,7 @@ $availablePassengers = OperatorController::getAvailablePassengers();
         </form>
 
         <div style="background: #f0f4f8; padding: 20px; border-radius: 8px; margin-top: 30px; border-left: 4px solid #0072ff;">
-            <h3>ℹ️ On-Spot Booking Info</h3>
+            <h3>?? On-Spot Booking Info</h3>
             <ul style="margin: 10px 0; padding-left: 20px; color: #666;">
                 <li>Select a verified passenger from the list</li>
                 <li>Enter the number of seats to add</li>
@@ -286,5 +286,6 @@ $availablePassengers = OperatorController::getAvailablePassengers();
     </div>
 </div>
 
+<script src="<?php echo BASE_URL; ?>assets/js/script.js"></script>
 </body>
 </html>

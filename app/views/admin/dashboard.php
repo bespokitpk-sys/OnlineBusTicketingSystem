@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if (session_status() === PHP_SESSION_NONE) session_start();
 require_once APP_ROOT . '/config/db.php';
 require_once APP_ROOT . '/app/core/Auth.php';
@@ -284,7 +284,7 @@ $stats = AdminController::getDashboardStats();
 <body>
 
 <nav>
-    <h2><span style="font-size: 2rem; margin-right: 10px;">🚌</span>Book Smarter, Travel Better</h2>
+    <h2><span style="font-size: 2rem; margin-right: 10px;">??</span>Book Smarter, Travel Better</h2>
     <div>
         <a href="<?php echo BASE_URL; ?>">Home</a>
         <a href="<?php echo BASE_URL; ?>admin/buses">Buses</a>
@@ -297,45 +297,45 @@ $stats = AdminController::getDashboardStats();
 <div class="dashboard">
     <!-- Header -->
     <div class="header-section">
-        <div class="welcome-user">👋 Welcome, <?php echo htmlspecialchars($user['name']); ?> (Admin)</div>
-        <h1>📊 Admin Dashboard</h1>
+        <div class="welcome-user">?? Welcome, <?php echo htmlspecialchars($user['name']); ?> (Admin)</div>
+        <h1>?? Admin Dashboard</h1>
         <p>Manage buses, operators, passengers, and view system statistics.</p>
     </div>
     
     <!-- Statistics -->
     <div class="stats-grid">
         <div class="stat-card buses">
-            <div class="stat-icon">🚐</div>
+            <div class="stat-icon">??</div>
             <div class="stat-label">Total Buses</div>
             <div class="stat-value"><?php echo $stats['total_buses']; ?></div>
         </div>
         
         <div class="stat-card operators">
-            <div class="stat-icon">👨‍✈️</div>
+            <div class="stat-icon">?????</div>
             <div class="stat-label">Operators</div>
             <div class="stat-value"><?php echo $stats['total_operators']; ?></div>
         </div>
         
         <div class="stat-card passengers">
-            <div class="stat-icon">👥</div>
+            <div class="stat-icon">??</div>
             <div class="stat-label">Passengers</div>
             <div class="stat-value"><?php echo $stats['total_passengers']; ?></div>
         </div>
         
         <div class="stat-card schedules">
-            <div class="stat-icon">📅</div>
+            <div class="stat-icon">??</div>
             <div class="stat-label">Schedules</div>
             <div class="stat-value"><?php echo $stats['total_schedules']; ?></div>
         </div>
         
         <div class="stat-card tickets">
-            <div class="stat-icon">🎫</div>
+            <div class="stat-icon">??</div>
             <div class="stat-label">Total Tickets</div>
             <div class="stat-value"><?php echo $stats['total_tickets']; ?></div>
         </div>
         
         <div class="stat-card bookings">
-            <div class="stat-icon">✅</div>
+            <div class="stat-icon">?</div>
             <div class="stat-label">Active Bookings</div>
             <div class="stat-value"><?php echo $stats['active_bookings']; ?></div>
         </div>
@@ -346,7 +346,7 @@ $stats = AdminController::getDashboardStats();
         <!-- Bus Management -->
         <div class="admin-card">
             <div class="card-header">
-                <div class="card-icon">🚐</div>
+                <div class="card-icon">??</div>
                 <div class="card-title">
                     <h3>Bus Management</h3>
                     <p>Add & manage bus fleet</p>
@@ -364,7 +364,7 @@ $stats = AdminController::getDashboardStats();
         <!-- Operator Management -->
         <div class="admin-card">
             <div class="card-header">
-                <div class="card-icon">👨‍✈️</div>
+                <div class="card-icon">?????</div>
                 <div class="card-title">
                     <h3>Operator Management</h3>
                     <p>Create & manage operators</p>
@@ -382,7 +382,7 @@ $stats = AdminController::getDashboardStats();
         <!-- User Management -->
         <div class="admin-card">
             <div class="card-header">
-                <div class="card-icon">👥</div>
+                <div class="card-icon">??</div>
                 <div class="card-title">
                     <h3>User Management</h3>
                     <p>Manage all system users</p>
@@ -399,7 +399,7 @@ $stats = AdminController::getDashboardStats();
         <!-- Schedule Management -->
         <div class="admin-card">
             <div class="card-header">
-                <div class="card-icon">📅</div>
+                <div class="card-icon">??</div>
                 <div class="card-title">
                     <h3>Schedule Management</h3>
                     <p>Manage trip schedules</p>
@@ -416,7 +416,7 @@ $stats = AdminController::getDashboardStats();
         <!-- Ticket Management -->
         <div class="admin-card">
             <div class="card-header">
-                <div class="card-icon">🎫</div>
+                <div class="card-icon">??</div>
                 <div class="card-title">
                     <h3>Ticket Management</h3>
                     <p>Manage bookings & tickets</p>
@@ -433,7 +433,7 @@ $stats = AdminController::getDashboardStats();
         <!-- Reports & Analytics -->
         <div class="admin-card">
             <div class="card-header">
-                <div class="card-icon">📊</div>
+                <div class="card-icon">??</div>
                 <div class="card-title">
                     <h3>Reports & Analytics</h3>
                     <p>View system reports</p>
@@ -450,20 +450,20 @@ $stats = AdminController::getDashboardStats();
     
     <!-- Quick Actions -->
     <div class="quick-actions">
-        <h3>⚡ Quick Actions & Features</h3>
+        <h3>? Quick Actions & Features</h3>
         <ul>
-            <li>✅ <strong>Add Buses:</strong> Quickly add new buses with capacity and type information</li>
-            <li>✅ <strong>Create Operators:</strong> Generate operator accounts directly without registration process</li>
-            <li>✅ <strong>View Analytics:</strong> Track revenue, bookings, and system performance in real-time</li>
-            <li>✅ <strong>Manage Users:</strong> Verify accounts, manage permissions, and handle user issues</li>
-            <li>✅ <strong>Monitor Schedules:</strong> Oversee all operator-created schedules and trip timings</li>
-            <li>✅ <strong>Handle Tickets:</strong> Process cancellations and manage booking issues</li>
+            <li>? <strong>Add Buses:</strong> Quickly add new buses with capacity and type information</li>
+            <li>? <strong>Create Operators:</strong> Generate operator accounts directly without registration process</li>
+            <li>? <strong>View Analytics:</strong> Track revenue, bookings, and system performance in real-time</li>
+            <li>? <strong>Manage Users:</strong> Verify accounts, manage permissions, and handle user issues</li>
+            <li>? <strong>Monitor Schedules:</strong> Oversee all operator-created schedules and trip timings</li>
+            <li>? <strong>Handle Tickets:</strong> Process cancellations and manage booking issues</li>
         </ul>
     </div>
 
     <!-- All Available Schedules Section -->
     <div style="margin-top: 50px; padding: 30px; background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);">
-        <h3 style="font-size: 1.5rem; color: #0f1c33; margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">📅 All Scheduled Trips</h3>
+        <h3 style="font-size: 1.5rem; color: #0f1c33; margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">?? All Scheduled Trips</h3>
         <p style="color: #666; margin-bottom: 20px;">View all upcoming bus schedules in the system.</p>
         
         <?php 
@@ -483,21 +483,21 @@ $stats = AdminController::getDashboardStats();
                 <?php while ($schedule = $all_schedules_result->fetch_assoc()): ?>
                     <div style="background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); border-radius: 10px; padding: 20px; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08); transition: all 0.3s ease; border-left: 5px solid #0072ff; position: relative;" onmouseover="this.style.boxShadow='0 4px 20px rgba(0, 0, 0, 0.15)'; this.style.transform='translateY(-3px)';" onmouseout="this.style.boxShadow='0 2px 12px rgba(0, 0, 0, 0.08)'; this.style.transform='translateY(0)';">
                         <!-- Bus Name -->
-                        <h4 style="color: #0f1c33; font-size: 1.15rem; margin-bottom: 8px; font-weight: 700;">🚌 <?php echo htmlspecialchars($schedule['bus_name']); ?></h4>
+                        <h4 style="color: #0f1c33; font-size: 1.15rem; margin-bottom: 8px; font-weight: 700;">?? <?php echo htmlspecialchars($schedule['bus_name']); ?></h4>
                         
                         <!-- Route -->
                         <div style="color: #0f1c33; font-weight: 600; font-size: 1rem; margin-bottom: 12px; padding: 10px; background: #e3f2fd; border-radius: 6px; border-left: 3px solid #0072ff;">
-                            📍 <strong><?php echo htmlspecialchars($schedule['source']); ?></strong> → <strong><?php echo htmlspecialchars($schedule['destination']); ?></strong>
+                            ?? <strong><?php echo htmlspecialchars($schedule['source']); ?></strong> ? <strong><?php echo htmlspecialchars($schedule['destination']); ?></strong>
                         </div>
                         
                         <!-- Schedule Details -->
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
                             <div>
-                                <p style="color: #999; font-size: 0.85rem; margin-bottom: 2px;"><strong>📅 Date</strong></p>
+                                <p style="color: #999; font-size: 0.85rem; margin-bottom: 2px;"><strong>?? Date</strong></p>
                                 <p style="color: #0f1c33; font-weight: 600; font-size: 0.95rem;"><?php echo date('M d, Y', strtotime($schedule['departure_time'])); ?></p>
                             </div>
                             <div>
-                                <p style="color: #999; font-size: 0.85rem; margin-bottom: 2px;"><strong>🕐 Time</strong></p>
+                                <p style="color: #999; font-size: 0.85rem; margin-bottom: 2px;"><strong>?? Time</strong></p>
                                 <p style="color: #0f1c33; font-weight: 600; font-size: 0.95rem;"><?php echo date('H:i', strtotime($schedule['departure_time'])); ?></p>
                             </div>
                         </div>
@@ -505,11 +505,11 @@ $stats = AdminController::getDashboardStats();
                         <!-- Seats & Operator -->
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
                             <div>
-                                <p style="color: #999; font-size: 0.85rem; margin-bottom: 2px;"><strong>💺 Seats</strong></p>
+                                <p style="color: #999; font-size: 0.85rem; margin-bottom: 2px;"><strong>?? Seats</strong></p>
                                 <p style="color: #0f1c33; font-weight: 600; font-size: 0.95rem;"><?php echo intval($schedule['total_seats']); ?> Available</p>
                             </div>
                             <div>
-                                <p style="color: #999; font-size: 0.85rem; margin-bottom: 2px;"><strong>👤 Operator</strong></p>
+                                <p style="color: #999; font-size: 0.85rem; margin-bottom: 2px;"><strong>?? Operator</strong></p>
                                 <p style="color: #0f1c33; font-weight: 600; font-size: 0.95rem;"><?php echo htmlspecialchars($schedule['operator_name'] ?? 'Unassigned'); ?></p>
                             </div>
                         </div>
@@ -527,5 +527,6 @@ $stats = AdminController::getDashboardStats();
     </div>
 </div>
 
+<script src="<?php echo BASE_URL; ?>assets/js/script.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once APP_ROOT . '/config/db.php';
 require_once APP_ROOT . '/app/core/Auth.php';
 require_once APP_ROOT . '/app/controllers/AdminController.php';
@@ -313,7 +313,7 @@ if ($filter) {
 <div id="toastContainer" class="toast-container"></div>
 
 <nav>
-    <h2><span style="font-size: 2rem; margin-right: 10px;">🚌</span>Book Smarter, Travel Better</h2>
+    <h2><span style="font-size: 2rem; margin-right: 10px;">??</span>Book Smarter, Travel Better</h2>
     <div>
         <a href="<?php echo BASE_URL; ?>admin/dashboard">Dashboard</a>
         <a href="<?php echo BASE_URL; ?>admin/buses">Buses</a>
@@ -324,10 +324,10 @@ if ($filter) {
 
 <div class="container">
     <div style="margin-bottom: 20px;">
-        <a href="javascript:history.back()" style="display: inline-block; padding: 10px 20px; background: #0072ff; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.background='#0056cc'" onmouseout="this.style.background='#0072ff'">← Back</a>
+        <a href="javascript:history.back()" style="display: inline-block; padding: 10px 20px; background: #0072ff; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.background='#0056cc'" onmouseout="this.style.background='#0072ff'">? Back</a>
     </div>
     <div class="header">
-        <h1>🎫 Manage Tickets</h1>
+        <h1>?? Manage Tickets</h1>
         <p>View and manage all ticket bookings in the system</p>
     </div>
     
@@ -364,7 +364,7 @@ if ($filter) {
                                 <small><?php echo htmlspecialchars($ticket['passenger_email'] ?? ''); ?></small>
                             </td>
                             <td><?php echo htmlspecialchars($ticket['bus_name'] ?? 'N/A'); ?></td>
-                            <td><?php echo htmlspecialchars($ticket['source'] ?? 'N/A'); ?> → <?php echo htmlspecialchars($ticket['destination'] ?? 'N/A'); ?></td>
+                            <td><?php echo htmlspecialchars($ticket['source'] ?? 'N/A'); ?> ? <?php echo htmlspecialchars($ticket['destination'] ?? 'N/A'); ?></td>
                             <td><?php echo intval($ticket['seats']); ?></td>
                             <td><?php echo $ticket['departure_time'] ? date('M d, h:i A', strtotime($ticket['departure_time'])) : 'N/A'; ?></td>
                             <td>
@@ -390,7 +390,7 @@ if ($filter) {
             </table>
         <?php else: ?>
             <div class="no-data">
-                <p>📭 No tickets found</p>
+                <p>?? No tickets found</p>
             </div>
         <?php endif; ?>
     </div>
@@ -403,14 +403,14 @@ if ($filter) {
         const toast = document.createElement('div');
         toast.className = `toast ${type}`;
         
-        let icon = 'ℹ️';
-        if (type === 'success') icon = '✓';
-        if (type === 'error') icon = '✕';
+        let icon = '??';
+        if (type === 'success') icon = '?';
+        if (type === 'error') icon = '?';
         
         toast.innerHTML = `
             <div class="toast-icon">${icon}</div>
             <div class="toast-message">${message}</div>
-            <button class="toast-close" onclick="this.parentElement.classList.add('hide'); setTimeout(() => this.parentElement.remove(), 300);">×</button>
+            <button class="toast-close" onclick="this.parentElement.classList.add('hide'); setTimeout(() => this.parentElement.remove(), 300);">�</button>
         `;
         
         toastContainer.appendChild(toast);
@@ -451,5 +451,6 @@ if ($filter) {
     }
 </script>
 
+<script src="<?php echo BASE_URL; ?>assets/js/script.js"></script>
 </body>
 </html>

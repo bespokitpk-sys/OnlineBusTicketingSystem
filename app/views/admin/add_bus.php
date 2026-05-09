@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once APP_ROOT . '/config/db.php';
 require_once APP_ROOT . '/app/core/Auth.php';
 require_once APP_ROOT . '/app/controllers/AdminController.php';
@@ -187,7 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add'])) {
 </head>
 <body>
 <nav>
-    <h2><span style="font-size: 2.5rem; display: inline-block;">🚌</span> Book Smarter, Travel Better</h2>
+    <h2><span style="font-size: 2.5rem; display: inline-block;">??</span> Book Smarter, Travel Better</h2>
     <div>
         <a href="<?php echo BASE_URL; ?>admin/dashboard">Dashboard</a>
         <a href="<?php echo BASE_URL; ?>admin/buses">Manage Buses</a>
@@ -198,11 +198,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add'])) {
 </nav>
 
 <div style="max-width: 600px; margin: 20px auto 0; padding: 0 20px;">
-    <a href="javascript:history.back()" style="display: inline-block; padding: 10px 20px; background: #0072ff; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.background='#0056cc'" onmouseout="this.style.background='#0072ff'">← Back</a>
+    <a href="javascript:history.back()" style="display: inline-block; padding: 10px 20px; background: #0072ff; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.background='#0056cc'" onmouseout="this.style.background='#0072ff'">? Back</a>
 </div>
 
 <div class="form-container">
-    <h2>➕ Add New Bus</h2>
+    <h2>? Add New Bus</h2>
     
     <?php if ($message): ?>
         <div class="<?php echo $messageType === 'success' ? 'success-message' : 'error-message'; ?>">
@@ -228,5 +228,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add'])) {
     </form>
 </div>
 
+<script src="<?php echo BASE_URL; ?>assets/js/script.js"></script>
 </body>
 </html>

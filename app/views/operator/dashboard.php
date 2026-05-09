@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once APP_ROOT . '/config/db.php';
 require_once APP_ROOT . '/app/core/Auth.php';
 require_once APP_ROOT . '/app/controllers/OperatorController.php';
@@ -1216,7 +1216,7 @@ $samplePassenger = [
 </head>
 <body>
 <nav>
-    <h2><span style="font-size: 2.5rem; display: inline-block;">🚌</span> Book Smarter, Travel Better</h2>
+    <h2><span style="font-size: 2.5rem; display: inline-block;">??</span> Book Smarter, Travel Better</h2>
     <div>
         <a href="<?php echo BASE_URL; ?>operator/dashboard">Dashboard</a>
         <a href="<?php echo BASE_URL; ?>operator/add-schedule">Add Schedule</a>
@@ -1227,7 +1227,7 @@ $samplePassenger = [
 </nav>
 
 <div class="dashboard">
-    <a href="javascript:history.back()" class="back-btn">← Back</a>
+    <a href="javascript:history.back()" class="back-btn">? Back</a>
 
     <div class="workflow-guide">
         Daily workflow: review assigned trips, clear pending payments, then move passengers through boarding in sequence.
@@ -1284,7 +1284,7 @@ $samplePassenger = [
                             <select id="scanScheduleId" class="schedule-select">
                                 <?php foreach ($schedules as $schedule): ?>
                                     <option value="<?php echo (int) $schedule['id']; ?>" <?php echo (int) $schedule['id'] === $defaultScheduleId ? 'selected' : ''; ?>>
-                                        <?php echo htmlspecialchars($schedule['source'] . ' → ' . $schedule['destination'] . ' • ' . date('M d, H:i', strtotime($schedule['departure_time']))); ?>
+                                        <?php echo htmlspecialchars($schedule['source'] . ' ? ' . $schedule['destination'] . ' � ' . date('M d, H:i', strtotime($schedule['departure_time']))); ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
@@ -1336,7 +1336,7 @@ $samplePassenger = [
                     <div class="schedule-header">
                         <div class="schedule-route">
                             <span><?php echo htmlspecialchars($schedule['source']); ?></span>
-                            <span class="route-separator">→</span>
+                            <span class="route-separator">?</span>
                             <span><?php echo htmlspecialchars($schedule['destination']); ?></span>
                         </div>
                         <div class="schedule-info">
@@ -1429,7 +1429,7 @@ $samplePassenger = [
                                 </table>
                             <?php else: ?>
                                 <div class="empty-state">
-                                    <div class="empty-state-icon">•</div>
+                                    <div class="empty-state-icon">�</div>
                                     <h3>No Pending Payments</h3>
                                     <p>All current passengers are cleared, or new arrivals have not been scanned yet.</p>
                                 </div>
@@ -1477,7 +1477,7 @@ $samplePassenger = [
                                 </table>
                             <?php else: ?>
                                 <div class="empty-state">
-                                    <div class="empty-state-icon">•</div>
+                                    <div class="empty-state-icon">�</div>
                                     <h3>No Passengers Ready</h3>
                                     <p>Approve payments first to move passengers into the boarding queue.</p>
                                 </div>
@@ -1510,7 +1510,7 @@ $samplePassenger = [
                                 </table>
                             <?php else: ?>
                                 <div class="empty-state">
-                                    <div class="empty-state-icon">•</div>
+                                    <div class="empty-state-icon">�</div>
                                     <h3>No Boarded Passengers Yet</h3>
                                     <p>Passengers marked as boarded will appear here once processing begins.</p>
                                 </div>
@@ -1635,7 +1635,7 @@ $samplePassenger = [
 
         const sample = Boolean(options.sample);
         const statusMeta = getStatusMeta(passenger.status);
-        const routeText = escapeHtml((passenger.source || 'N/A') + ' → ' + (passenger.destination || 'N/A'));
+        const routeText = escapeHtml((passenger.source || 'N/A') + ' ? ' + (passenger.destination || 'N/A'));
         const ticketCode = escapeHtml(passenger.ticket_code || ('TICKET-' + passenger.ticket_id));
         const operatorNote = sample
             ? 'This is a sample scanned passenger card used to test the layout before live boarding begins.'
@@ -1892,5 +1892,6 @@ $samplePassenger = [
 </script>
 <?php endif; ?>
 
+<script src="<?php echo BASE_URL; ?>assets/js/script.js"></script>
 </body>
 </html>

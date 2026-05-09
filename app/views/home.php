@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once APP_ROOT . '/app/core/Auth.php';
 
 $user    = currentUser();
@@ -43,7 +43,7 @@ if (($user['role'] ?? '') === 'admin') {
             line-height: 1.6;
         }
 
-        /* ── Navbar ────────────────────────────────────────── */
+        /* -- Navbar ------------------------------------------ */
         .navbar {
             position: sticky;
             top: 0;
@@ -108,10 +108,10 @@ if (($user['role'] ?? '') === 'admin') {
 
         .btn-lg { padding: 13px 28px; font-size: 0.97rem; border-radius: 8px; }
 
-        /* ── Layout ────────────────────────────────────────── */
+        /* -- Layout ------------------------------------------ */
         .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-        /* ── Hero ──────────────────────────────────────────── */
+        /* -- Hero -------------------------------------------- */
         .hero-wrapper {
             background: linear-gradient(160deg, #eef4ff 0%, #f8faff 55%, #f0f7ff 100%);
             border-bottom: 1px solid #dde8fb;
@@ -186,7 +186,7 @@ if (($user['role'] ?? '') === 'admin') {
             flex-wrap: wrap;
         }
 
-        /* ── Stats bar ─────────────────────────────────────── */
+        /* -- Stats bar --------------------------------------- */
         .stats-wrapper {
             background: var(--white);
             border-bottom: 1px solid var(--border);
@@ -223,7 +223,7 @@ if (($user['role'] ?? '') === 'admin') {
             font-weight: 500;
         }
 
-        /* ── Section headings ──────────────────────────────── */
+        /* -- Section headings -------------------------------- */
         .section { padding: 64px 0; }
 
         .section-label {
@@ -250,7 +250,7 @@ if (($user['role'] ?? '') === 'admin') {
 
         .section-head { margin-bottom: 40px; }
 
-        /* ── Steps ─────────────────────────────────────────── */
+        /* -- Steps ------------------------------------------- */
         .steps-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -288,7 +288,7 @@ if (($user['role'] ?? '') === 'admin') {
         .step-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
         .step-card p  { color: var(--muted); font-size: 0.92rem; }
 
-        /* ── Features ──────────────────────────────────────── */
+        /* -- Features ---------------------------------------- */
         .features-section {
             background: linear-gradient(180deg, var(--white) 0%, #f0f7ff 100%);
             border-top: 1px solid var(--border);
@@ -332,7 +332,7 @@ if (($user['role'] ?? '') === 'admin') {
         .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
         .feature-card p  { color: var(--muted); font-size: 0.9rem; line-height: 1.65; }
 
-        /* ── CTA banner ────────────────────────────────────── */
+        /* -- CTA banner -------------------------------------- */
         .cta-banner {
             background: linear-gradient(135deg, #1a56db 0%, #2563eb 50%, #3b82f6 100%);
             border-radius: 16px;
@@ -371,7 +371,7 @@ if (($user['role'] ?? '') === 'admin') {
         }
         .btn-outline-white:hover { background: rgba(255,255,255,.1); }
 
-        /* ── Footer ────────────────────────────────────────── */
+        /* -- Footer ------------------------------------------ */
         .footer {
             background: #f1f5fd;
             border-top: 1px solid #d8e4f8;
@@ -429,10 +429,10 @@ if (($user['role'] ?? '') === 'admin') {
             flex-wrap: wrap;
         }
 
-        /* ── Divider ───────────────────────────────────────── */
+        /* -- Divider ----------------------------------------- */
         .divider { border: none; border-top: 1px solid var(--border); }
 
-        /* ── Responsive ────────────────────────────────────── */
+        /* -- Responsive -------------------------------------- */
         @media (max-width: 900px) {
             .navbar-links { display: none; }
             .stats-bar { grid-template-columns: repeat(2, 1fr); }
@@ -454,10 +454,10 @@ if (($user['role'] ?? '') === 'admin') {
 </head>
 <body>
 
-<!-- ── Navbar ─────────────────────────────────────────────── -->
+<!-- -- Navbar ----------------------------------------------- -->
 <nav class="navbar">
     <a class="navbar-brand" href="<?php echo BASE_URL; ?>">
-        <span class="bus-icon">🚌</span> Book Smarter, Travel Better
+        <span class="bus-icon">??</span> Book Smarter, Travel Better
     </a>
 
     <div class="navbar-links">
@@ -478,13 +478,13 @@ if (($user['role'] ?? '') === 'admin') {
     </div>
 </nav>
 
-<!-- ── Hero ───────────────────────────────────────────────── -->
+<!-- -- Hero ------------------------------------------------- -->
 <div class="hero-wrapper">
     <div class="container">
         <section class="hero">
-            <div class="hero-badge">🇵🇰 Pakistan's Online Bus Ticketing</div>
+            <div class="hero-badge">???? Pakistan's Online Bus Ticketing</div>
             <h1>Book bus tickets from anywhere, <span>anytime</span></h1>
-            <p>Search available routes, reserve your seat, and get your ticket instantly — all without visiting the bus stand.</p>
+            <p>Search available routes, reserve your seat, and get your ticket instantly � all without visiting the bus stand.</p>
             <div class="hero-cta">
                 <a class="btn btn-primary btn-lg" href="<?php echo BASE_URL; ?>search">Search Routes</a>
                 <?php if ($loggedIn): ?>
@@ -511,7 +511,7 @@ if (($user['role'] ?? '') === 'admin') {
 
 <hr class="divider">
 
-<!-- ── How It Works ───────────────────────────────────────── -->
+<!-- -- How It Works ----------------------------------------- -->
 <div class="container">
     <section id="how-it-works" class="section">
         <div class="section-head">
@@ -534,7 +534,7 @@ if (($user['role'] ?? '') === 'admin') {
             <div class="step-card">
                 <div class="step-num">03</div>
                 <h3>Get your ticket</h3>
-                <p>Download or print your ticket with a unique QR code. Show it at boarding — no paper needed.</p>
+                <p>Download or print your ticket with a unique QR code. Show it at boarding � no paper needed.</p>
             </div>
         </div>
     </section>
@@ -542,40 +542,40 @@ if (($user['role'] ?? '') === 'admin') {
 
 <hr class="divider">
 
-<!-- ── Features ───────────────────────────────────────────── -->
+<!-- -- Features --------------------------------------------- -->
 <div class="features-section">
     <div class="container">
         <section id="features" class="section">
         <div class="section-head">
             <p class="section-label">Why Choose Us</p>
             <h2 class="section-title">Everything you need for your journey</h2>
-            <p class="section-desc">Built for everyday travellers in Pakistan — fast, simple, and reliable.</p>
+            <p class="section-desc">Built for everyday travellers in Pakistan � fast, simple, and reliable.</p>
         </div>
 
         <div class="features-grid">
             <div class="feature-card">
-                <div class="feature-icon">🔍</div>
+                <div class="feature-icon">??</div>
                 <div>
                     <h3>Real-time availability</h3>
                     <p>See which buses have seats available right now. Schedules are updated by operators in real time.</p>
                 </div>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">🎫</div>
+                <div class="feature-icon">??</div>
                 <div>
                     <h3>Digital tickets with QR codes</h3>
                     <p>Your ticket is stored in your account. Download it or show directly from your phone at the bus stand.</p>
                 </div>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">📋</div>
+                <div class="feature-icon">??</div>
                 <div>
                     <h3>Manage all your bookings</h3>
                     <p>View past and upcoming trips from your passenger dashboard. Everything in one place.</p>
                 </div>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">🔐</div>
+                <div class="feature-icon">??</div>
                 <div>
                     <h3>Secure account with OTP</h3>
                     <p>Your account is protected with OTP email verification. Password reset is quick if you ever get locked out.</p>
@@ -586,7 +586,7 @@ if (($user['role'] ?? '') === 'admin') {
     </div>
 </div>
 
-<!-- ── CTA Banner ─────────────────────────────────────────── -->
+<!-- -- CTA Banner ------------------------------------------- -->
 <div class="container">
     <div class="cta-banner">
         <h2>Ready to travel smarter?</h2>
@@ -603,12 +603,12 @@ if (($user['role'] ?? '') === 'admin') {
     </div>
 </div>
 
-<!-- ── Footer ─────────────────────────────────────────────── -->
+<!-- -- Footer ----------------------------------------------- -->
 <footer id="contact" class="footer">
     <div class="container">
         <div class="footer-grid">
             <div class="footer-brand">
-                <div class="footer-brand-name"><span>🚌</span> Book Smarter, Travel Better</div>
+                <div class="footer-brand-name"><span>??</span> Book Smarter, Travel Better</div>
                 <p>Online bus ticketing for Pakistan. Search routes, book seats, and travel without the queue.</p>
             </div>
 
@@ -628,19 +628,20 @@ if (($user['role'] ?? '') === 'admin') {
 
             <div class="footer-col">
                 <strong>Contact Us</strong>
-                <p>📧 support@busticketing.pk</p>
-                <p>📞 +92 300 0000000</p>
-                <p>🕘 Mon–Sat, 9 AM – 8 PM</p>
+                <p>?? support@busticketing.pk</p>
+                <p>?? +92 300 0000000</p>
+                <p>?? Mon�Sat, 9 AM � 8 PM</p>
             </div>
         </div>
 
         <div class="footer-bottom">
-            <span>© <?php echo date('Y'); ?> Bus Ticketing System. All rights reserved.</span>
-            <span>Made for Pakistani travellers 🇵🇰</span>
+            <span>� <?php echo date('Y'); ?> Bus Ticketing System. All rights reserved.</span>
+            <span>Made for Pakistani travellers ????</span>
         </div>
     </div>
 </footer>
 
+<script src="<?php echo BASE_URL; ?>assets/js/script.js"></script>
 </body>
 
 </html>

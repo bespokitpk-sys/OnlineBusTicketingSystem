@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once APP_ROOT . '/config/db.php';
 require_once APP_ROOT . '/app/core/Auth.php';
 require_once APP_ROOT . '/app/controllers/OperatorController.php';
@@ -258,7 +258,7 @@ $result = $conn->query("SELECT schedules.*, buses.bus_name FROM schedules JOIN b
 </head>
 <body>
 <nav>
-    <h2><span style="font-size: 2.5rem; display: inline-block;">🚌</span> Book Smarter, Travel Better</h2>
+    <h2><span style="font-size: 2.5rem; display: inline-block;">??</span> Book Smarter, Travel Better</h2>
     <div>
         <a href="<?php echo BASE_URL; ?>operator/dashboard">Dashboard</a>
         <a href="<?php echo BASE_URL; ?>operator/add-schedule">Add Schedule</a>
@@ -269,8 +269,8 @@ $result = $conn->query("SELECT schedules.*, buses.bus_name FROM schedules JOIN b
 </nav>
 <div class="dashboard">
     <div class="page-header">
-        <a href="javascript:history.back()" class="back-btn">← Back</a>
-        <h2>📅 Manage Schedules</h2>
+        <a href="javascript:history.back()" class="back-btn">? Back</a>
+        <h2>?? Manage Schedules</h2>
         <p>View and manage all your scheduled trips.</p>
     </div>
 
@@ -283,10 +283,10 @@ $result = $conn->query("SELECT schedules.*, buses.bus_name FROM schedules JOIN b
                 <div class="schedule-card">
                     <div class="schedule-header">
                         <div class="schedule-route">
-                            <?php echo htmlspecialchars($schedule['source']); ?> → <?php echo htmlspecialchars($schedule['destination']); ?>
+                            <?php echo htmlspecialchars($schedule['source']); ?> ? <?php echo htmlspecialchars($schedule['destination']); ?>
                         </div>
                         <div class="schedule-bus">
-                            🚌 <?php echo htmlspecialchars($schedule['bus_name']); ?>
+                            ?? <?php echo htmlspecialchars($schedule['bus_name']); ?>
                         </div>
                         <span class="trip-status-badge <?php echo $tripStatus; ?>">
                             <?php echo ucfirst($tripStatus); ?>
@@ -325,5 +325,6 @@ $result = $conn->query("SELECT schedules.*, buses.bus_name FROM schedules JOIN b
     <?php endif; ?>
 </div>
 
+<script src="<?php echo BASE_URL; ?>assets/js/script.js"></script>
 </body>
 </html>

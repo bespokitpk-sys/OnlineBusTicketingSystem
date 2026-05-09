@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once APP_ROOT . '/config/db.php';
 require_once APP_ROOT . '/app/core/Auth.php';
 require_once APP_ROOT . '/app/controllers/AdminController.php';
@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 <nav>
-    <h2><span style="font-size: 2.5rem; display: inline-block;">🚌</span> Book Smarter, Travel Better</h2>
+    <h2><span style="font-size: 2.5rem; display: inline-block;">??</span> Book Smarter, Travel Better</h2>
     <div>
         <a href="<?php echo BASE_URL; ?>admin/dashboard">Dashboard</a>
         <a href="<?php echo BASE_URL; ?>admin/buses">Manage Buses</a>
@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <section class="page-banner">
     <div style="margin-bottom: 20px; padding: 0 40px;">
-        <a href="javascript:history.back()" style="display: inline-block; padding: 10px 20px; background: white; color: #0072ff; border-radius: 6px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; border: 2px solid white;" onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='white'">← Back</a>
+        <a href="javascript:history.back()" style="display: inline-block; padding: 10px 20px; background: white; color: #0072ff; border-radius: 6px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; border: 2px solid white;" onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='white'">? Back</a>
     </div>
     <div class="page-banner-content">
         <h2>Create Operator Account</h2>
@@ -164,7 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
 
     <div style="margin-top: 30px; padding: 20px; background: #f0f4f8; border-radius: 8px; border-left: 4px solid #0072ff;">
-        <h3>📋 Operator Details</h3>
+        <h3>?? Operator Details</h3>
         <ul style="margin: 10px 0; padding-left: 20px;">
             <li>Operators are <strong>pre-verified</strong> and can log in immediately</li>
             <li>They can manage bus schedules and view trip details</li>
@@ -173,5 +173,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </div>
 
+<script src="<?php echo BASE_URL; ?>assets/js/script.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once APP_ROOT . '/config/db.php';
 require_once APP_ROOT . '/app/core/Auth.php';
 require_once APP_ROOT . '/app/models/Ticket.php';
@@ -425,7 +425,7 @@ $qr_url = "https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=" . url
 </head>
 <body>
 <nav>
-    <h2><span style="font-size: 2.5rem; display: inline-block;">🚌</span> Book Smarter, Travel Better</h2>
+    <h2><span style="font-size: 2.5rem; display: inline-block;">??</span> Book Smarter, Travel Better</h2>
     <div>
         <a href="<?php echo BASE_URL; ?>">Home</a>
         <a href="<?php echo BASE_URL; ?>search">Search</a>
@@ -436,10 +436,10 @@ $qr_url = "https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=" . url
     <div class="receipt-content">
         <!-- Left Side: Receipt Details -->
         <div class="receipt-details">
-            <h2>📋 Booking Receipt</h2>
+            <h2>?? Booking Receipt</h2>
             <p><strong>Ticket ID:</strong> <span><?php echo intval($ticket['id']); ?></span></p>
             <p><strong>Bus:</strong> <span><?php echo htmlspecialchars($ticket['bus_name']); ?></span></p>
-            <p><strong>Route:</strong> <span><?php echo htmlspecialchars($ticket['source']); ?> → <?php echo htmlspecialchars($ticket['destination']); ?></span></p>
+            <p><strong>Route:</strong> <span><?php echo htmlspecialchars($ticket['source']); ?> ? <?php echo htmlspecialchars($ticket['destination']); ?></span></p>
             <p><strong>Date:</strong> <span><?php echo date('Y-m-d H:i', strtotime($ticket['departure_time'])); ?></span></p>
             <p><strong>Seats:</strong> <span><?php echo intval($ticket['seats']); ?></span></p>
             <p><strong>Status:</strong> <span><?php echo htmlspecialchars(ucfirst($ticket['status'])); ?></span></p>
@@ -448,7 +448,7 @@ $qr_url = "https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=" . url
         
         <!-- Right Side: QR Code -->
         <div class="receipt-qr-section">
-            <div class="qr-label">🔲 Ticket QR Code</div>
+            <div class="qr-label">?? Ticket QR Code</div>
             <img src="<?php echo $qr_url; ?>" alt="Ticket QR Code" title="Show this QR code to operator for verification">
             <div class="qr-instruction">Show this QR code to the operator for payment confirmation.</div>
         </div>
@@ -457,15 +457,16 @@ $qr_url = "https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=" . url
     <!-- Action Buttons -->
     <div class="receipt-actions">
         <a href="<?php echo BASE_URL; ?>download-ticket?ticket_id=<?php echo $ticket['id']; ?>&format=pdf" class="pdf">
-            📥 Download PDF
+            ?? Download PDF
         </a>
         <a href="<?php echo BASE_URL; ?>download-ticket?ticket_id=<?php echo $ticket['id']; ?>&format=print" class="print">
-            🖨️ Print Ticket
+            ??? Print Ticket
         </a>
         <a href="<?php echo BASE_URL; ?>passenger/my-tickets" class="back">
-            ← Back to My Tickets
+            ? Back to My Tickets
         </a>
     </div>
 </div>
+<script src="<?php echo BASE_URL; ?>assets/js/script.js"></script>
 </body>
 </html>

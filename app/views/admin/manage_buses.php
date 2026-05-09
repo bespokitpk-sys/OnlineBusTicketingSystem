@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once APP_ROOT . '/config/db.php';
 require_once APP_ROOT . '/app/core/Auth.php';
 require_once APP_ROOT . '/app/controllers/AdminController.php';
@@ -225,7 +225,7 @@ $buses = AdminController::getAllBuses();
 </head>
 <body>
 <nav>
-    <h2><span style="font-size: 2.5rem; display: inline-block;">🚌</span> Book Smarter, Travel Better</h2>
+    <h2><span style="font-size: 2.5rem; display: inline-block;">??</span> Book Smarter, Travel Better</h2>
     <div>
         <a href="<?php echo BASE_URL; ?>admin/dashboard">Dashboard</a>
         <a href="<?php echo BASE_URL; ?>admin/add-bus">Add Bus</a>
@@ -237,12 +237,12 @@ $buses = AdminController::getAllBuses();
 
 <div class="container">
     <div style="margin-bottom: 20px;">
-        <a href="javascript:history.back()" style="display: inline-block; padding: 10px 20px; background: #0072ff; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.background='#0056cc'" onmouseout="this.style.background='#0072ff'">← Back</a>
+        <a href="javascript:history.back()" style="display: inline-block; padding: 10px 20px; background: #0072ff; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.background='#0056cc'" onmouseout="this.style.background='#0072ff'">? Back</a>
     </div>
     <div class="header">
-        <h1>🚐 Manage Buses</h1>
+        <h1>?? Manage Buses</h1>
         <p>View all buses in your fleet and manage bus information.</p>
-        <a href="<?php echo BASE_URL; ?>admin/add-bus" class="btn">➕ Add New Bus</a>
+        <a href="<?php echo BASE_URL; ?>admin/add-bus" class="btn">? Add New Bus</a>
     </div>
     
     <?php if (count($buses) > 0): ?>
@@ -267,8 +267,8 @@ $buses = AdminController::getAllBuses();
         </div>
     <?php else: ?>
         <div class="empty-state">
-            <p>📭 No buses added yet.</p>
-            <a href="<?php echo BASE_URL; ?>admin/add-bus" class="btn">➕ Add First Bus</a>
+            <p>?? No buses added yet.</p>
+            <a href="<?php echo BASE_URL; ?>admin/add-bus" class="btn">? Add First Bus</a>
         </div>
     <?php endif; ?>
 </div>
@@ -288,5 +288,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_bus_id'])) {
 }
 ?>
 
+<script src="<?php echo BASE_URL; ?>assets/js/script.js"></script>
 </body>
 </html>

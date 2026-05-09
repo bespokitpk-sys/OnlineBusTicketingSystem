@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once APP_ROOT . '/config/db.php';
 require_once APP_ROOT . '/app/core/Auth.php';
 require_once APP_ROOT . '/app/controllers/AdminController.php';
@@ -139,7 +139,7 @@ $schedules = AdminController::getAllSchedules();
 <body>
 
 <nav>
-    <h2><span style="font-size: 2rem; margin-right: 10px;">🚌</span>Book Smarter, Travel Better</h2>
+    <h2><span style="font-size: 2rem; margin-right: 10px;">??</span>Book Smarter, Travel Better</h2>
     <div>
         <a href="<?php echo BASE_URL; ?>admin/dashboard">Dashboard</a>
         <a href="<?php echo BASE_URL; ?>admin/buses">Buses</a>
@@ -150,10 +150,10 @@ $schedules = AdminController::getAllSchedules();
 
 <div class="container">
     <div style="margin-bottom: 20px;">
-        <a href="javascript:history.back()" style="display: inline-block; padding: 10px 20px; background: #0072ff; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.background='#0056cc'" onmouseout="this.style.background='#0072ff'">← Back</a>
+        <a href="javascript:history.back()" style="display: inline-block; padding: 10px 20px; background: #0072ff; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.background='#0056cc'" onmouseout="this.style.background='#0072ff'">? Back</a>
     </div>
     <div class="header">
-        <h1>📅 Manage Schedules</h1>
+        <h1>?? Manage Schedules</h1>
         <p>View all trip schedules created by operators</p>
     </div>
     
@@ -176,7 +176,7 @@ $schedules = AdminController::getAllSchedules();
                         <tr>
                             <td><strong>#<?php echo $schedule['id']; ?></strong></td>
                             <td><?php echo htmlspecialchars($schedule['bus_name'] ?? 'N/A'); ?></td>
-                            <td><?php echo htmlspecialchars($schedule['source'] ?? 'N/A'); ?> → <?php echo htmlspecialchars($schedule['destination'] ?? 'N/A'); ?></td>
+                            <td><?php echo htmlspecialchars($schedule['source'] ?? 'N/A'); ?> ? <?php echo htmlspecialchars($schedule['destination'] ?? 'N/A'); ?></td>
                             <td><?php echo htmlspecialchars($schedule['operator_name'] ?? 'N/A'); ?></td>
                             <td><?php echo date('M d, h:i A', strtotime($schedule['departure_time'])); ?></td>
                             <td><?php echo date('M d, Y', strtotime($schedule['created_at'])); ?></td>
@@ -192,7 +192,7 @@ $schedules = AdminController::getAllSchedules();
             </table>
         <?php else: ?>
             <div class="no-data">
-                <p>📭 No schedules found</p>
+                <p>?? No schedules found</p>
             </div>
         <?php endif; ?>
     </div>
@@ -213,5 +213,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_schedule_id'])
 }
 ?>
 
+<script src="<?php echo BASE_URL; ?>assets/js/script.js"></script>
 </body>
 </html>

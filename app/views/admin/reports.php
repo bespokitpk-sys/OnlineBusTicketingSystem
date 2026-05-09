@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if (session_status() === PHP_SESSION_NONE) session_start();
 require_once APP_ROOT . '/config/db.php';
 require_once APP_ROOT . '/app/core/Auth.php';
@@ -177,7 +177,7 @@ foreach ($revenueData as $data) {
 <body>
 
 <nav>
-    <h2><span style="font-size: 2rem; margin-right: 10px;">🚌</span>Book Smarter, Travel Better</h2>
+    <h2><span style="font-size: 2rem; margin-right: 10px;">??</span>Book Smarter, Travel Better</h2>
     <div>
         <a href="<?php echo BASE_URL; ?>admin/dashboard">Dashboard</a>
         <a href="<?php echo BASE_URL; ?>admin/buses">Buses</a>
@@ -188,10 +188,10 @@ foreach ($revenueData as $data) {
 
 <div class="container">
     <div style="margin-bottom: 20px;">
-        <a href="javascript:history.back()" style="display: inline-block; padding: 10px 20px; background: #0072ff; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.background='#0056cc'" onmouseout="this.style.background='#0072ff'">← Back</a>
+        <a href="javascript:history.back()" style="display: inline-block; padding: 10px 20px; background: #0072ff; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.background='#0056cc'" onmouseout="this.style.background='#0072ff'">? Back</a>
     </div>
     <div class="header">
-        <h1>📊 Reports & Analytics</h1>
+        <h1>?? Reports & Analytics</h1>
         <p>System statistics and revenue analytics</p>
     </div>
     
@@ -220,7 +220,7 @@ foreach ($revenueData as $data) {
     
     <!-- Revenue Report -->
     <div style="margin-bottom: 50px;">
-        <h2 class="section-title">💰 Revenue Report (Last 30 Days)</h2>
+        <h2 class="section-title">?? Revenue Report (Last 30 Days)</h2>
         <div class="table-container">
             <?php if (count($revenueData) > 0): ?>
                 <table>
@@ -243,7 +243,7 @@ foreach ($revenueData as $data) {
                 </table>
             <?php else: ?>
                 <div class="no-data">
-                    <p>📭 No revenue data available</p>
+                    <p>?? No revenue data available</p>
                 </div>
             <?php endif; ?>
         </div>
@@ -251,7 +251,7 @@ foreach ($revenueData as $data) {
     
     <!-- Cancelled Tickets -->
     <div>
-        <h2 class="section-title">❌ Recent Cancelled Tickets</h2>
+        <h2 class="section-title">? Recent Cancelled Tickets</h2>
         <div class="table-container">
             <?php if (count($cancelledTickets) > 0): ?>
                 <table>
@@ -276,12 +276,13 @@ foreach ($revenueData as $data) {
                 </table>
             <?php else: ?>
                 <div class="no-data">
-                    <p>✅ No cancelled tickets</p>
+                    <p>? No cancelled tickets</p>
                 </div>
             <?php endif; ?>
         </div>
     </div>
 </div>
 
+<script src="<?php echo BASE_URL; ?>assets/js/script.js"></script>
 </body>
 </html>

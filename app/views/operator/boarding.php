@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once APP_ROOT . '/config/db.php';
 require_once APP_ROOT . '/app/core/Auth.php';
 require_once APP_ROOT . '/app/controllers/OperatorController.php';
@@ -778,7 +778,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 <body>
 
 <nav>
-    <h2><span style="font-size: 2rem; margin-right: 10px;">🚌</span>Book Smarter, Travel Better</h2>
+    <h2><span style="font-size: 2rem; margin-right: 10px;">??</span>Book Smarter, Travel Better</h2>
     <div>
         <a href="<?php echo BASE_URL; ?>operator/dashboard">Dashboard</a>
         <a href="<?php echo BASE_URL; ?>operator/schedules">Schedules</a>
@@ -787,7 +787,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 </nav>
 
 <div class="container">
-    <a href="<?php echo BASE_URL; ?>operator/dashboard" class="back-btn">← Back to Dashboard</a>
+    <a href="<?php echo BASE_URL; ?>operator/dashboard" class="back-btn">? Back to Dashboard</a>
     
     <div class="page-header">
         <div class="page-header-copy">
@@ -806,7 +806,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             <option value="">-- Choose a schedule --</option>
             <?php foreach ($schedules as $sch): ?>
                 <option value="<?php echo $sch['id']; ?>" <?php echo ($selected_schedule_id == $sch['id']) ? 'selected' : ''; ?>>
-                    <?php echo htmlspecialchars($sch['source'] ?? 'N/A'); ?> → <?php echo htmlspecialchars($sch['destination'] ?? 'N/A'); ?>
+                    <?php echo htmlspecialchars($sch['source'] ?? 'N/A'); ?> ? <?php echo htmlspecialchars($sch['destination'] ?? 'N/A'); ?>
                     (<?php echo date('M d, h:i A', strtotime($sch['departure_time'])); ?>)
                 </option>
             <?php endforeach; ?>
@@ -817,7 +817,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         <div class="summary-strip">
             <div class="summary-card">
                 <div class="summary-label">Route</div>
-                <div class="summary-value"><?php echo htmlspecialchars($schedule_details['source'] ?? 'N/A'); ?> → <?php echo htmlspecialchars($schedule_details['destination'] ?? 'N/A'); ?></div>
+                <div class="summary-value"><?php echo htmlspecialchars($schedule_details['source'] ?? 'N/A'); ?> ? <?php echo htmlspecialchars($schedule_details['destination'] ?? 'N/A'); ?></div>
                 <div class="summary-subtext">Active trip currently selected for scanning and manual processing.</div>
             </div>
             <div class="summary-card">
@@ -1177,11 +1177,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             console.error('Camera error:', err);
             let errorMsg = 'Error accessing camera: ' + err.message;
             if (err.name === 'NotAllowedError') {
-                errorMsg = '❌ Camera permission denied.\n\nPlease:\n1. Go to your browser settings\n2. Allow camera access for this site\n3. Try again';
+                errorMsg = '? Camera permission denied.\n\nPlease:\n1. Go to your browser settings\n2. Allow camera access for this site\n3. Try again';
             } else if (err.name === 'NotFoundError') {
-                errorMsg = '❌ No camera found on this device.\n\nPlease check if your device has a camera or try a different browser.';
+                errorMsg = '? No camera found on this device.\n\nPlease check if your device has a camera or try a different browser.';
             } else if (err.name === 'NotReadableError') {
-                errorMsg = '❌ Camera is already in use by another app.\n\nPlease close other apps using the camera and try again.';
+                errorMsg = '? Camera is already in use by another app.\n\nPlease close other apps using the camera and try again.';
             }
             scannerActive = false;
             updateCameraButtons();
@@ -1292,7 +1292,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     
     function displayPassengerDetails(passenger, ticketId) {
         const statusMeta = getStatusMeta(passenger.status);
-        const routeText = escapeHtml((passenger.source || 'N/A') + ' → ' + (passenger.destination || 'N/A'));
+        const routeText = escapeHtml((passenger.source || 'N/A') + ' ? ' + (passenger.destination || 'N/A'));
         const html = `
             <div class="passenger-shell">
                 <div class="passenger-header">
@@ -1417,5 +1417,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     updateCameraButtons();
 </script>
 
+<script src="<?php echo BASE_URL; ?>assets/js/script.js"></script>
 </body>
 </html>
