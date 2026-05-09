@@ -280,7 +280,7 @@ $availablePassengers = OperatorController::getAvailablePassengers();
                 <li>Enter the number of seats to add</li>
                 <li>The booking will be created with <strong>"Boarded"</strong> status</li>
                 <li>Payment approval is skipped for on-spot bookings</li>
-                <li>Passenger will be marked as boarded immediately</li>
+                <li>Passenger will be marked as>&#128100; Boarded immediately</li>
             </ul>
         </div>
     </div>

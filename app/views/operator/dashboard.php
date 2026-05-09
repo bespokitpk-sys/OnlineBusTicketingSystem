@@ -1335,18 +1335,18 @@ $samplePassenger = [
                 <div class="schedule-card">
                     <div class="schedule-header">
                         <div class="schedule-route">
-                            <span><?php echo htmlspecialchars($schedule['source']); ?>&#8594;<\/span>
+                            <span><?php echo htmlspecialchars($schedule['source']); ?></span>
                             <span class="route-separator">?</span>
-                            <span><?php echo htmlspecialchars($schedule['destination']); ?>&#8594;<\/span>
+                            <span><?php echo htmlspecialchars($schedule['destination']); ?></span>
                         </div>
                         <div class="schedule-info">
                             <div class="info-item">
                                 <span class="info-label">Bus</span>
-                                <span class="info-value"><?php echo htmlspecialchars($schedule['bus_name']); ?>&#8594;<\/span>
+                                <span class="info-value"><?php echo htmlspecialchars($schedule['bus_name']); ?></span>
                             </div>
                             <div class="info-item">
                                 <span class="info-label">Departure</span>
-                                <span class="info-value"><?php echo date('M d, H:i', strtotime($schedule['departure_time'])); ?>&#8594;<\/span>
+                                <span class="info-value"><?php echo date('M d, H:i', strtotime($schedule['departure_time'])); ?></span>
                             </div>
                         </div>
                         <span class="status-badge status-<?php echo $tripStatus; ?>">
@@ -1468,7 +1468,7 @@ $samplePassenger = [
                                                         <input type="hidden" name="action" value="board_passenger">
                                                         <input type="hidden" name="ticket_id" value="<?php echo $passenger['id']; ?>">
                                                         <input type="hidden" name="schedule_id" value="<?php echo $schedule['id']; ?>">
-                                                        <button type="submit" class="action-link btn-approve">Mark Boarded</button>
+                                                        <button type="submit" class="action-link btn-approve">Mark>&#128100; Boarded</button>
                                                     </form>
                                                 </td>
                                             </tr>
@@ -1511,8 +1511,8 @@ $samplePassenger = [
                             <?php else: ?>
                                 <div class="empty-state">
                                     <div class="empty-state-icon">�</div>
-                                    <h3>No Boarded Passengers Yet</h3>
-                                    <p>Passengers marked as boarded will appear here once processing begins.</p>
+                                    <h3>No>&#128100; Boarded Passengers Yet</h3>
+                                    <p>Passengers marked as>&#128100; Boarded will appear here once processing begins.</p>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -1671,7 +1671,7 @@ $samplePassenger = [
                 <div class="detail-table-grid">
                     <div class="detail-table-row">
                         <label>Status</label>
-                        <span><span class="status-inline ${statusMeta.className}">${statusMeta.label}</span>&#8594;<\/span>
+                        <span><span class="status-inline ${statusMeta.className}">${statusMeta.label}</span></span>
                     </div>
                     <div class="detail-table-row">
                         <label>Seat Count</label>

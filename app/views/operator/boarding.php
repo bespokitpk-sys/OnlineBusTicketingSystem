@@ -833,7 +833,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             <div class="summary-card">
                 <div class="summary-label">Boarded Passengers</div>
                 <div class="summary-value"><?php echo count($boarding_passengers); ?></div>
-                <div class="summary-subtext">Passengers already processed and marked as boarded.</div>
+                <div class="summary-subtext">Passengers already processed and marked as>&#128100; Boarded.</div>
             </div>
         </div>
 
@@ -885,11 +885,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                             <div class="passenger-grid">
                                 <div class="passenger-info">
                                     <label>Name</label>
-                                    <span><?php echo htmlspecialchars($payment['name']); ?>&#8594;<\/span>
+                                    <span><?php echo htmlspecialchars($payment['name']); ?></span>
                                 </div>
                                 <div class="passenger-info">
                                     <label>Phone</label>
-                                    <span><?php echo htmlspecialchars($payment['phone']); ?>&#8594;<\/span>
+                                    <span><?php echo htmlspecialchars($payment['phone']); ?></span>
                                 </div>
                                 <div class="passenger-info">
                                     <label>Seats</label>
@@ -918,11 +918,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                             <div class="passenger-grid">
                                 <div class="passenger-info">
                                     <label>Name</label>
-                                    <span><?php echo htmlspecialchars($passenger['name']); ?>&#8594;<\/span>
+                                    <span><?php echo htmlspecialchars($passenger['name']); ?></span>
                                 </div>
                                 <div class="passenger-info">
                                     <label>Phone</label>
-                                    <span><?php echo htmlspecialchars($passenger['phone']); ?>&#8594;<\/span>
+                                    <span><?php echo htmlspecialchars($passenger['phone']); ?></span>
                                 </div>
                                 <div class="passenger-info">
                                     <label>Seats</label>
@@ -936,7 +936,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>
-                    <div class="no-data"><p>No passengers have been boarded for this schedule yet.</p></div>
+                    <div class="no-data"><p>No passengers have been>&#128100; Boarded for this schedule yet.</p></div>
                 <?php endif; ?>
             </div>
         </div>
@@ -1316,7 +1316,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                     <div class="detail-list">
                         <div class="detail-row">
                             <label>Status</label>
-                            <span><span class="status-badge ${statusMeta.className}">${statusMeta.label}</span>&#8594;<\/span>
+                            <span><span class="status-badge ${statusMeta.className}">${statusMeta.label}</span></span>
                         </div>
                         <div class="detail-row">
                             <label>Seat Count</label>
@@ -1349,10 +1349,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                         `<button class="btn-success" onclick="approvePayment(${ticketId})">Approve Payment</button>` : 
                         ''}
                     ${passenger.actions && passenger.actions.can_board ? 
-                        `<button class="btn-primary" onclick="boardPassenger(${ticketId})">Mark as Boarded</button>` : 
+                        `<button class="btn-primary" onclick="boardPassenger(${ticketId})">Mark as>&#128100; Boarded</button>` : 
                         ''}
                     ${passenger.status === 'boarded' ? 
-                        `<button class="btn-danger" type="button" disabled>Already Boarded</button>` : ''}
+                        `<button class="btn-danger" type="button" disabled>Already>&#128100; Boarded</button>` : ''}
                     </div>
                 </div>
             </div>
@@ -1404,7 +1404,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         })
         .then(data => {
             if (data.success) {
-                showScannedMessage(data.message || 'Passenger boarded successfully.');
+                showScannedMessage(data.message || 'Passenger>&#128100; Boarded successfully.');
                 location.reload();
             } else {
                 showScannedMessage(data.message || 'Passenger boarding failed.', true);

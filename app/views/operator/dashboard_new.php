@@ -551,15 +551,15 @@ $schedules = OperatorController::getMySchedules($operator['id']);
                     <!-- Schedule Header -->
                     <div class="schedule-header-new">
                         <div class="schedule-route-new">
-                            <span><?php echo htmlspecialchars($schedule['source']); ?>&#8594;<\/span>
+                            <span><?php echo htmlspecialchars($schedule['source']); ?></span>
                             <span class="route-arrow">&#8594;</span>
-                            <span><?php echo htmlspecialchars($schedule['destination']); ?>&#8594;<\/span>
+                            <span><?php echo htmlspecialchars($schedule['destination']); ?></span>
                         </div>
                         <div class="schedule-meta">
-                            <span>&#128652; <?php echo htmlspecialchars($schedule['bus_name']); ?>&#8594;<\/span>
-                            <span>&#128197; <?php echo date('M j, Y', strtotime($schedule['departure_time'])); ?>&#8594;<\/span>
-                            <span>&#128336; <?php echo date('g:i A', strtotime($schedule['departure_time'])); ?>&#8594;<\/span>
-                            <span>?? <?php echo $schedule['total_seats']; ?> Seats</span>
+                            <span>&#128652; <?php echo htmlspecialchars($schedule['bus_name']); ?></span>
+                            <span>&#128197; <?php echo date('M j, Y', strtotime($schedule['departure_time'])); ?></span>
+                            <span>&#128336; <?php echo date('g:i A', strtotime($schedule['departure_time'])); ?></span>
+                            <span>&#128186; <?php echo $schedule['total_seats']; ?> Seats</span>
                         </div>
                     </div>
 
@@ -579,7 +579,7 @@ $schedules = OperatorController::getMySchedules($operator['id']);
                         </div>
                         <div class="stat-item">
                             <div class="stat-label">Boarded</div>
-                            <div class="stat-value boarded"><?php echo $summary['boarded_count'] ?? 0; ?></div>
+                            <div class="stat-value>&#128100; Boarded"><?php echo $summary['boarded_count'] ?? 0; ?></div>
                         </div>
                     </div>
 
@@ -588,7 +588,7 @@ $schedules = OperatorController::getMySchedules($operator['id']);
                         <!-- Pending Payments -->
                         <?php if (!empty($pendingPayments)): ?>
                         <h3 class="section-title">
-                            ? Pending Payments <span class="badge badge-pending"><?php echo count($pendingPayments); ?>&#8594;<\/span>
+                            ? Pending Payments <span class="badge badge-pending"><?php echo count($pendingPayments); ?></span>
                         </h3>
                         <table>
                             <thead>
@@ -624,7 +624,7 @@ $schedules = OperatorController::getMySchedules($operator['id']);
                         <!-- Ready to Board -->
                         <?php if (!empty($readyToBoard)): ?>
                         <h3 class="section-title" style="margin-top: 24px;">
-                            ? Ready to Board <span class="badge badge-approved"><?php echo count($readyToBoard); ?>&#8594;<\/span>
+                            ? Ready to Board <span class="badge badge-approved"><?php echo count($readyToBoard); ?></span>
                         </h3>
                         <table>
                             <thead>
@@ -648,7 +648,7 @@ $schedules = OperatorController::getMySchedules($operator['id']);
                                             <input type="hidden" name="action" value="board_passenger">
                                             <input type="hidden" name="ticket_id" value="<?php echo $ticket['id']; ?>">
                                             <input type="hidden" name="schedule_id" value="<?php echo $scheduleId; ?>">
-                                            <button type="submit" class="action-btn btn-board">Mark Boarded</button>
+                                            <button type="submit" class="action-btn btn-board">Mark>&#128100; Boarded</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -657,10 +657,10 @@ $schedules = OperatorController::getMySchedules($operator['id']);
                         </table>
                         <?php endif; ?>
 
-                        <!-- Boarded Passengers -->
+                        <!-->&#128100; Boarded Passengers -->
                         <?php if (!empty($boardedPassengers)): ?>
                         <h3 class="section-title" style="margin-top: 24px;">
-                            ?? Boarded Passengers <span class="badge badge-boarded"><?php echo count($boardedPassengers); ?>&#8594;<\/span>
+                            ??>&#128100; Boarded Passengers <span class="badge badge-boarded"><?php echo count($boardedPassengers); ?></span>
                         </h3>
                         <table>
                             <thead>
@@ -826,7 +826,7 @@ $schedules = OperatorController::getMySchedules($operator['id']);
                         <input type="hidden" name="ticket_id" value="${ticket.id}">
                         <input type="hidden" name="schedule_id" value="${ticket.schedule_id}">
                         <button type="submit" class="action-btn btn-board" style="width: 100%; padding: 12px;">
-                            Mark as Boarded
+                            Mark as>&#128100; Boarded
                         </button>
                     </form>
                 ` : ''}

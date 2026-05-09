@@ -311,7 +311,7 @@ $stats = AdminController::getDashboardStats();
         </div>
         
         <div class="stat-card operators">
-            <div class="stat-icon">&#128119;<\/div>
+            <div class="stat-icon">&#128119;</div>
             <div class="stat-label">Operators</div>
             <div class="stat-value"><?php echo $stats['total_operators']; ?></div>
         </div>
@@ -364,7 +364,7 @@ $stats = AdminController::getDashboardStats();
         <!-- Operator Management -->
         <div class="admin-card">
             <div class="card-header">
-                <div class="card-icon">&#128119;<\/div>
+                <div class="card-icon">&#128119;</div>
                 <div class="card-title">
                     <h3>Operator Management</h3>
                     <p>Create & manage operators</p>

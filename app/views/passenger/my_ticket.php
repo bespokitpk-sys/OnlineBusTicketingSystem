@@ -176,12 +176,12 @@ $tickets = Ticket::findByUser($user['id']);
         <?php while ($ticket = $tickets->fetch_assoc()): ?>
             <div class="ticket-card">
                 <div class="ticket-info">
-                    <p><strong>🚌 Bus:</strong> <span><?php echo htmlspecialchars($ticket['bus_name']); ?>&#8594;<\/span></p>
-                    <p><strong>📍 Route:</strong> <span><?php echo htmlspecialchars($ticket['source']); ?> → <?php echo htmlspecialchars($ticket['destination']); ?>&#8594;<\/span></p>
-                    <p><strong>📅 Date:</strong> <span><?php echo date('Y-m-d H:i', strtotime($ticket['departure_time'])); ?>&#8594;<\/span></p>
-                    <p><strong>💺 Seats:</strong> <span><?php echo intval($ticket['seats']); ?>&#8594;<\/span></p>
-                    <p><strong>🎫 Ticket ID:</strong> <span>#<?php echo intval($ticket['id']); ?>&#8594;<\/span></p>
-                    <p><strong>Status:</strong> <span class="status-badge status-<?php echo strtolower($ticket['status']); ?>"><?php echo htmlspecialchars(ucfirst($ticket['status'])); ?>&#8594;<\/span></p>
+                    <p><strong>🚌 Bus:</strong> <span><?php echo htmlspecialchars($ticket['bus_name']); ?></span></p>
+                    <p><strong>📍 Route:</strong> <span><?php echo htmlspecialchars($ticket['source']); ?> → <?php echo htmlspecialchars($ticket['destination']); ?></span></p>
+                    <p><strong>📅 Date:</strong> <span><?php echo date('Y-m-d H:i', strtotime($ticket['departure_time'])); ?></span></p>
+                    <p><strong>💺 Seats:</strong> <span><?php echo intval($ticket['seats']); ?></span></p>
+                    <p><strong>🎫 Ticket ID:</strong> <span>#<?php echo intval($ticket['id']); ?></span></p>
+                    <p><strong>Status:</strong> <span class="status-badge status-<?php echo strtolower($ticket['status']); ?>"><?php echo htmlspecialchars(ucfirst($ticket['status'])); ?></span></p>
                 </div>
                 <div class="qr-code">
                     <canvas id="qr-<?php echo $ticket['id']; ?>" width="180" height="180"></canvas>

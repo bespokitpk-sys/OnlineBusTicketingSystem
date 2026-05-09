@@ -320,7 +320,7 @@ header('Content-Type: text/html; charset=utf-8');
                 </div>
                 <div class="detail-row">
                     <div class="detail-label">Status</div>
-                    <div class="detail-value"><span class="status-badge status-<?php echo $status_lower; ?>">✓ <?php echo $status; ?>&#8594;<\/span></div>
+                    <div class="detail-value"><span class="status-badge status-<?php echo $status_lower; ?>">✓ <?php echo $status; ?></span></div>
                 </div>
                 <div class="detail-row">
                     <div class="detail-label">Booking Date</div>

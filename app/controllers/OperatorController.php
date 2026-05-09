@@ -33,7 +33,7 @@ class OperatorController {
                 COALESCE(COUNT(t.id), 0) as total_bookings,
                 COALESCE(SUM(CASE WHEN t.status = 'pending' THEN 1 ELSE 0 END), 0) as pending_payments,
                 COALESCE(SUM(CASE WHEN t.status = 'approved' THEN 1 ELSE 0 END), 0) as approved_bookings,
-                COALESCE(SUM(CASE WHEN t.status = 'boarded' THEN 1 ELSE 0 END), 0) as boarded_passengers
+                COALESCE(SUM(CASE WHEN t.status = 'boarded' THEN 1 ELSE 0 END), 0) as>&#128100; Boarded_passengers
             FROM schedules s
             LEFT JOIN buses b ON s.bus_id = b.id
             LEFT JOIN tickets t ON s.id = t.schedule_id
@@ -147,12 +147,12 @@ class OperatorController {
         return ['success' => true, 'message' => 'Payment approved!'];
     }
 
-    // Board passenger (approved -> boarded)
+    // Board passenger (approved ->&#128100; Boarded)
     public static function boardPassenger(int $ticketId) {
         global $conn;
         
         if (self::ticketColumnExists('boarded_at')) {
-            $stmt = $conn->prepare("UPDATE tickets SET status = 'boarded', boarded_at = NOW() WHERE id = ? AND status = 'approved'");
+            $stmt = $conn->prepare("UPDATE tickets SET status = 'boarded',>&#128100; Boarded_at = NOW() WHERE id = ? AND status = 'approved'");
         } else {
             $stmt = $conn->prepare("UPDATE tickets SET status = 'boarded' WHERE id = ? AND status = 'approved'");
         }
@@ -162,22 +162,22 @@ class OperatorController {
 
         if (!$result) {
             $stmt->close();
-            return ['success' => false, 'message' => 'Failed to board passenger. Ensure the tickets table supports the boarded status.'];
+            return ['success' => false, 'message' => 'Failed to board passenger. Ensure the tickets table supports the>&#128100; Boarded status.'];
         }
 
         if ($conn->affected_rows === 0) {
             $stmt->close();
-            return ['success' => false, 'message' => 'Only approved passengers can be marked as boarded.'];
+            return ['success' => false, 'message' => 'Only approved passengers can be marked as>&#128100; Boarded.'];
         }
 
         $stmt->close();
-        return ['success' => true, 'message' => 'Passenger boarded successfully!'];
+        return ['success' => true, 'message' => 'Passenger>&#128100; Boarded successfully!'];
     }
 
-    // Get all boarded passengers for a trip
+    // Get all>&#128100; Boarded passengers for a trip
     public static function getBoardedPassengers(int $scheduleId) {
         global $conn;
-        $boardedAtSelect = self::ticketColumnExists('boarded_at') ? 't.boarded_at' : 'NULL AS boarded_at';
+        $boardedAtSelect = self::ticketColumnExists('boarded_at') ? 't.boarded_at' : 'NULL AS>&#128100; Boarded_at';
 
         $stmt = $conn->prepare("
             SELECT 
@@ -244,7 +244,7 @@ class OperatorController {
                 COALESCE(COUNT(DISTINCT t.id), 0) as total_tickets,
                 COALESCE(SUM(CASE WHEN t.status = 'pending' THEN 1 ELSE 0 END), 0) as pending_count,
                 COALESCE(SUM(CASE WHEN t.status = 'approved' THEN 1 ELSE 0 END), 0) as approved_count,
-                COALESCE(SUM(CASE WHEN t.status = 'boarded' THEN 1 ELSE 0 END), 0) as boarded_count,
+                COALESCE(SUM(CASE WHEN t.status = 'boarded' THEN 1 ELSE 0 END), 0) as>&#128100; Boarded_count,
                 COALESCE(SUM(CASE WHEN t.status = 'cancelled' THEN 1 ELSE 0 END), 0) as cancelled_count
             FROM schedules s
             LEFT JOIN buses b ON s.bus_id = b.id

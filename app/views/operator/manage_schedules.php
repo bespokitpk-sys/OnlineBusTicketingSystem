@@ -295,19 +295,19 @@ $result = $conn->query("SELECT schedules.*, buses.bus_name FROM schedules JOIN b
                     <div class="schedule-body">
                         <div class="detail-row">
                             <span class="detail-label">Departure</span>
-                            <span class="detail-value"><?php echo date('M d, H:i', strtotime($schedule['departure_time'])); ?>&#8594;<\/span>
+                            <span class="detail-value"><?php echo date('M d, H:i', strtotime($schedule['departure_time'])); ?></span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Bookings</span>
-                            <span class="detail-value"><?php echo $summary['total_tickets'] ?? 0; ?> / <?php echo $summary['total_seats'] ?? 0; ?>&#8594;<\/span>
+                            <span class="detail-value"><?php echo $summary['total_tickets'] ?? 0; ?> / <?php echo $summary['total_seats'] ?? 0; ?></span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Pending</span>
-                            <span class="detail-value" style="color: #ffc107;"><?php echo $summary['pending_count'] ?? 0; ?>&#8594;<\/span>
+                            <span class="detail-value" style="color: #ffc107;"><?php echo $summary['pending_count'] ?? 0; ?></span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Boarded</span>
-                            <span class="detail-value" style="color: #28a745;"><?php echo $summary['boarded_count'] ?? 0; ?>&#8594;<\/span>
+                            <span class="detail-value" style="color: #28a745;"><?php echo $summary['boarded_count'] ?? 0; ?></span>
                         </div>
                     </div>
                     <div class="schedule-footer">
