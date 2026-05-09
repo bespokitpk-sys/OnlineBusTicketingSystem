@@ -3,6 +3,8 @@ CREATE TABLE IF NOT EXISTS users (
   name VARCHAR(100) NOT NULL,
   email VARCHAR(150) NOT NULL UNIQUE,
   phone VARCHAR(15) NOT NULL,
+  cnic VARCHAR(13) NULL,
+  profile_picture VARCHAR(255) NULL,
   password_hash VARCHAR(255) NOT NULL,
   otp_code VARCHAR(6) NULL,
   otp_expiry DATETIME NULL,
@@ -23,11 +25,13 @@ CREATE TABLE IF NOT EXISTS buses (
 CREATE TABLE IF NOT EXISTS schedules (
   id INT AUTO_INCREMENT PRIMARY KEY,
   bus_id INT NOT NULL,
+  operator_id INT NULL,
   source VARCHAR(100) NOT NULL,
   destination VARCHAR(100) NOT NULL,
   departure_time DATETIME NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (bus_id) REFERENCES buses(id) ON DELETE CASCADE
+  FOREIGN KEY (bus_id) REFERENCES buses(id) ON DELETE CASCADE,
+  FOREIGN KEY (operator_id) REFERENCES users(id) ON DELETE SET NULL
 );
 
 INSERT INTO buses (bus_name, total_seats) VALUES

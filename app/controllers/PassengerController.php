@@ -2,8 +2,6 @@
 require_once APP_ROOT . '/config/db.php';
 require_once APP_ROOT . '/app/core/Auth.php';
 
-requireRole('passenger');
-
 class PassengerController {
     public static function getMyTickets(int $userId) {
         global $conn;

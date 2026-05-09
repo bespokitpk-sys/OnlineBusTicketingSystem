@@ -4,7 +4,7 @@ require_once APP_ROOT . '/app/core/Auth.php';
 require_once APP_ROOT . '/app/models/Schedule.php';
 require_once APP_ROOT . '/app/models/Ticket.php';
 
-requireRole('passenger');
+requireRole('passenger'); // kept here as this file is a standalone action script
 
 $action = $_GET['action'] ?? '';
 if ($action === 'book' && $_SERVER['REQUEST_METHOD'] === 'POST') {

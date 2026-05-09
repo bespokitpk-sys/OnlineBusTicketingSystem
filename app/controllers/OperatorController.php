@@ -2,8 +2,6 @@
 require_once APP_ROOT . '/config/db.php';
 require_once APP_ROOT . '/app/core/Auth.php';
 
-requireRole('operator');
-
 class OperatorController {
 
     private static $ticketColumnCache = [];

@@ -15,13 +15,13 @@
  */
 
 // Prevent running if already set up
-session_start();
+if (session_status() === PHP_SESSION_NONE) { session_start(); }
 if (file_exists(__DIR__ . '/.setup_complete')) {
     die('<h1>Setup Already Completed</h1><p>This script has already been run. Delete .setup_complete file to run again.</p><p><strong>Security Warning:</strong> Please delete setup.php file!</p>');
 }
 
-define('APP_ROOT', __DIR__);
-require_once APP_ROOT . '/config/db.php';
+if (!defined('APP_ROOT')) { define('APP_ROOT', __DIR__); }
+if (!isset($conn)) { require_once APP_ROOT . '/config/db.php'; }
 
 // Check if database connection is successful
 if ($conn->connect_error) {

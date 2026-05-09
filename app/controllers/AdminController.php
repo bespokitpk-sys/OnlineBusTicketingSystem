@@ -3,8 +3,6 @@ require_once APP_ROOT . '/config/db.php';
 require_once APP_ROOT . '/app/core/Auth.php';
 require_once APP_ROOT . '/app/models/User.php';
 
-requireRole('admin');
-
 class AdminController {
     
     // ==================== DASHBOARD STATISTICS ====================

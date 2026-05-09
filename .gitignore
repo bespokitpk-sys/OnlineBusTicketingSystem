@@ -5,6 +5,9 @@ uploads/profiles/*
 # Keep directory structure
 !uploads/README.md
 
+# Sensitive config (never commit real credentials)
+config/db.php
+
 # IDE and Editor files
 .vscode/
 .idea/

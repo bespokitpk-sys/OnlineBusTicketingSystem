@@ -207,6 +207,17 @@ switch ($uri) {
         }
         break;
 
+    // ── Setup (one-time install) ─────────────────────────────────────────────
+    case '/setup':
+        $setupFile = APP_ROOT . '/setup.php';
+        if (file_exists($setupFile)) {
+            require $setupFile;
+        } else {
+            http_response_code(404);
+            echo '<h1>404 — Setup file not found</h1>';
+        }
+        break;
+
     // ── 404 ──────────────────────────────────────────────────────────────────
     default:
         http_response_code(404);
